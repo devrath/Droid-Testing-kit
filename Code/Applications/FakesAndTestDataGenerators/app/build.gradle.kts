@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.istudio.code"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.istudio.code"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -76,4 +76,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    // assertK
+    testImplementation("com.willowtreeapps.assertk:assertk:0.26.1")
 }
