@@ -5,3 +5,10 @@ data class Product(
     val name: String,
     val price: Double,
 )
+
+
+data class CustomProduct(
+    val id: Int,
+    val name: String,
+    val price: Double,
+)

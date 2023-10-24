@@ -39,13 +39,6 @@ internal class ShoppingCartTest {
         val productsFromCache = shoppingCartCacheFake.loadCart()
         assertThat(productsFromCache).hasSize(2)
         assertThat(productsFromCache).contains(product)
-
-
-        // Observe only we modify just one param and not all the params
-        //val person1 = productGenerator().copy(id = 1)
-        //val person2 = productGenerator().copy(id = 2)
-
-
     }
 
 

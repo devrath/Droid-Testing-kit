@@ -78,4 +78,8 @@ dependencies {
 
     // assertK
     testImplementation("com.willowtreeapps.assertk:assertk:0.26.1")
+
+    // mockk
+    testImplementation("io.mockk:mockk:1.12.5")
+    androidTestImplementation("io.mockk:mockk-android:1.12.5")
 }
