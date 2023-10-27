@@ -6,4 +6,14 @@ object Versions {
     const val okHttp = "5.0.0-alpha.2"
     const val retrofit = "2.9.0"
     const val room = "2.5.0"
+    // -----> Testing
+    const val junit = "4.13.2"
+    // -----> Core
+    const val coreKtx = "1.9.0"
+    const val appcompact = "1.6.1"
+    const val coreMaterial = "1.9.0"
+    const val junitInstrument = "1.1.5"
+    const val espressoCore = "3.5.1"
+    const val lifecycleRuntimeKtx = "2.6.2"
+
 }
