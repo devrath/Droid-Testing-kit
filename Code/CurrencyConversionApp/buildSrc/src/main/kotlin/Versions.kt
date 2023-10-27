@@ -11,6 +11,7 @@ object Versions {
     // -----> Core
     const val coreKtx = "1.9.0"
     const val appcompact = "1.6.1"
+    const val activityCompose = "1.4.0"
     const val coreMaterial = "1.9.0"
     const val junitInstrument = "1.1.5"
     const val espressoCore = "3.5.1"

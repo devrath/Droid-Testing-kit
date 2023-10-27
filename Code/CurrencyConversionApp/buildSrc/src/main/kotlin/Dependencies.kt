@@ -5,6 +5,7 @@ object Dependencies {
     // <---------------------> Core Dependencies <------------------------>
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val appcompact = "androidx.appcompat:appcompat:${Versions.appcompact}"
+    const val activitycompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
     const val coreMaterial = "com.google.android.material:material:${Versions.coreMaterial}"
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
     // <---------------------> Core Dependencies <------------------------>
@@ -54,6 +55,7 @@ object Dependencies {
 
 fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.coreKtx)
+    implementation(Dependencies.activitycompose)
     implementation(Dependencies.appcompact)
     implementation(Dependencies.coreMaterial)
     implementation(Dependencies.lifecycleRuntimeKtx)
