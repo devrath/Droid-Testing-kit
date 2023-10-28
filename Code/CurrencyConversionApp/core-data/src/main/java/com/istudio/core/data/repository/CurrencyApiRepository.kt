@@ -1,8 +1,8 @@
 package com.istudio.core.data.repository
 
-import com.istudio.core.domain.api.CurrencyApiFeatures
-import com.istudio.core.domain.models.Currencies
-import com.istudio.core.domain.models.CurrencyConversionValues
+import com.istudio.core.domain.features.CurrencyApiFeatures
+import com.istudio.core.domain.models.remote.Currencies
+import com.istudio.core.domain.models.remote.CurrencyConversionValues
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

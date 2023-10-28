@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        //classpath(Dependencies.hiltAgp)
+        //classpath(Dependencies.javapoet)
     }
 
 }

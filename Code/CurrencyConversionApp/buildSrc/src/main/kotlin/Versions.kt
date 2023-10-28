@@ -18,5 +18,6 @@ object Versions {
     const val espressoCore = "3.5.1"
     const val lifecycleRuntimeKtx = "2.6.2"
     const val serilization = "1.6.0"
+    const val javapoet = "1.13.0"
 
 }

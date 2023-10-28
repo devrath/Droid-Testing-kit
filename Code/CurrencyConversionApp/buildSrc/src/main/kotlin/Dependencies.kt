@@ -7,7 +7,7 @@ object Dependencies {
     const val serializationProjectLevel = "org.jetbrains.kotlin.plugin.serialization"
     // <-------------> Top level plugin Dependencies <-------------------->
 
-
+    const val javapoet = "com.squareup:javapoet:${Versions.javapoet}"
 
     // <---------------------> Core Dependencies <------------------------>
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"

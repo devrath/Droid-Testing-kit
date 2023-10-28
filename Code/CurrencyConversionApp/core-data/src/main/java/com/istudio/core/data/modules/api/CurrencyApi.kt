@@ -1,8 +1,8 @@
 package com.istudio.core.data.modules.api
 
 import com.istudio.core.BuildConfig
-import com.istudio.core.domain.models.Currencies
-import com.istudio.core.domain.models.CurrencyConversionValues
+import com.istudio.core.domain.models.remote.Currencies
+import com.istudio.core.domain.models.remote.CurrencyConversionValues
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 
