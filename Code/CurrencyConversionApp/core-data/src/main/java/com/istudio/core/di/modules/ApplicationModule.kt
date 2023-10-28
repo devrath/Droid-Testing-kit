@@ -1,10 +1,13 @@
 package com.istudio.core.di.modules
 
-import com.istudio.network.BuildConfig
+//import com.istudio.network.BuildConfig
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,7 +27,8 @@ object ApplicationModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         val okHttpBuilder = OkHttpClient.Builder()
-        if (BuildConfig.DEBUG) {
+        //if (BuildConfig.DEBUG) {
+        if (true) {
             // Add interceptor only for DEBUG
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -47,12 +51,11 @@ object ApplicationModule {
         okHttpClient: OkHttpClient,
         BASE_URL: String
     ): Retrofit {
-        //val contentType = "application/json".toMediaType()
+        val contentType = "application/json".toMediaType()
         val retrofit = Retrofit.Builder()
             .baseUrl("https://example.com/")
-            //.addConverterFactory(Json.asConverterFactory(contentType))
+            .addConverterFactory(Json.asConverterFactory(contentType))
             .build()
-
         return retrofit
     }
 

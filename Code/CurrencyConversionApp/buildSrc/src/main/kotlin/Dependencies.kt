@@ -68,8 +68,8 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.coreMaterial)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.serilization)
+    //kapt(Dependencies.serilization)
     hilt()
-    kapt(Dependencies.serilization)
 }
 
 fun DependencyHandler.room() {

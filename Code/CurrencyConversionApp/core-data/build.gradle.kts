@@ -9,4 +9,7 @@ android {
     namespace = "com.istudio.network"
 }
 
-dependencies { dataModuleDependencies() }
+dependencies {
+    dataModuleDependencies()
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+}

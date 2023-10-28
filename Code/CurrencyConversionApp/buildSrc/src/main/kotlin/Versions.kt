@@ -17,6 +17,6 @@ object Versions {
     const val junitInstrument = "1.1.5"
     const val espressoCore = "3.5.1"
     const val lifecycleRuntimeKtx = "2.6.2"
-    const val serilization = "1.3.2"
+    const val serilization = "1.6.0"
 
 }
