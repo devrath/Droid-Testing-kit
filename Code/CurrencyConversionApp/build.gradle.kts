@@ -5,6 +5,12 @@ buildscript {
     }
 
     dependencies {
-        classpath(Dependencies.hiltAgp)
+        //classpath(Dependencies.hiltAgp)
     }
+
+}
+
+plugins {
+    id(Dependencies.hiltProjectLevel) version Versions.hilt apply false
+    id(Dependencies.serializationProjectLevel) version Versions.serialization apply false
 }

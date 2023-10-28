@@ -2,12 +2,20 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 
 object Dependencies {
+    // <-------------> Top level plugin Dependencies <-------------------->
+    const val hiltProjectLevel = "com.google.dagger.hilt.android"
+    const val serializationProjectLevel = "org.jetbrains.kotlin.plugin.serialization"
+    // <-------------> Top level plugin Dependencies <-------------------->
+
+
+
     // <---------------------> Core Dependencies <------------------------>
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val appcompact = "androidx.appcompat:appcompat:${Versions.appcompact}"
     const val activitycompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
     const val coreMaterial = "com.google.android.material:material:${Versions.coreMaterial}"
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
+    const val serilization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serilization}"
     // <---------------------> Core Dependencies <------------------------>
 
 
@@ -22,8 +30,8 @@ object Dependencies {
 
     // <---------------------> Hilt Dependencies <------------------------>
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hilt}"
-    const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
-    const val hiltAgp = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+    const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
+    //const val hiltAgp = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
     // <---------------------> Hilt Dependencies <------------------------>
 
     // <---------------------> OkHttp Dependencies <---------------------->
@@ -59,6 +67,9 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.appcompact)
     implementation(Dependencies.coreMaterial)
     implementation(Dependencies.lifecycleRuntimeKtx)
+    implementation(Dependencies.serilization)
+    hilt()
+    kapt(Dependencies.serilization)
 }
 
 fun DependencyHandler.room() {
@@ -101,7 +112,6 @@ fun DependencyHandler.hilt() {
 // <----------------- Root Module Dependencies ----------------------->
 fun DependencyHandler.appModuleDependencies() {
     coreDependencies()
-    hilt()
     compose()
     unitTesting()
     instrumentationTesting()
@@ -115,7 +125,6 @@ fun DependencyHandler.dataModuleDependencies() {
     unitTesting()
     room()
     retrofit()
-    hilt()
 }
 
 fun DependencyHandler.uiModuleDependencies() {
@@ -123,7 +132,6 @@ fun DependencyHandler.uiModuleDependencies() {
     instrumentationTesting()
     unitTesting()
     compose()
-    hilt()
 }
 // <------------------------ App Modules ---------------------------->
 

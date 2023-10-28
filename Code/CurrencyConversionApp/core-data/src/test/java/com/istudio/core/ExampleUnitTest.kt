@@ -1,4 +1,4 @@
-package com.istudio.network
+package com.istudio.core
 
 import org.junit.Test
 
