@@ -1,4 +1,4 @@
-package com.istudio.core.data.models
+package com.istudio.core.domain.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

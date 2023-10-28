@@ -1,7 +1,7 @@
 package com.istudio.core.di.modules
 
 import com.istudio.core.BuildConfig
-import com.istudio.core.data.api.CurrencyApi
+import com.istudio.core.data.modules.api.CurrencyApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
