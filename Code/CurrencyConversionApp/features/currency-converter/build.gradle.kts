@@ -6,9 +6,7 @@ plugins {
 apply<MainGradlePlugin>()
 
 android {
-    namespace = "com.istudio.core"
+    namespace = "com.istudio.currency_converter"
 }
 
-dependencies {
-    dataModuleDependencies()
-}
+dependencies { featureDependencies() }

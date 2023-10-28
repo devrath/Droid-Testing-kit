@@ -116,8 +116,15 @@ fun DependencyHandler.appModuleDependencies() {
     unitTesting()
     instrumentationTesting()
     // --> Single modules
-    coreData()
     coreUi()
+    core()
+}
+
+fun DependencyHandler.coreModuleDependencies() {
+    coreDependencies()
+    unitTesting()
+    room()
+    retrofit()
 }
 
 fun DependencyHandler.dataModuleDependencies() {
@@ -125,6 +132,8 @@ fun DependencyHandler.dataModuleDependencies() {
     unitTesting()
     room()
     retrofit()
+    // --> Single modules
+    core()
 }
 
 fun DependencyHandler.uiModuleDependencies() {
@@ -133,6 +142,17 @@ fun DependencyHandler.uiModuleDependencies() {
     unitTesting()
     compose()
 }
+
+fun DependencyHandler.featureDependencies() {
+    coreDependencies()
+    instrumentationTesting()
+    unitTesting()
+    compose()
+    // --> Single modules
+    core()
+}
+
+
 // <------------------------ App Modules ---------------------------->
 
 
@@ -142,6 +162,8 @@ fun DependencyHandler.uiModuleDependencies() {
 
 
 // <------------------------ Project Modules ------------------------>
-fun DependencyHandler.coreData() { implementation(project(":core-data")) }
 fun DependencyHandler.coreUi() { implementation(project(":core-ui")) }
+fun DependencyHandler.core() { implementation(project(":core")) }
+fun DependencyHandler.features() { implementation(project(":features")) }
+fun DependencyHandler.featureCurrencyConverter() { implementation(project(":features:currency-converter")) }
 // <------------------------ Project Modules ------------------------>

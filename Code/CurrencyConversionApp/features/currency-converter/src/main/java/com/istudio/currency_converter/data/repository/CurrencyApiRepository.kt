@@ -1,6 +1,6 @@
-package com.istudio.core.data.repository
+package com.istudio.currency_converter.data.repository
 
-import com.istudio.core.domain.features.CurrencyApiFeatures
+import com.istudio.currency_converter.domain.features.CurrencyApiFeatures
 import com.istudio.core.models.remote.Currencies
 import com.istudio.core.models.remote.CurrencyConversionValues
 import kotlinx.coroutines.flow.Flow

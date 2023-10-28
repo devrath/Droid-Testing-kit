@@ -1,4 +1,4 @@
-package com.istudio.core.domain.features
+package com.istudio.currency_converter.domain.features
 
 import com.istudio.core.models.local.CurrencyEntity
 import kotlinx.coroutines.flow.Flow

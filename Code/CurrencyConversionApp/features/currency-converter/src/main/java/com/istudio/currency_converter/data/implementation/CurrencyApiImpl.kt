@@ -1,6 +1,6 @@
-package com.istudio.core.data.implementation
+package com.istudio.currency_converter.data.implementation
 
-import com.istudio.core.domain.features.CurrencyApiFeatures
+import com.istudio.currency_converter.domain.features.CurrencyApiFeatures
 import com.istudio.core.models.remote.Currencies
 import com.istudio.core.models.remote.CurrencyConversionValues
 import com.istudio.core.modules.network.api.CurrencyApi
