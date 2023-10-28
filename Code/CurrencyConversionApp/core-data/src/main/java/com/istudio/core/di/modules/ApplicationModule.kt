@@ -1,6 +1,7 @@
 package com.istudio.core.di.modules
 
-//import com.istudio.network.BuildConfig
+import com.istudio.core.BuildConfig
+import com.istudio.core.data.api.CurrencyApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -14,21 +15,16 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-const val BASE_URL = "https://openexchangerates.org/api"
-
 @Module
 @InstallIn(SingletonComponent::class)
 object ApplicationModule {
 
-    @Provides
-    fun provideBaseUrl() = BASE_URL
-
+    // ---> Provide OkHttp
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         val okHttpBuilder = OkHttpClient.Builder()
-        //if (BuildConfig.DEBUG) {
-        if (true) {
+        if (BuildConfig.DEBUG) {
             // Add interceptor only for DEBUG
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -44,19 +40,21 @@ object ApplicationModule {
         return okHttpBuilder.build()
     }
 
-
+    // ---> Provide Retrofit
     @Provides
     @Singleton
-    fun provideRetrofit(
-        okHttpClient: OkHttpClient,
-        BASE_URL: String
-    ): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val contentType = "application/json".toMediaType()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://example.com/")
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(Json.asConverterFactory(contentType))
             .build()
-        return retrofit
     }
+
+    // ---> Provide API
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): CurrencyApi = retrofit.create(CurrencyApi::class.java)
 
 }
