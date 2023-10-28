@@ -31,6 +31,7 @@ object Dependencies {
     // <---------------------> Hilt Dependencies <------------------------>
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
+    const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigationCompose}"
     //const val hiltAgp = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
     // <---------------------> Hilt Dependencies <------------------------>
 
@@ -116,7 +117,6 @@ fun DependencyHandler.appModuleDependencies() {
     unitTesting()
     instrumentationTesting()
     // --> Single modules
-    coreUi()
     core()
 }
 
@@ -148,6 +148,7 @@ fun DependencyHandler.featureDependencies() {
     instrumentationTesting()
     unitTesting()
     compose()
+    implementation(Dependencies.hiltNavigationCompose)
     // --> Single modules
     core()
 }
@@ -162,8 +163,5 @@ fun DependencyHandler.featureDependencies() {
 
 
 // <------------------------ Project Modules ------------------------>
-fun DependencyHandler.coreUi() { implementation(project(":core-ui")) }
 fun DependencyHandler.core() { implementation(project(":core")) }
-fun DependencyHandler.features() { implementation(project(":features")) }
-fun DependencyHandler.featureCurrencyConverter() { implementation(project(":features:currency-converter")) }
 // <------------------------ Project Modules ------------------------>

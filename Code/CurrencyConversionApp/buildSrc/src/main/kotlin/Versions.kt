@@ -3,6 +3,7 @@ object Versions {
     const val composeMaterial3 = "1.1.1"
     const val composeCompiler = "1.4.6"
     const val hilt = "2.45"
+    const val hiltNavigationCompose = "1.1.0-beta01"
     const val serialization = "1.7.20"
     const val okHttp = "5.0.0-alpha.2"
     const val retrofit = "2.9.0"

@@ -51,4 +51,7 @@ android {
     }
 }
 
-dependencies { appModuleDependencies() }
+dependencies {
+    appModuleDependencies()
+    implementation(Dependencies.hiltNavigationCompose)
+}
