@@ -1,5 +1,6 @@
 package com.istudio.code
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,12 +15,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,14 +40,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Theme switcher
-            var darkTheme by remember { mutableStateOf(false) }
-            // Title
-            val titleStr = "Currency Converter"
             // <!--------------------- CONTROLLERS ------------------------>
             // SnackBar controller
             val snackBarController = remember { SnackbarHostState() }
@@ -54,7 +58,24 @@ class MainActivity : ComponentActivity() {
             val keyboardController = LocalSoftwareKeyboardController.current
             // Focus Manager
             val focusManager = LocalFocusManager.current
+
+            val configuration = LocalConfiguration.current
             // <!--------------------- CONTROLLERS ------------------------>
+            // Title
+            val titleStr = "Currency Converter"
+            // Theme switcher
+            var darkTheme by remember { mutableStateOf(false) }
+            // Orientation
+            var orientation by remember { mutableIntStateOf(Configuration.ORIENTATION_PORTRAIT) }
+
+            LaunchedEffect(configuration) {
+                // Save any changes to the orientation value on the configuration object
+                snapshotFlow {
+                    configuration.orientation
+                }.collect {
+                    orientation = it
+                }
+            }
 
             MaterialAppTheme(darkTheme = darkTheme) {
                 // A surface container using the 'background' color from the theme
@@ -93,6 +114,7 @@ class MainActivity : ComponentActivity() {
 
                             composable(route = Route.CURRENCY_CONVERSION_SCREEN) {
                                 CurrencyScreen(
+                                    orientation = orientation,
                                     onErrorAction = { message ->
                                         // Scenario : When error occurs
 
