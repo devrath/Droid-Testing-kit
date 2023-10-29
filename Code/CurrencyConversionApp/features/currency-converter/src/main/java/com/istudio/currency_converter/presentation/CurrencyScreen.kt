@@ -3,15 +3,12 @@ package com.istudio.currency_converter.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -76,6 +73,7 @@ fun CurrencyScreen(
                 is CurrencyScreenResponseEvent.CurrencyUserInputError -> {
 
                 }
+
                 is CurrencyScreenResponseEvent.ShowSnackBar -> {
 
                 }
@@ -104,18 +102,31 @@ fun CurrencyScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it).padding(LocalSpacing.current.spaceExtraSmall),
+                .padding(it)
+                .padding(LocalSpacing.current.spaceExtraSmall),
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.Center
         ) {
+
+            InputTextField(modifier = Modifier.fillMaxWidth())
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                InputTextField(
-                    modifier = Modifier.weight(1.8f)
+
+                Text(
+                    text = "Output",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier
+                        .weight(1.8f)
+                        .padding(
+                            horizontal = LocalSpacing.current.spaceExtraSmall,
+                            vertical = 20.dp
+                        ),
+                    textAlign = TextAlign.Center,
+                    maxLines = 1
                 )
 
                 Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
@@ -126,18 +137,6 @@ fun CurrencyScreen(
             }
 
             Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
-
-            Text(
-                text = "Output",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        horizontal = LocalSpacing.current.spaceExtraSmall,
-                        vertical = 20.dp
-                    ),
-                textAlign = TextAlign.Center,
-            )
 
             Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
