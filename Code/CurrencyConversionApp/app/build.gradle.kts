@@ -54,4 +54,5 @@ android {
 dependencies {
     appModuleDependencies()
     implementation(Dependencies.hiltNavigationCompose)
+    featureCurrencyConverter()
 }
