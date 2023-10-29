@@ -6,7 +6,7 @@ plugins {
 apply<MainUiGradlePlugin>()
 
 android {
-    namespace = "com.istudio.core_ui"
+    namespace = ProjectConfig.currencyConverter
     kotlinOptions { jvmTarget = "18" }
 }
 

@@ -6,8 +6,7 @@ plugins {
 apply<MainGradlePlugin>()
 
 android {
-    namespace = "com.istudio.core"
-
+    namespace = ProjectConfig.core
     android.buildFeatures.buildConfig = true
 
     val baseUrl = "\"https://openexchangerates.org/api\""

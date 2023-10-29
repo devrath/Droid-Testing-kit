@@ -62,6 +62,7 @@ object Dependencies {
 
 }
 
+// <----------- Individual Library group Dependencies ---------------->
 fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.activitycompose)
@@ -108,6 +109,8 @@ fun DependencyHandler.hilt() {
     implementation(Dependencies.hiltAndroid)
     kapt(Dependencies.hiltCompiler)
 }
+// <----------- Individual Library group Dependencies ---------------->
+
 
 
 // <----------------- Root Module Dependencies ----------------------->
@@ -153,14 +156,7 @@ fun DependencyHandler.featureDependencies() {
     core()
     coreUi()
 }
-
-
-// <------------------------ App Modules ---------------------------->
-
-
-
-
-
+// <----------------- Root Module Dependencies ----------------------->
 
 
 // <------------------------ Project Modules ------------------------>

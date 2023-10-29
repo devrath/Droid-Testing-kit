@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.istudio.code"
+    namespace = ProjectConfig.appId
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
@@ -16,7 +16,7 @@ android {
         versionCode = ProjectConfig.versionCode
         versionName = ProjectConfig.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = ProjectConfig.testInstrumentationRunner_AndroidJUnitRunner
         vectorDrawables {
             useSupportLibrary = true
         }
