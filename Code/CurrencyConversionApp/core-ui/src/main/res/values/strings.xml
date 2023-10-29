@@ -1,4 +1,5 @@
 <resources>
     <string name="str_enter_the_amt_to_convert">Enter the amount to convert</string>
+    <string name="str_entered_currency_type">Entered currency type</string>
     <string name="str_required_field">Required Field</string>
 </resources>
