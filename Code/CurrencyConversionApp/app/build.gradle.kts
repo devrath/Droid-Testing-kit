@@ -54,5 +54,6 @@ android {
 dependencies {
     appModuleDependencies()
     implementation(Dependencies.hiltNavigationCompose)
+    //--> Module link to currency Feature
     featureCurrencyConverter()
 }
