@@ -16,5 +16,6 @@ dependencyResolutionManagement {
 rootProject.name = "code"
 include(":app")
 include(":core")
+include(":core-ui")
 include(":features")
 include(":features:currency-converter")

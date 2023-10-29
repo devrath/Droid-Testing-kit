@@ -6,10 +6,10 @@ plugins {
 apply<MainGradlePlugin>()
 
 android {
-    namespace = "com.istudio.currency_converter"
+    namespace = "com.istudio.core_ui"
     kotlinOptions { jvmTarget = "18" }
     buildFeatures { compose = true }
     composeOptions { kotlinCompilerExtensionVersion = Versions.composeCompiler }
 }
 
-dependencies { featureDependencies() }
+dependencies { uiModuleDependencies() }

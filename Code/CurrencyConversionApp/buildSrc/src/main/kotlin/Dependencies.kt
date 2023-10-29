@@ -151,6 +151,7 @@ fun DependencyHandler.featureDependencies() {
     implementation(Dependencies.hiltNavigationCompose)
     // --> Single modules
     core()
+    coreUi()
 }
 
 
@@ -164,6 +165,7 @@ fun DependencyHandler.featureDependencies() {
 
 // <------------------------ Project Modules ------------------------>
 fun DependencyHandler.core() { implementation(project(":core")) }
+fun DependencyHandler.coreUi() { implementation(project(":core-ui")) }
 fun DependencyHandler.features() { implementation(project(":features")) }
 fun DependencyHandler.featureCurrencyConverter() { implementation(project(":features:currency-converter")) }
 // <------------------------ Project Modules ------------------------>

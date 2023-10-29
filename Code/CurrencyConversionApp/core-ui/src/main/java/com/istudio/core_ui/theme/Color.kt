@@ -1,4 +1,4 @@
-package com.istudio.currency_converter.ui.theme
+package com.istudio.core_ui.theme
 
 import androidx.compose.ui.graphics.Color
 

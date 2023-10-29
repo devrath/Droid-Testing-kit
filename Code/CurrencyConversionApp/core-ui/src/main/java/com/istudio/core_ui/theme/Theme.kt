@@ -1,4 +1,4 @@
-package com.istudio.currency_converter.ui.theme
+package com.istudio.core_ui.theme
 
 import android.app.Activity
 import android.os.Build

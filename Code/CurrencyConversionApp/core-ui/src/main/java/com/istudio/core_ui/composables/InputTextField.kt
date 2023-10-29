@@ -1,4 +1,4 @@
-package com.istudio.currency_converter.ui.composables
+package com.istudio.core_ui.composables
 
 /*import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle

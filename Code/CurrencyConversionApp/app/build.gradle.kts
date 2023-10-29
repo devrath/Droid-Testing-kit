@@ -67,4 +67,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     //--> Module link to currency Feature
     featureCurrencyConverter()
+    coreUi()
+
 }
