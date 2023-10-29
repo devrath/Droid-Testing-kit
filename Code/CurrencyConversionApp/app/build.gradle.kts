@@ -55,6 +55,7 @@ dependencies {
     appModuleDependencies()
     implementation(Dependencies.hiltNavigationCompose)
     //--> Module link to currency Feature
-    featureCurrencyConverter()
     coreUi()
+    featureCurrencyConverter()
+    featureCurrencyResult()
 }

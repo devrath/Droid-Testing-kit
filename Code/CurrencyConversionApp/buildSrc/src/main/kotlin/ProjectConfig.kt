@@ -17,6 +17,7 @@ object ProjectConfig {
     const val core = "com.istudio.core"
     const val coreUi = "com.istudio.core_ui"
     const val currencyConverter = "com.istudio.currency_converter"
+    const val currencyResult = "com.istudio.currency_result"
     // <---------> Namespaces <--------->
 
     // <---------> Test Instrumentaiton <--------->

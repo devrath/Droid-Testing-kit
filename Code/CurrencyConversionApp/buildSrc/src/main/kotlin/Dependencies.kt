@@ -166,4 +166,5 @@ fun DependencyHandler.core() { implementation(project(":core")) }
 fun DependencyHandler.coreUi() { implementation(project(":core-ui")) }
 fun DependencyHandler.features() { implementation(project(":features")) }
 fun DependencyHandler.featureCurrencyConverter() { implementation(project(":features:currency-converter")) }
+fun DependencyHandler.featureCurrencyResult() { implementation(project(":features:currency-result")) }
 // <------------------------ Project Modules ------------------------>
