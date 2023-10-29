@@ -65,6 +65,8 @@ fun CurrencyScreenPortrait(onKeyBoardOutsideClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
-        GridInput()
+        GridInput(){ selectedItem ->
+
+        }
     }
 }
