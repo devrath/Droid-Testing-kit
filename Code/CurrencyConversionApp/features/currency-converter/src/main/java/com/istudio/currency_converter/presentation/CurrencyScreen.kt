@@ -137,9 +137,7 @@ fun CurrencyScreen(
             }
 
             Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
-
-            Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
-
+            
             GridInput()
         }
     }
