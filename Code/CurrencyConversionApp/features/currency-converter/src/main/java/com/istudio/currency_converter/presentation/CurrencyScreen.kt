@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.core_ui.composables.DropDownField
+import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 
@@ -104,6 +105,8 @@ fun CurrencyScreen(
             DropDownField()
 
             Spacer(modifier = Modifier.height(20.dp))
+
+            GridInput()
 
         }
     }
