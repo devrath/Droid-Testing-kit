@@ -1,6 +1,8 @@
 package com.istudio.core_ui.composables
 
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -36,7 +38,7 @@ fun DropDownField(
     var actionTextLocal by remember { actionText }
 
     ExposedDropdownMenuBox(
-        modifier = modifier.fillMaxWidth(),
+        modifier = Modifier.width(IntrinsicSize.Min),
         expanded = isExpandedLocal,
         onExpandedChange = {
             isExpanded.value = it
@@ -53,12 +55,12 @@ fun DropDownField(
                 )
             },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
-            modifier = Modifier.menuAnchor(),
+            modifier = Modifier.menuAnchor().fillMaxWidth(),
             placeholder = { Text(text = placeholder) }
         )
 
         ExposedDropdownMenu(
-            modifier = modifier.fillMaxWidth(),
+            modifier = Modifier.width(IntrinsicSize.Min),
             expanded = isExpandedLocal,
             onDismissRequest = {
                 isExpanded.value = false
