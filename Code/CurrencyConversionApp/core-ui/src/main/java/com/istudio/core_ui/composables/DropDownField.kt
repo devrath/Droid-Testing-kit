@@ -38,7 +38,6 @@ fun DropDownField(
     var actionTextLocal by remember { actionText }
 
     ExposedDropdownMenuBox(
-        modifier = Modifier.width(IntrinsicSize.Min),
         expanded = isExpandedLocal,
         onExpandedChange = {
             isExpanded.value = it
@@ -60,7 +59,6 @@ fun DropDownField(
         )
 
         ExposedDropdownMenu(
-            modifier = Modifier.width(IntrinsicSize.Min),
             expanded = isExpandedLocal,
             onDismissRequest = {
                 isExpanded.value = false

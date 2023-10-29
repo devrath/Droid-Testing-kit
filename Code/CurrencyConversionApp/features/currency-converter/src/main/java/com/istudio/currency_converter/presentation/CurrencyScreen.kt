@@ -1,6 +1,7 @@
 package com.istudio.currency_converter.presentation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -28,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.core_ui.composables.DropDownField
@@ -98,15 +101,29 @@ fun CurrencyScreen(
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(it),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it),
             horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.Center
         ) {
             InputTextField()
 
-            DropDownField()
+            Spacer(modifier = Modifier.height(5.dp))
 
-            Spacer(modifier = Modifier.height(20.dp))
+            DropDownField(modifier = Modifier.fillMaxWidth())
+
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = "Output",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.fillMaxWidth().padding(
+                    horizontal = 5.dp, vertical = 20.dp
+                ),
+                textAlign = TextAlign.Center,
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
 
             GridInput()
         }
