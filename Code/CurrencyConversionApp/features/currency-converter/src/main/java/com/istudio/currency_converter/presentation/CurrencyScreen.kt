@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.istudio.currency_converter.presentation.landscape.CurrencyScreenLandscape
 import com.istudio.currency_converter.presentation.portrait.CurrencyScreenPortrait
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent

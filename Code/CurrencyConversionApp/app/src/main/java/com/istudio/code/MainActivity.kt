@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
@@ -29,6 +28,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -41,12 +41,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-
-
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            // View model reference
+            val viewModel: MainVm = hiltViewModel()
             // <!--------------------- CONTROLLERS ------------------------>
             // SnackBar controller
             val snackBarController = remember { SnackbarHostState() }
@@ -58,13 +58,12 @@ class MainActivity : ComponentActivity() {
             val keyboardController = LocalSoftwareKeyboardController.current
             // Focus Manager
             val focusManager = LocalFocusManager.current
-
+            // Configuration Manager
             val configuration = LocalConfiguration.current
             // <!--------------------- CONTROLLERS ------------------------>
             // Title
             val titleStr = "Currency Converter"
-            // Theme switcher
-            var darkTheme by remember { mutableStateOf(false) }
+
             // Orientation
             var orientation by remember { mutableIntStateOf(Configuration.ORIENTATION_PORTRAIT) }
 
@@ -77,7 +76,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            MaterialAppTheme(darkTheme = darkTheme) {
+            MaterialAppTheme(darkTheme = viewModel.currentTheme.value) {
                 // A surface container using the 'background' color from the theme
 
                 Scaffold(
@@ -92,12 +91,12 @@ class MainActivity : ComponentActivity() {
                             scrollBehavior = scrollBehaviour,
                             actions = {
                                 ThemeSwitcher(
-                                    darkTheme = darkTheme,
+                                    darkTheme = viewModel.currentTheme.value,
                                     size = 50.dp,
                                     padding = 5.dp,
                                     onClick = {
                                         // Update theme on-click
-                                        darkTheme = !darkTheme
+                                        viewModel.currentTheme.value = !viewModel.currentTheme.value
                                     }
                                 )
                             }
