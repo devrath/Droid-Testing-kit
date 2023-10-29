@@ -15,5 +15,11 @@ object ProjectConfig {
 
     // <---------> Test Instrumentaiton <--------->
     const val testInstrumentationRunner_AndroidJUnitRunner = "androidx.test.runner.AndroidJUnitRunner"
+    // <---------> Test Instrumentaiton <--------->
+
+    // <---------> End-Point Configs <------------>
+    val baseUrl = "\"https://openexchangerates.org/api\""
+    val apiKey = "\"e41276934dea4babb34536dad2f2da7a\""
+    // <---------> End-Point Configs <------------>
 
 }
