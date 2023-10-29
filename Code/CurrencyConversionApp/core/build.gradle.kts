@@ -3,8 +3,7 @@ plugins {
     `kotlin-android`
 }
 
-apply<plugins.MainGradlePlugin>()
-apply<plugins.CoreBuildTypesPlugin>()
+apply<plugins.CoreGradlePlugin>()
 
 android {
     namespace = ProjectConfig.core

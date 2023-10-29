@@ -1,12 +1,12 @@
 package plugins
 
 import ProjectConfig
+import Versions
 import com.android.build.gradle.LibraryExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class MainGradlePlugin: Plugin<Project> {
+class FeaturesGradlePlugin: Plugin<Project> {
 
     override fun apply(project: Project) {
         applyPlugins(project)
@@ -35,6 +35,9 @@ class MainGradlePlugin: Plugin<Project> {
                 sourceCompatibility = ProjectConfig.javaVersion
                 targetCompatibility = ProjectConfig.javaVersion
             }
+
+            buildFeatures { compose = true }
+            composeOptions { kotlinCompilerExtensionVersion = Versions.composeCompiler }
         }
     }
 

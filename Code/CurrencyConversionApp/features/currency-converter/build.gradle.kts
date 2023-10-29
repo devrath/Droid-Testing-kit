@@ -3,7 +3,7 @@ plugins {
     `kotlin-android`
 }
 
-apply<plugins.MainUiGradlePlugin>()
+apply<plugins.FeaturesGradlePlugin>()
 
 android {
     namespace = ProjectConfig.currencyConverter
