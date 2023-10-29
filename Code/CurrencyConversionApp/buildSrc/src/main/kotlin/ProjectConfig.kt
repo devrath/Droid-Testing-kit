@@ -1,3 +1,5 @@
+import org.gradle.api.JavaVersion
+
 object ProjectConfig {
 
     const val minSdk = 24
@@ -5,7 +7,10 @@ object ProjectConfig {
     const val targetSdk = 34
     const val versionCode = 1
     const val versionName = "1.0"
+    // <---------> Java Version <--------->
     const val jvmTarget = "18"
+    val javaVersion = JavaVersion.VERSION_18
+    // <---------> Java Version <--------->
 
     // <---------> Namespaces <--------->
     const val appId = "com.istudio.code"

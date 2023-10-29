@@ -5,20 +5,10 @@ import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class BuildTypesPlugin : Plugin<Project> {
+class CoreBuildTypesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        applyPlugins(project)
         setProjectConfig(project)
-    }
-
-    private fun applyPlugins(project: Project) {
-        project.apply {
-            plugin("android-library")
-            plugin("kotlin-android")
-            plugin("kotlin-kapt")
-            plugin("dagger.hilt.android.plugin")
-        }
     }
 
     private fun setProjectConfig(project: Project) {

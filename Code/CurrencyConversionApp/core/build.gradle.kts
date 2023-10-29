@@ -4,7 +4,7 @@ plugins {
 }
 
 apply<plugins.MainGradlePlugin>()
-apply<plugins.BuildTypesPlugin>()
+apply<plugins.CoreBuildTypesPlugin>()
 
 android {
     namespace = ProjectConfig.core

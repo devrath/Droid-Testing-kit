@@ -33,8 +33,8 @@ class MainUiGradlePlugin: Plugin<Project> {
             }
 
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_18
-                targetCompatibility = JavaVersion.VERSION_18
+                sourceCompatibility = ProjectConfig.javaVersion
+                targetCompatibility = ProjectConfig.javaVersion
             }
 
             buildFeatures { compose = true }
