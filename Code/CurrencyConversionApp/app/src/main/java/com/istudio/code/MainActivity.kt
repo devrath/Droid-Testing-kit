@@ -14,6 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.istudio.core.navigation.Route
 import com.istudio.core_ui.theme.MaterialAppTheme
 import com.istudio.currency_converter.presentation.CurrencyScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,18 +30,25 @@ class MainActivity : ComponentActivity() {
             var darkTheme by remember { mutableStateOf(false) }
             MaterialAppTheme(darkTheme = darkTheme) {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    CurrencyScreen(
-                        darkTheme = darkTheme,
-                        onThemeUpdated = {
-                            darkTheme = !darkTheme
-                        }
-                    ){
 
+                val controller = rememberNavController()
+
+                NavHost(
+                    navController = controller,
+                    startDestination = Route.CURRENCY_CONVERSION_SCREEN
+                ) {
+
+                    composable(route = Route.CURRENCY_CONVERSION_SCREEN){
+                        CurrencyScreen(
+                            darkTheme = darkTheme,
+                            onThemeUpdated = {
+                                darkTheme = !darkTheme
+                            }
+                        ){
+
+                        }
                     }
+
                 }
             }
         }
