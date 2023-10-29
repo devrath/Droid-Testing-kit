@@ -26,6 +26,7 @@ object Dependencies {
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
     const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
+    const val materialIconsExtended = "androidx.compose.material:material-icons-extended:${Versions.materialIconsExtended}"
     // <---------------------> Compose Dependencies <--------------------->
 
     // <---------------------> Hilt Dependencies <------------------------>
@@ -93,6 +94,7 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.composeUiGraphics)
     implementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeMaterial)
+    implementation(Dependencies.materialIconsExtended)
     debugImplementation(Dependencies.composeUiToolingPreview)
 }
 

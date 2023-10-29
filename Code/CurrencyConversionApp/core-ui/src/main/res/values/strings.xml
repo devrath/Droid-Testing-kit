@@ -2,4 +2,5 @@
     <string name="str_enter_the_amt_to_convert">Amount</string>
     <string name="str_entered_currency_type">Currency</string>
     <string name="str_required_field">Required Field</string>
+    <string name="str_currency_converter">Currency Converter</string>
 </resources>

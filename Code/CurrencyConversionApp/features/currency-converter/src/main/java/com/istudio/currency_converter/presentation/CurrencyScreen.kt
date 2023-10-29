@@ -1,5 +1,6 @@
 package com.istudio.currency_converter.presentation
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,7 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -33,13 +36,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.core_ui.composables.DropDownField
 import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
+import com.istudio.core_ui.composables.ThemeSwitcher
 import com.istudio.core_ui.theme.LocalSpacing
+import com.istudio.currency_converter.R
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CurrencyScreen(
     modifier: Modifier = Modifier,
+    darkTheme: Boolean,
+    onThemeUpdated: () -> Unit,
     onBackPress: () -> Unit
 ) {
 
@@ -55,6 +62,8 @@ fun CurrencyScreen(
     // <!--------------------- CONTROLLERS ------------------------>
     // Keyboard controller
     val keyboardController = LocalSoftwareKeyboardController.current
+    // Focus Manager
+    val focusManager = LocalFocusManager.current
     // SnackBar controller
     val snackBarController = remember { SnackbarHostState() }
     // Coroutine to handle the animation
@@ -63,6 +72,10 @@ fun CurrencyScreen(
 
     // Scroll behaviour
     val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
+
+
+    //val titleStr = cxt.getString(R.string.str_currency_converter)
+    val titleStr = ""
 
 
     LaunchedEffect(key1 = state.launchedEffectState) {
@@ -86,15 +99,20 @@ fun CurrencyScreen(
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackBarController) },
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
             .nestedScroll(scrollBehaviour.nestedScrollConnection),
         topBar = {
             CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Currency Converter")
-                },
-                scrollBehavior = scrollBehaviour
+                title = { Text(text = titleStr) },
+                scrollBehavior = scrollBehaviour,
+                actions = {
+                    ThemeSwitcher(
+                        darkTheme = darkTheme,
+                        size = 50.dp,
+                        padding = 5.dp,
+                        onClick = onThemeUpdated
+                    )
+                }
             )
         }
     ) {
@@ -103,7 +121,12 @@ fun CurrencyScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .padding(LocalSpacing.current.spaceExtraSmall),
+                .padding(LocalSpacing.current.spaceExtraSmall)
+                .pointerInput(Unit){
+                    detectTapGestures(onTap = {
+                        focusManager.clearFocus()
+                    })
+                },
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.Center
         ) {
@@ -125,19 +148,17 @@ fun CurrencyScreen(
                             horizontal = LocalSpacing.current.spaceExtraSmall,
                             vertical = 20.dp
                         ),
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Start,
                     maxLines = 1
                 )
 
                 Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
-                Box(modifier = Modifier.weight(1f)) {
-                    DropDownField()
-                }
+                Box(modifier = Modifier.weight(1f)) { DropDownField() }
             }
 
             Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
-            
+
             GridInput()
         }
     }
