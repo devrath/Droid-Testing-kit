@@ -5,6 +5,7 @@ object ProjectConfig {
     const val targetSdk = 34
     const val versionCode = 1
     const val versionName = "1.0"
+    const val jvmTarget = "18"
 
     // <---------> Namespaces <--------->
     const val appId = "com.istudio.code"

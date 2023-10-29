@@ -1,3 +1,6 @@
+package plugins
+
+import ProjectConfig
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
@@ -25,7 +28,7 @@ class MainGradlePlugin: Plugin<Project> {
 
             defaultConfig {
                 minSdk = ProjectConfig.minSdk
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                testInstrumentationRunner = ProjectConfig.testInstrumentationRunner_AndroidJUnitRunner
             }
 
             compileOptions {

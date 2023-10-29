@@ -1,5 +1,7 @@
+package plugins
+
+import ProjectConfig
 import com.android.build.gradle.LibraryExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

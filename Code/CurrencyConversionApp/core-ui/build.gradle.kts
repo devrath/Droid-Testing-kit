@@ -3,11 +3,11 @@ plugins {
     `kotlin-android`
 }
 
-apply<MainUiGradlePlugin>()
+apply<plugins.MainUiGradlePlugin>()
 
 android {
     namespace = ProjectConfig.currencyConverter
-    kotlinOptions { jvmTarget = "18" }
+    kotlinOptions { ProjectConfig.jvmTarget }
 }
 
 dependencies { uiModuleDependencies() }
