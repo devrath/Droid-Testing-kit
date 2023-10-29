@@ -21,8 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.outlined.Face
 
-//import androidx.compose.material.icons.filled.LightMode
-
 @Composable
 fun ThemeSwitcher(
     darkTheme: Boolean = false,
@@ -35,9 +33,10 @@ fun ThemeSwitcher(
     animationSpec: AnimationSpec<Dp> = tween(durationMillis = 300),
     onClick: () -> Unit
 ) {
+
     val offset by animateDpAsState(
         targetValue = if (darkTheme) 0.dp else size,
-        animationSpec = animationSpec
+        animationSpec = animationSpec, label = ""
     )
 
     Box(modifier = Modifier

@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -75,7 +76,7 @@ fun CurrencyScreen(
 
 
     //val titleStr = cxt.getString(R.string.str_currency_converter)
-    val titleStr = ""
+    val titleStr = "Currency Converter"
 
 
     LaunchedEffect(key1 = state.launchedEffectState) {
@@ -102,7 +103,8 @@ fun CurrencyScreen(
         modifier = Modifier.fillMaxSize()
             .nestedScroll(scrollBehaviour.nestedScrollConnection),
         topBar = {
-            CenterAlignedTopAppBar(
+
+            TopAppBar(
                 title = { Text(text = titleStr) },
                 scrollBehavior = scrollBehaviour,
                 actions = {
