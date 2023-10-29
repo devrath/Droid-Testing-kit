@@ -1,7 +1,5 @@
 package com.istudio.core_ui.composables
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
@@ -30,11 +28,11 @@ fun InputTextField(
     // Text strings to be displayed in composable
     val placeholder = cxt.getString(R.string.str_enter_the_amt_to_convert)
     val requiredField = cxt.getString(R.string.str_required_field)
-
+    val maxLines = 1
     val displayText = remember{ state }
 
     OutlinedTextField(
-        modifier = modifier.fillMaxWidth().padding(5.dp),
+        modifier = modifier.padding(5.dp),
         // Setting current value - Which is displayed
         value = displayText.value,
         // Updating new value to the displayed text
@@ -50,8 +48,8 @@ fun InputTextField(
         // Always use copy to modify a particular attribute
         textStyle = LocalTextStyle.current.copy( textAlign = TextAlign.Left),
         placeholder = { Text(text = placeholder) },
+        maxLines = maxLines,
         keyboardOptions = KeyboardOptions( keyboardType = KeyboardType.Number),
-        supportingText = { Text(text = requiredField) },
     )
 }
 

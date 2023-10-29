@@ -54,7 +54,7 @@ fun DropDownField(
                 )
             },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
-            modifier = Modifier.menuAnchor().fillMaxWidth(),
+            modifier = Modifier.menuAnchor(),
             placeholder = { Text(text = placeholder) }
         )
 
@@ -68,6 +68,7 @@ fun DropDownField(
 
             dataList.forEachIndexed { index, item ->
                 DropdownMenuItem(
+                    modifier = Modifier.exposedDropdownSize(),
                     text = { Text(text = item) },
                     onClick = {
                         actionTextLocal = item

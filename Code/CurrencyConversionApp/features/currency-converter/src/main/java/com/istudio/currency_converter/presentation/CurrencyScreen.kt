@@ -107,19 +107,30 @@ fun CurrencyScreen(
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.Center
         ) {
-            InputTextField()
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                InputTextField(
+                    modifier = Modifier.weight(1.8f)
+                )
+                Box(modifier = Modifier.weight(1f)) {
+                    DropDownField()
+                }
+            }
 
             Spacer(modifier = Modifier.height(5.dp))
 
-            DropDownField(modifier = Modifier.fillMaxWidth())
-
-            Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = "Output",
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.fillMaxWidth().padding(
-                    horizontal = 5.dp, vertical = 20.dp
-                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 5.dp, vertical = 20.dp
+                    ),
                 textAlign = TextAlign.Center,
             )
 
