@@ -36,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.core_ui.composables.DropDownField
 import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
+import com.istudio.core_ui.theme.LocalSpacing
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -103,7 +104,7 @@ fun CurrencyScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it),
+                .padding(it).padding(LocalSpacing.current.spaceExtraSmall),
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.Center
         ) {
@@ -116,12 +117,15 @@ fun CurrencyScreen(
                 InputTextField(
                     modifier = Modifier.weight(1.8f)
                 )
+
+                Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
+
                 Box(modifier = Modifier.weight(1f)) {
                     DropDownField()
                 }
             }
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
             Text(
                 text = "Output",
@@ -129,12 +133,13 @@ fun CurrencyScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        horizontal = 5.dp, vertical = 20.dp
+                        horizontal = LocalSpacing.current.spaceExtraSmall,
+                        vertical = 20.dp
                     ),
                 textAlign = TextAlign.Center,
             )
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
             GridInput()
         }

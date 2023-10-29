@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
+import com.istudio.core_ui.theme.LocalSpacing
 import com.istudio.currency_converter.R
 
 @Composable
@@ -32,7 +33,7 @@ fun InputTextField(
     val displayText = remember{ state }
 
     OutlinedTextField(
-        modifier = modifier.padding(5.dp),
+        modifier = modifier.padding(LocalSpacing.current.spaceExtraSmall),
         // Setting current value - Which is displayed
         value = displayText.value,
         // Updating new value to the displayed text

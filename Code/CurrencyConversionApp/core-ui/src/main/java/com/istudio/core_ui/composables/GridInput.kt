@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.istudio.core_ui.theme.LocalSpacing
 
 @Composable
 fun GridInput(
@@ -37,7 +38,7 @@ fun GridInput(
             items(100){ i ->
                 Box(
                     modifier = Modifier
-                        .padding(8.dp)
+                        .padding(LocalSpacing.current.spaceExtraSmall)
                         .aspectRatio(1f)
                         .clip(RoundedCornerShape(5.dp))
                         .background(color = MaterialTheme.colorScheme.primaryContainer),
