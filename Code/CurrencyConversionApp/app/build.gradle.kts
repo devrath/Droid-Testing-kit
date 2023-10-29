@@ -58,4 +58,5 @@ dependencies {
     coreUi()
     featureCurrencyConverter()
     featureCurrencyResult()
+    featureCommon()
 }
