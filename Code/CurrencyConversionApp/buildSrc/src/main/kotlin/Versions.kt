@@ -8,6 +8,7 @@ object Versions {
     const val serialization = "1.7.20"
     const val okHttp = "5.0.0-alpha.2"
     const val retrofit = "2.9.0"
+    const val kotlinxSerializationConverter = "1.0.0"
     const val room = "2.5.0"
     // -----> Testing
     const val junit = "4.13.2"

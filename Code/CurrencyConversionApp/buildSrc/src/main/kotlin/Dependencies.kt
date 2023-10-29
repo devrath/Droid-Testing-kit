@@ -43,6 +43,7 @@ object Dependencies {
 
     // <---------------------> Retrofit Dependencies <-------------------->
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val kotlinxSerializationConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.kotlinxSerializationConverter}"
     const val moshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     // <---------------------> Retrofit Dependencies <-------------------->
 
