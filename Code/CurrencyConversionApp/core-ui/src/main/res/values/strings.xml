@@ -3,4 +3,7 @@
     <string name="str_entered_currency_type">Currency</string>
     <string name="str_required_field">Required Field</string>
     <string name="str_currency_converter">Currency Converter</string>
+    <string name="str_no_connectivity">No Connectivity</string>
+    <string name="str_retry">Retry</string>
+
 </resources>

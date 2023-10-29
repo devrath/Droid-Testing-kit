@@ -31,13 +31,9 @@ fun GridInput(
     modifier: Modifier = Modifier,
     onClick : (Int) -> Unit
 ){
-
     // Context
-    val cxt = LocalContext.current
     val noOfColumns = 3
-
     val state = rememberLazyGridState()
-
     LazyVerticalGrid(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
         columns = GridCells.Fixed(noOfColumns),
@@ -51,36 +47,6 @@ fun GridInput(
         }
     )
 
-}
-
-@Composable
-private fun GridInputItem(
-    i: Int,
-    onClick : (Int) -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .padding(LocalSpacing.current.spaceExtraSmall)
-            .aspectRatio(1f)
-            .clip(RoundedCornerShape(5.dp))
-            .background(color = MaterialTheme.colorScheme.primaryContainer)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(
-                    color = MaterialTheme.colorScheme.onSurface
-                ),
-                onClick = {
-                    onClick.invoke(i)
-                }
-            )
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Text->$i",
-            color = MaterialTheme.colorScheme.primary
-        )
-    }
 }
 
 @Preview

@@ -73,7 +73,7 @@ fun CurrencyScreenLandscape(onKeyBoardOutsideClick: () -> Unit) {
         ) {
             GridInput(
                 modifier = Modifier.fillMaxWidth().weight(1f),
-            ){selectedItem ->
+            ){ selectedItem ->
 
             }
         }
