@@ -15,11 +15,11 @@ interface CurrencyApi {
     // API -> Getting the list of currencies
     // DOC -> https://docs.openexchangerates.org/reference/currencies-json
     @GET("currencies.json")
-    suspend fun getCurrencies(): Flow<Currencies>
+    suspend fun getCurrencies(): Currencies
 
     // API -> Getting the conversion values for all currencies
     // DOC -> https://docs.openexchangerates.org/reference/latest-json
     @GET("latest.json?app_id=$APP_ID")
-    suspend fun getCurrencyConversionValues(): Flow<CurrencyConversionValues>
+    suspend fun getCurrencyConversionValues(): CurrencyConversionValues
 
 }
