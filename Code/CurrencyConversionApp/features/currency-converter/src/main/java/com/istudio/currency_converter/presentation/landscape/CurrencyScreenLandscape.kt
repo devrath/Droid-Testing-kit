@@ -26,7 +26,11 @@ import com.istudio.core_ui.composables.InputTextField
 import com.istudio.core_ui.theme.LocalSpacing
 
 @Composable
-fun CurrencyScreenLandscape(onKeyBoardOutsideClick: () -> Unit) {
+fun CurrencyScreenLandscape(
+    currencyInputText : String,
+    onKeyBoardOutsideClick: () -> Unit,
+    currencyInputChange : (String) -> Unit
+) {
 
     Row(modifier = Modifier
         .fillMaxSize()
@@ -46,7 +50,11 @@ fun CurrencyScreenLandscape(onKeyBoardOutsideClick: () -> Unit) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                InputTextField(modifier = Modifier.fillMaxWidth())
+                InputTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    currencyInputText = currencyInputText,
+                    currencyInputChange = { currencyInputChange.invoke(it) }
+                )
 
                 Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
@@ -86,7 +94,9 @@ fun CurrencyScreenLandscape(onKeyBoardOutsideClick: () -> Unit) {
 )
 @Composable
 private fun CurrentScreen() {
-    CurrencyScreenLandscape{
-
-    }
+    CurrencyScreenLandscape(
+        currencyInputText = "100",
+        onKeyBoardOutsideClick = { },
+        currencyInputChange = { }
+    )
 }

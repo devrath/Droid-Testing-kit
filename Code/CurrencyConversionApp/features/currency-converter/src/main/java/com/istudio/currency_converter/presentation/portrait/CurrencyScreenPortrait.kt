@@ -23,7 +23,11 @@ import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
 import com.istudio.core_ui.theme.LocalSpacing
 @Composable
-fun CurrencyScreenPortrait(onKeyBoardOutsideClick: () -> Unit) {
+fun CurrencyScreenPortrait(
+    currencyInputText : String,
+    onKeyBoardOutsideClick: () -> Unit,
+    currencyInputChange : (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,7 +41,11 @@ fun CurrencyScreenPortrait(onKeyBoardOutsideClick: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
 
-        InputTextField(modifier = Modifier.fillMaxWidth())
+        InputTextField(
+            modifier = Modifier.fillMaxWidth(),
+            currencyInputText = currencyInputText,
+            currencyInputChange = { currencyInputChange.invoke(it) }
+        )
 
         Row(
             modifier = Modifier.fillMaxWidth(),

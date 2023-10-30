@@ -22,7 +22,8 @@ import com.istudio.currency_converter.R
 @Composable
 fun InputTextField(
     modifier: Modifier = Modifier,
-    state: MutableState<String> = mutableStateOf("")
+    currencyInputText: String,
+    currencyInputChange : (String) -> Unit
 ){
     // Context
     val cxt = LocalContext.current
@@ -30,20 +31,15 @@ fun InputTextField(
     val placeholder = cxt.getString(R.string.str_enter_the_amt_to_convert)
     val requiredField = cxt.getString(R.string.str_required_field)
     val maxLines = 1
-    val displayText = remember{ state }
 
     OutlinedTextField(
         modifier = modifier.padding(LocalSpacing.current.spaceExtraSmall),
         // Setting current value - Which is displayed
-        value = displayText.value,
+        value = currencyInputText,
         // Updating new value to the displayed text
         onValueChange = { updatedText ->
             if(updatedText.isDigitsOnly()){
-                // --- Set only if they are digits ---
-                // Update the state that is passed to this composable
-                state.value = updatedText
-                // Update the state that is displayed within this composable
-                displayText.value = updatedText
+                currencyInputChange.invoke(updatedText)
             }
         },
         // Always use copy to modify a particular attribute
@@ -58,6 +54,9 @@ fun InputTextField(
 @Preview
 @Composable
 private fun CurrentDisplay() {
-    InputTextField()
+    InputTextField(
+        currencyInputText = "100",
+        currencyInputChange = { }
+    )
 }
 

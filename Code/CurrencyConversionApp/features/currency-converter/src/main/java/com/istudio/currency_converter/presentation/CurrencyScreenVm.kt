@@ -36,7 +36,7 @@ class CurrencyScreenVm @Inject constructor(
         viewModelScope.launch {
             when (event) {
                 is CurrencyScreenViewEvent.SetCurrencyUserEnteredInput -> {
-
+                    viewState.copy(currencyUserEnteredInput = event.currencyInputValue)
                 }
             }
         }

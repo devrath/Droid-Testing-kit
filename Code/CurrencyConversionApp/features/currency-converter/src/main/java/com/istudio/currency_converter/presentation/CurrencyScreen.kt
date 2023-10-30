@@ -12,6 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.istudio.currency_converter.presentation.landscape.CurrencyScreenLandscape
 import com.istudio.currency_converter.presentation.portrait.CurrencyScreenPortrait
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
+import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
 
 @Composable
 fun CurrencyScreen(
@@ -53,9 +54,21 @@ fun CurrencyScreen(
 
     // Toggle Orientation of the screen
     if(orientation == Configuration.ORIENTATION_PORTRAIT){
-        CurrencyScreenPortrait(onKeyBoardOutsideClick)
+        CurrencyScreenPortrait(
+            currencyInputText = state.currencyUserEnteredInput,
+            onKeyBoardOutsideClick = onKeyBoardOutsideClick,
+            currencyInputChange = {
+                viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
+            }
+        )
     }else{
-        CurrencyScreenLandscape(onKeyBoardOutsideClick)
+        CurrencyScreenLandscape(
+            currencyInputText = state.currencyUserEnteredInput,
+            onKeyBoardOutsideClick = onKeyBoardOutsideClick,
+            currencyInputChange = {
+                viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
+            }
+        )
     }
 
 }
