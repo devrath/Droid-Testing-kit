@@ -44,7 +44,6 @@ object Dependencies {
     // <---------------------> Retrofit Dependencies <-------------------->
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val kotlinxSerializationConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.kotlinxSerializationConverter}"
-    const val moshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     // <---------------------> Retrofit Dependencies <-------------------->
 
     // <---------------------> Room Dependencies <------------------------>
@@ -72,7 +71,6 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.coreMaterial)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.serilization)
-    //kapt(Dependencies.serilization)
     hilt()
 }
 
@@ -84,7 +82,6 @@ fun DependencyHandler.room() {
 
 fun DependencyHandler.retrofit() {
     implementation(Dependencies.retrofit)
-    implementation(Dependencies.moshiConverter)
     implementation(Dependencies.okHttp)
     implementation(Dependencies.okHttpLoggingInterceptor)
 }
@@ -131,6 +128,7 @@ fun DependencyHandler.coreModuleDependencies() {
     unitTesting()
     room()
     retrofit()
+    implementation(Dependencies.kotlinxSerializationConverter)
 }
 
 fun DependencyHandler.dataModuleDependencies() {

@@ -11,5 +11,4 @@ android {
 
 dependencies {
     coreModuleDependencies()
-    implementation(Dependencies.kotlinxSerializationConverter)
 }

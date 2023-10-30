@@ -8,18 +8,21 @@ import androidx.lifecycle.viewModelScope
 import com.istudio.core.platform.functional.UseCaseResult
 import com.istudio.core.platform.uiEvent.UiText
 import com.istudio.core.platform.viewmodel.BaseViewModel
+import com.istudio.currency_converter.data.repository.CurrencyApiRepository
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CurrencyScreenVm @Inject constructor(
-
+    val repo : CurrencyApiRepository
 ): BaseViewModel<Unit>() {
     override fun setupPrerequisites(params: Unit) = Unit
 
@@ -41,7 +44,14 @@ class CurrencyScreenVm @Inject constructor(
                 }
 
                 is CurrencyScreenViewEvent.GetCurrenciesFromApi -> {
+                    repo.getCurrencies().catch {
+                        println(it.toString())
+                        println(it.toString())
+                    }.collect{
+                        println(it.toString())
+                        println(it.toString())
 
+                    }
                 }
             }
         }
