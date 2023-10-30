@@ -4,7 +4,6 @@ import org.gradle.kotlin.dsl.project
 object Dependencies {
     // <-------------> Top level plugin Dependencies <-------------------->
     const val hiltProjectLevel = "com.google.dagger.hilt.android"
-    const val serializationProjectLevel = "org.jetbrains.kotlin.plugin.serialization"
     // <-------------> Top level plugin Dependencies <-------------------->
 
     const val javapoet = "com.squareup:javapoet:${Versions.javapoet}"
@@ -44,6 +43,7 @@ object Dependencies {
     // <---------------------> Retrofit Dependencies <-------------------->
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val kotlinxSerializationConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.kotlinxSerializationConverter}"
+    const val kotlinxSerializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerializationJson}"
     // <---------------------> Retrofit Dependencies <-------------------->
 
     // <---------------------> Room Dependencies <------------------------>
@@ -84,6 +84,8 @@ fun DependencyHandler.retrofit() {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.okHttp)
     implementation(Dependencies.okHttpLoggingInterceptor)
+    implementation(Dependencies.kotlinxSerializationConverter)
+    implementation(Dependencies.kotlinxSerializationJson)
 }
 
 fun DependencyHandler.compose() {
@@ -128,7 +130,6 @@ fun DependencyHandler.coreModuleDependencies() {
     unitTesting()
     room()
     retrofit()
-    implementation(Dependencies.kotlinxSerializationConverter)
 }
 
 fun DependencyHandler.dataModuleDependencies() {

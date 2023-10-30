@@ -12,6 +12,5 @@ buildscript {
 
 plugins {
     id(Dependencies.hiltProjectLevel) version Versions.hilt apply false
-    id(Dependencies.serializationProjectLevel) version Versions.serialization apply false
-    //kotlin("plugin.serialization") version Versions.serialization
+    kotlin("plugin.serialization") version Versions.serialization
 }
