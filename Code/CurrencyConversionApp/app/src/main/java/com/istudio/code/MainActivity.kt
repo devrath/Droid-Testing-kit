@@ -14,6 +14,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
@@ -30,13 +32,16 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.istudio.code.states.AppScreenResponseEvent
+import com.istudio.code.states.AppScreenUiState
 import com.istudio.code.states.AppScreenViewEvent
 import com.istudio.core.navigation.Route
 import com.istudio.core_ui.composables.NoConnectivity
+import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
 import com.istudio.core_ui.composables.ThemeSwitcher
 import com.istudio.core_ui.theme.MaterialAppTheme
 import com.istudio.currency_converter.presentation.CurrencyScreen
@@ -105,69 +110,98 @@ class MainActivity : ComponentActivity() {
 
             MaterialAppTheme(darkTheme = viewModel.currentTheme.value) {
                 // A surface container using the 'background' color from the theme
-                if(state.loadingState){
-                    // Loading state
-                }else if(state.isConnectedToInternet){
-                    // Connected to internet
-                    Scaffold(
-                        snackbarHost = { SnackbarHost(snackBarController) },
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .nestedScroll(scrollBehaviour.nestedScrollConnection),
-                        topBar = {
+                ShimmerHomeLoadingComposable(
+                    isLoading = state.loadingState,
+                    contentAfterLoading = {
+                        MainContent(
+                            state = state,
+                            snackBarController = snackBarController,
+                            scrollBehaviour= scrollBehaviour,
+                            titleStr = titleStr,
+                            controller = controller,
+                            orientation = orientation,
+                            focusManager = focusManager
+                        )
+                    },
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+    }
 
-                            TopAppBar(
-                                title = { Text(text = titleStr) },
-                                scrollBehavior = scrollBehaviour,
-                                actions = {
-                                    ThemeSwitcher(
-                                        darkTheme = viewModel.currentTheme.value,
-                                        size = 50.dp,
-                                        padding = 5.dp,
-                                        onClick = {
-                                            // Update theme on-click
-                                            viewModel.currentTheme.value = !viewModel.currentTheme.value
-                                        }
-                                    )
+    @Composable
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun MainContent(
+        state: AppScreenUiState,
+        snackBarController: SnackbarHostState,
+        scrollBehaviour: TopAppBarScrollBehavior,
+        titleStr: String,
+        controller: NavHostController,
+        orientation: Int,
+        focusManager: FocusManager
+    ) {
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+
+        if (state.isConnectedToInternet) {
+            // Connected to internet
+            Scaffold(
+                snackbarHost = { SnackbarHost(snackBarController) },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .nestedScroll(scrollBehaviour.nestedScrollConnection),
+                topBar = {
+
+                    TopAppBar(
+                        title = { Text(text = titleStr) },
+                        scrollBehavior = scrollBehaviour,
+                        actions = {
+                            ThemeSwitcher(
+                                darkTheme = viewModel.currentTheme.value,
+                                size = 50.dp,
+                                padding = 5.dp,
+                                onClick = {
+                                    // Update theme on-click
+                                    viewModel.currentTheme.value = !viewModel.currentTheme.value
                                 }
                             )
                         }
+                    )
+                }
+            ) {
+                Box(
+                    modifier = Modifier.padding(it)
+                ) {
+                    NavHost(
+                        navController = controller,
+                        startDestination = Route.CURRENCY_CONVERSION_SCREEN
                     ) {
-                        Box(
-                            modifier = Modifier.padding(it)
-                        ) {
-                            NavHost(
-                                navController = controller,
-                                startDestination = Route.CURRENCY_CONVERSION_SCREEN
-                            ) {
 
-                                composable(route = Route.CURRENCY_CONVERSION_SCREEN) {
-                                    CurrencyScreen(
-                                        orientation = orientation,
-                                        onErrorAction = { message ->
-                                            // Scenario : When error occurs
+                        composable(route = Route.CURRENCY_CONVERSION_SCREEN) {
+                            CurrencyScreen(
+                                orientation = orientation,
+                                onErrorAction = { message ->
+                                    // Scenario : When error occurs
 
-                                        },
-                                        onKeyBoardOutsideClick = {
-                                            // Scenario : When user clicks outside the keyboard
-                                            focusManager.clearFocus()
-                                        },
-                                        onBackPress = {
-                                            // Scenario : When user presses back button
+                                },
+                                onKeyBoardOutsideClick = {
+                                    // Scenario : When user clicks outside the keyboard
+                                    focusManager.clearFocus()
+                                },
+                                onBackPress = {
+                                    // Scenario : When user presses back button
 
-                                        }
-                                    )
                                 }
-                            }
+                            )
                         }
                     }
-                }else{
-                    // Not connected to internet
-                    NoConnectivity{
-                        // Retry connectivity
-                        viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
-                    }
                 }
+            }
+        } else {
+            // Not connected to internet
+            NoConnectivity {
+                // Retry connectivity
+                viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
             }
         }
     }
