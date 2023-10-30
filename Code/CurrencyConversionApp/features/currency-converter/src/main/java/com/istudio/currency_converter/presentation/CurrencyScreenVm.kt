@@ -44,14 +44,11 @@ class CurrencyScreenVm @Inject constructor(
                 }
 
                 is CurrencyScreenViewEvent.GetCurrenciesFromApi -> {
-                    repo.getCurrencies().catch {
-                        println(it.toString())
-                        println(it.toString())
+                   /* repo.getCurrencies().catch {
+                        useCaseErrorMessage(UiText.DynamicString(it.message.toString()))
                     }.collect{
                         println(it.toString())
-                        println(it.toString())
-
-                    }
+                    }*/
                 }
             }
         }

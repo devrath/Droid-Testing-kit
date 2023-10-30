@@ -1,14 +1,12 @@
 package com.istudio.core.models.remote
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
+data class CurrencyConversionValues (
 
-@Serializable
-data class CurrencyConversionValues(
-    @SerialName("disclaimer") val disclaimer: String? = null,
-    @SerialName("license") val license: String? = null,
-    @SerialName("timestamp") val timestamp: Int? = null,
-    @SerialName("base") val base: String? = null,
-    @SerialName("rates") val rates: Rates? = Rates()
+	@SerializedName("disclaimer") val disclaimer : String,
+	@SerializedName("license") val license : String,
+	@SerializedName("timestamp") val timestamp : Int,
+	@SerializedName("base") val base : String,
+	@SerializedName("rates") val rates : Rates
 )
