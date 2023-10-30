@@ -19,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
@@ -32,11 +33,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.istudio.code.states.AppScreenResponseEvent
+import com.istudio.code.states.AppScreenViewEvent
 import com.istudio.core.navigation.Route
+import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ThemeSwitcher
 import com.istudio.core_ui.theme.MaterialAppTheme
 import com.istudio.currency_converter.presentation.CurrencyScreen
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -47,9 +52,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             // View model reference
             val viewModel: MainVm = hiltViewModel()
+            // View state reference from view model
+            val state = viewModel.viewState
             // <!--------------------- CONTROLLERS ------------------------>
             // SnackBar controller
             val snackBarController = remember { SnackbarHostState() }
+            // coroutine scope to handle co-routines
+            val coroutineScope = rememberCoroutineScope()
             // Scroll behaviour
             val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
             // Nav controller
@@ -76,59 +85,84 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            MaterialAppTheme(darkTheme = viewModel.currentTheme.value) {
-                // A surface container using the 'background' color from the theme
+            LaunchedEffect(key1 = state.launchedEffectState) {
+                // Check connectivity: once when the effect is launched
+                viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
 
-                Scaffold(
-                    snackbarHost = { SnackbarHost(snackBarController) },
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .nestedScroll(scrollBehaviour.nestedScrollConnection),
-                    topBar = {
-
-                        TopAppBar(
-                            title = { Text(text = titleStr) },
-                            scrollBehavior = scrollBehaviour,
-                            actions = {
-                                ThemeSwitcher(
-                                    darkTheme = viewModel.currentTheme.value,
-                                    size = 50.dp,
-                                    padding = 5.dp,
-                                    onClick = {
-                                        // Update theme on-click
-                                        viewModel.currentTheme.value = !viewModel.currentTheme.value
-                                    }
-                                )
-                            }
-                        )
-                    }
-                ) {
-                    Box(
-                        modifier = Modifier.padding(it)
-                    ) {
-                        NavHost(
-                            navController = controller,
-                            startDestination = Route.CURRENCY_CONVERSION_SCREEN
-                        ) {
-
-                            composable(route = Route.CURRENCY_CONVERSION_SCREEN) {
-                                CurrencyScreen(
-                                    orientation = orientation,
-                                    onErrorAction = { message ->
-                                        // Scenario : When error occurs
-
-                                    },
-                                    onKeyBoardOutsideClick = {
-                                        // Scenario : When user clicks outside the keyboard
-                                        focusManager.clearFocus()
-                                    },
-                                    onBackPress = {
-                                        // Scenario : When user presses back button
-
-                                    }
-                                )
+                // <***********> Event is observed from View-Model <************>
+                viewModel.uiEvent.collect { event ->
+                    when (event) {
+                        is AppScreenResponseEvent.ShowSnackBar -> {
+                            coroutineScope.launch {
+                                snackBarController.showSnackbar(message = event.message)
                             }
                         }
+                    }
+                }
+                // <***********> Event is observed from View-Model <************>
+            }
+
+            MaterialAppTheme(darkTheme = viewModel.currentTheme.value) {
+                // A surface container using the 'background' color from the theme
+                if(state.isConnectedToInternet){
+                    // Connected to internet
+                    Scaffold(
+                        snackbarHost = { SnackbarHost(snackBarController) },
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .nestedScroll(scrollBehaviour.nestedScrollConnection),
+                        topBar = {
+
+                            TopAppBar(
+                                title = { Text(text = titleStr) },
+                                scrollBehavior = scrollBehaviour,
+                                actions = {
+                                    ThemeSwitcher(
+                                        darkTheme = viewModel.currentTheme.value,
+                                        size = 50.dp,
+                                        padding = 5.dp,
+                                        onClick = {
+                                            // Update theme on-click
+                                            viewModel.currentTheme.value = !viewModel.currentTheme.value
+                                        }
+                                    )
+                                }
+                            )
+                        }
+                    ) {
+                        Box(
+                            modifier = Modifier.padding(it)
+                        ) {
+                            NavHost(
+                                navController = controller,
+                                startDestination = Route.CURRENCY_CONVERSION_SCREEN
+                            ) {
+
+                                composable(route = Route.CURRENCY_CONVERSION_SCREEN) {
+                                    CurrencyScreen(
+                                        orientation = orientation,
+                                        onErrorAction = { message ->
+                                            // Scenario : When error occurs
+
+                                        },
+                                        onKeyBoardOutsideClick = {
+                                            // Scenario : When user clicks outside the keyboard
+                                            focusManager.clearFocus()
+                                        },
+                                        onBackPress = {
+                                            // Scenario : When user presses back button
+
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    // Not connected to internet
+                    NoConnectivity{
+                        // Retry connectivity
+                        viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
                     }
                 }
             }

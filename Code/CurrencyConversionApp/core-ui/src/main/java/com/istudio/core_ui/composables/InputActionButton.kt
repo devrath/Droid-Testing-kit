@@ -15,7 +15,7 @@ fun InputActionButton(
 ) {
     Button(
         modifier = modifier,
-        onClick = { onClickAction }) {
+        onClick = { onClickAction.invoke() }) {
         Text(
             text = text,
             fontSize = fontSize
