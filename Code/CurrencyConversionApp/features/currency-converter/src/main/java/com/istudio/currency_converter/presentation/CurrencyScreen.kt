@@ -34,7 +34,7 @@ fun CurrencyScreen(
     val configuration = LocalConfiguration.current
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
 
-    LaunchedEffect(key1 = state.launchedEffectState) {
+    LaunchedEffect(key1 = state.value.launchedEffectState) {
 
         // <***********> Event is observed from View-Model <************>
         viewModel.uiEvent.collect { event ->
@@ -55,7 +55,7 @@ fun CurrencyScreen(
     // Toggle Orientation of the screen
     if(orientation == Configuration.ORIENTATION_PORTRAIT){
         CurrencyScreenPortrait(
-            currencyInputText = state.currencyUserEnteredInput,
+            currencyInputText = state.value.currencyUserEnteredInput,
             onKeyBoardOutsideClick = onKeyBoardOutsideClick,
             currencyInputChange = {
                 viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
@@ -63,7 +63,7 @@ fun CurrencyScreen(
         )
     }else{
         CurrencyScreenLandscape(
-            currencyInputText = state.currencyUserEnteredInput,
+            currencyInputText = state.value.currencyUserEnteredInput,
             onKeyBoardOutsideClick = onKeyBoardOutsideClick,
             currencyInputChange = {
                 viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))

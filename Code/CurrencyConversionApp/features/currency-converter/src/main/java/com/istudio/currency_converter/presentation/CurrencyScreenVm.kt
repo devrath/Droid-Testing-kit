@@ -1,5 +1,6 @@
 package com.istudio.currency_converter.presentation
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -23,7 +24,7 @@ class CurrencyScreenVm @Inject constructor(
     override fun setupPrerequisites(params: Unit) = Unit
 
     // Holds the data of all the widgets in the view
-    var viewState by mutableStateOf(CurrencyScreenUiState())
+    var viewState: MutableState<CurrencyScreenUiState> = mutableStateOf(CurrencyScreenUiState())
         private set
 
     // View model sets this state, Composable observes this state
@@ -36,7 +37,7 @@ class CurrencyScreenVm @Inject constructor(
         viewModelScope.launch {
             when (event) {
                 is CurrencyScreenViewEvent.SetCurrencyUserEnteredInput -> {
-                    viewState.copy(currencyUserEnteredInput = event.currencyInputValue)
+                    viewState.value = viewState.value.copy(currencyUserEnteredInput = event.currencyInputValue)
                 }
             }
         }
