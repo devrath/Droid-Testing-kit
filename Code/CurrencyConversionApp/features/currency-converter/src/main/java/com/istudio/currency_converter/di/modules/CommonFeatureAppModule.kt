@@ -1,16 +1,12 @@
-package com.istudio.common_feature.di
+package com.istudio.currency_converter.di.modules
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.istudio.common_feature.domain.usecases.useCaseMain.CheckConnectivityUseCase
-import com.istudio.common_feature.domain.usecases.useCaseTypes.CommonFeaturesUseCases
 import com.istudio.core.platform.extensions.connectivityManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 

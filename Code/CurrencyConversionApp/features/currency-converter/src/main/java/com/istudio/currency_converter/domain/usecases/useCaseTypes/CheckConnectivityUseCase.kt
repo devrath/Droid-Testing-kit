@@ -1,4 +1,4 @@
-package com.istudio.common_feature.domain.usecases.useCaseMain
+package com.istudio.currency_converter.domain.usecases.useCaseTypes
 
 import android.content.Context
 import android.net.ConnectivityManager
