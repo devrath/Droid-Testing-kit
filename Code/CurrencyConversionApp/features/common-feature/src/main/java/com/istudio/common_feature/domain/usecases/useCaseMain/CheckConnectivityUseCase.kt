@@ -17,58 +17,40 @@ class CheckConnectivityUseCase @Inject constructor(
     private val connectivityManager: ConnectivityManager
 ) : FlowAction<Unit, Boolean>() {
 
-    override fun createFlow(input: Unit): Flow<Boolean> {
-
-        var isConnectedToInternet = false
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(connectivityManager.activeNetwork!=null){
-                val network = connectivityManager.activeNetwork
-                isConnectedToInternet = checkNetworkCases(network, isConnectedToInternet)
-            }else{
-                isConnectedToInternet = false
-            }
-        } else {
-            if(connectivityManager.activeNetworkInfo!=null){
-                val networkInfo = connectivityManager.activeNetworkInfo
-                isConnectedToInternet = networkInfo?.isConnected ?: false
-            }else{
-                isConnectedToInternet = false
-            }
-        }
-        return flowOf(isConnectedToInternet)
+    override suspend fun createFlow(input: Unit): Flow<Boolean> {
+        return flowOf(connectivityCheckBasedOnOs())
     }
 
-    private fun checkNetworkCases(
-        network: Network?,
-        isConnectedToInternet: Boolean
-    ): Boolean {
-        var isConnectedToInternet1 = isConnectedToInternet
-        val activeNetwork = connectivityManager.getNetworkCapabilities(network)
-        if (activeNetwork != null) {
-            when {
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                    isConnectedToInternet1 = true
-                }
-
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                    isConnectedToInternet1 = true
-                }
-
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                    isConnectedToInternet1 = true
-                }
-
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> {
-                    isConnectedToInternet1 = true
-                }
-
-                else -> {
-                    isConnectedToInternet1 = false
-                }
+    private fun connectivityCheckBasedOnOs() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (connectivityManager.activeNetwork != null) {
+                val network = connectivityManager.activeNetwork
+                checkNetworkCases(network)
+            } else {
+                false
+            }
+        } else {
+            if (connectivityManager.activeNetworkInfo != null) {
+                val networkInfo = connectivityManager.activeNetworkInfo
+                networkInfo?.isConnected ?: false
+            } else {
+                false
             }
         }
-        return isConnectedToInternet1
+
+    private fun checkNetworkCases(network: Network?): Boolean {
+        var conn : Boolean = false
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network)
+        if (activeNetwork != null) {
+            conn = when {
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
+                else -> false
+            }
+        }
+        return conn
     }
 
 }

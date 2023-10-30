@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
  * To change that behavior override [emitDistinctValues].
  */
 abstract class FlowAction<I, T> {
-    protected abstract fun createFlow(input: I): Flow<T>
+    protected abstract suspend fun createFlow(input: I): Flow<T>
 
     /**
      * @return true if you want to emit only distinct (different from the last emitted) values.
@@ -20,7 +20,7 @@ abstract class FlowAction<I, T> {
      */
     protected open fun emitDistinctValues(): Boolean = false
 
-    operator fun invoke(input: I): Flow<T> {
+    suspend operator fun invoke(input: I): Flow<T> {
         val flow = createFlow(input)
         return if (emitDistinctValues()) flow.distinctUntilChanged() else flow
     }
