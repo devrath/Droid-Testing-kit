@@ -11,11 +11,11 @@ import javax.inject.Inject
 class CurrencyApiImpl @Inject constructor(
     private val api : CurrencyApi
 ) : CurrencyApiFeatures {
-    override suspend fun getCurrencies(): Flow<Currencies> {
-        return flowOf(api.getCurrencies())
+    override suspend fun getCurrencies(): Currencies {
+        return api.getCurrencies()
     }
 
-    override suspend fun getCurrencyConversionValues(): Flow<CurrencyConversionValues> {
-        return flowOf(api.getCurrencyConversionValues())
+    override suspend fun getCurrencyConversionValues(): CurrencyConversionValues {
+        return api.getCurrencyConversionValues()
     }
 }

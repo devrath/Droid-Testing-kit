@@ -10,11 +10,11 @@ class CurrencyApiRepository @Inject constructor(
     private val features : CurrencyApiImpl
 ) {
 
-    suspend fun getCurrencies(): Flow<Currencies> {
+    suspend fun getCurrencies(): Currencies {
         return features.getCurrencies()
     }
 
-    suspend fun getCurrencyConversionValues(): Flow<CurrencyConversionValues> {
+    suspend fun getCurrencyConversionValues(): CurrencyConversionValues {
         return features.getCurrencyConversionValues()
     }
 

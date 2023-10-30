@@ -5,24 +5,33 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import com.istudio.core.platform.coroutines.dispatcher.IoDispatcher
+import com.istudio.core.platform.coroutines.dispatcher.MainDispatcher
 import com.istudio.core.platform.functional.UseCaseResult
 import com.istudio.core.platform.uiEvent.UiText
 import com.istudio.core.platform.viewmodel.BaseViewModel
 import com.istudio.currency_converter.data.repository.CurrencyApiRepository
+import com.istudio.currency_converter.domain.usecases.FeatureUseCases
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class CurrencyScreenVm @Inject constructor(
-    val repo : CurrencyApiRepository
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
+    val useCases : FeatureUseCases
 ): BaseViewModel<Unit>() {
     override fun setupPrerequisites(params: Unit) = Unit
 
@@ -44,11 +53,7 @@ class CurrencyScreenVm @Inject constructor(
                 }
 
                 is CurrencyScreenViewEvent.GetCurrenciesFromApi -> {
-                   /* repo.getCurrencies().catch {
-                        useCaseErrorMessage(UiText.DynamicString(it.message.toString()))
-                    }.collect{
-                        println(it.toString())
-                    }*/
+                   getDataFromServer()
                 }
             }
         }
@@ -56,7 +61,11 @@ class CurrencyScreenVm @Inject constructor(
     /** <************> UI Action is invoked from composable <************> **/
 
     /** <*********************> Use case invocations <*******************> **/
-
+    private fun getDataFromServer() = uiScope.launch {
+        val result = useCases.getApiDataUseCase.invoke(Unit)
+        println(result.currencies)
+        println(result.conversionValues)
+    }
     /** <*********************> Use case invocations <*******************> **/
 
 

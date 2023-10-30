@@ -45,12 +45,10 @@ object AppModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient
     ): Retrofit {
-        val contentType = "application/json".toMediaType()
         return Retrofit.Builder()
             .baseUrl("https://openexchangerates.org/api/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            //.addConverterFactory(Json.asConverterFactory(contentType))
             .build()
     }
 
@@ -75,6 +73,7 @@ object AppModule {
             writeTimeout(60, TimeUnit.SECONDS)
             readTimeout(60, TimeUnit.SECONDS)
         }
+
         // Construct the object
         return okHttpBuilder.build()
     }
