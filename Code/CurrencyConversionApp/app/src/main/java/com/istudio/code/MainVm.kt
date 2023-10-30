@@ -49,7 +49,12 @@ class MainVm @Inject constructor(
         viewModelScope.launch {
             when (event) {
                 is AppScreenViewEvent.CheckConnectivity -> {
+                    viewState = viewState.copy(loadingState = true)
                     checkConnectivity()
+                }
+
+                is AppScreenViewEvent.LoadingState -> {
+                    viewState = viewState.copy(loadingState = true)
                 }
             }
         }
@@ -66,7 +71,10 @@ class MainVm @Inject constructor(
         }.collect{ result ->
             withContext(Dispatchers.Default) {
                 // Keep the UI-state
-                viewState = viewState.copy(isConnectedToInternet = result)
+                viewState = viewState.copy(
+                    loadingState = false,
+                    isConnectedToInternet = result
+                )
             }
         }
 

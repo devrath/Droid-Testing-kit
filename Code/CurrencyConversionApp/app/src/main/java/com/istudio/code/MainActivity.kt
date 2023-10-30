@@ -86,6 +86,7 @@ class MainActivity : ComponentActivity() {
             }
 
             LaunchedEffect(key1 = state.launchedEffectState) {
+                viewModel.onEvent(AppScreenViewEvent.LoadingState)
                 // Check connectivity: once when the effect is launched
                 viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
 
@@ -104,7 +105,9 @@ class MainActivity : ComponentActivity() {
 
             MaterialAppTheme(darkTheme = viewModel.currentTheme.value) {
                 // A surface container using the 'background' color from the theme
-                if(state.isConnectedToInternet){
+                if(state.loadingState){
+                    // Loading state
+                }else if(state.isConnectedToInternet){
                     // Connected to internet
                     Scaffold(
                         snackbarHost = { SnackbarHost(snackBarController) },
