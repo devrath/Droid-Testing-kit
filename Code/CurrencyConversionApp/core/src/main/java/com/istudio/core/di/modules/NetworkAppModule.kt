@@ -46,7 +46,7 @@ object AppModule {
     ): Retrofit {
         val contentType = "application/json".toMediaType()
         return Retrofit.Builder()
-            .baseUrl("https://openexchangerates.org/api")
+            .baseUrl("https://openexchangerates.org/api/")
             .client(okHttpClient)
             .addConverterFactory(Json.asConverterFactory(contentType))
             .build()

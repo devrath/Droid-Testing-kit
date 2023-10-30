@@ -39,6 +39,10 @@ class CurrencyScreenVm @Inject constructor(
                 is CurrencyScreenViewEvent.SetCurrencyUserEnteredInput -> {
                     viewState.value = viewState.value.copy(currencyUserEnteredInput = event.currencyInputValue)
                 }
+
+                is CurrencyScreenViewEvent.GetCurrenciesFromApi -> {
+
+                }
             }
         }
     }
