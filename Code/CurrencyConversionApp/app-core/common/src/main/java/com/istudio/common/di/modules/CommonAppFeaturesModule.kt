@@ -1,4 +1,4 @@
-package com.istudio.currency_converter.di.modules
+package com.istudio.common.di.modules
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CommonFeatureAppModule {
+object CommonAppFeaturesModule {
 
     @Singleton
     @Provides
