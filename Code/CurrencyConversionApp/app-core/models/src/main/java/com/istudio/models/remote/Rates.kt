@@ -14,16 +14,16 @@ class Rates {
     @SerializedName("AWG") var aWG = 0.0
     @SerializedName("AZN") var aZN = 0.0
     @SerializedName("BAM") var bAM = 0.0
-    @SerializedName("BBD") var bBD = 0
+    @SerializedName("BBD") var bBD = 0.0
     @SerializedName("BDT") var bDT = 0.0
     @SerializedName("BGN") var bGN = 0.0
     @SerializedName("BHD") var bHD = 0.0
     @SerializedName("BIF") var bIF = 0.0
-    @SerializedName("BMD") var bMD = 0
+    @SerializedName("BMD") var bMD = 0.0
     @SerializedName("BND") var bND = 0.0
     @SerializedName("BOB") var bOB = 0.0
     @SerializedName("BRL") var bRL = 0.0
-    @SerializedName("BSD") var bSD = 0
+    @SerializedName("BSD") var bSD = 0.0
     @SerializedName("BTC") var bTC = 0.0
     @SerializedName("BTN") var bTN = 0.0
     @SerializedName("BWP") var bWP = 0.0
@@ -38,7 +38,7 @@ class Rates {
     @SerializedName("CNY") var cNY = 0.0
     @SerializedName("COP") var cOP = 0.0
     @SerializedName("CRC") var cRC = 0.0
-    @SerializedName("CUC") var cUC = 0
+    @SerializedName("CUC") var cUC = 0.0
     @SerializedName("CUP") var cUP = 0.0
     @SerializedName("CVE") var cVE = 0.0
     @SerializedName("CZK") var cZK = 0.0
@@ -47,7 +47,7 @@ class Rates {
     @SerializedName("DOP") var dOP = 0.0
     @SerializedName("DZD") var dZD = 0.0
     @SerializedName("EGP") var eGP = 0.0
-    @SerializedName("ERN") var eRN = 0
+    @SerializedName("ERN") var eRN = 0.0
     @SerializedName("ETB") var eTB = 0.0
     @SerializedName("EUR") var eUR = 0.0
     @SerializedName("FJD") var fJD = 0.0
@@ -81,7 +81,7 @@ class Rates {
     @SerializedName("KGS") var kGS = 0.0
     @SerializedName("KHR") var kHR = 0.0
     @SerializedName("KMF") var kMF = 0.0
-    @SerializedName("KPW") var kPW = 0
+    @SerializedName("KPW") var kPW = 0.0
     @SerializedName("KRW") var kRW = 0.0
     @SerializedName("KWD") var kWD = 0.0
     @SerializedName("KYD") var kYD = 0.0
@@ -113,7 +113,7 @@ class Rates {
     @SerializedName("NPR") var nPR = 0.0
     @SerializedName("NZD") var nZD = 0.0
     @SerializedName("OMR") var oMR = 0.0
-    @SerializedName("PAB") var pAB = 0
+    @SerializedName("PAB") var pAB = 0.0
     @SerializedName("PEN") var pEN = 0.0
     @SerializedName("PGK") var pGK = 0.0
     @SerializedName("PHP") var pHP = 0.0
@@ -128,7 +128,7 @@ class Rates {
     @SerializedName("SAR") var sAR = 0.0
     @SerializedName("SBD") var sBD = 0.0
     @SerializedName("SCR") var sCR = 0.0
-    @SerializedName("SDG") var sDG = 0
+    @SerializedName("SDG") var sDG = 0.0
     @SerializedName("SEK") var sEK = 0.0
     @SerializedName("SGD") var sGD = 0.0
     @SerializedName("SHP") var sHP = 0.0
@@ -149,10 +149,10 @@ class Rates {
     @SerializedName("TRY") var tRY = 0.0
     @SerializedName("TTD") var tTD = 0.0
     @SerializedName("TWD") var tWD = 0.0
-    @SerializedName("TZS") var tZS = 0
+    @SerializedName("TZS") var tZS = 0.0
     @SerializedName("UAH") var uAH = 0.0
     @SerializedName("UGX") var uGX = 0.0
-    @SerializedName("USD") var uSD = 0
+    @SerializedName("USD") var uSD = 0.0
     @SerializedName("UYU") var uYU = 0.0
     @SerializedName("UZS") var uZS = 0.0
     @SerializedName("VES") var vES = 0.0
@@ -171,5 +171,5 @@ class Rates {
     @SerializedName("YER") var yER = 0.0
     @SerializedName("ZAR") var zAR = 0.0
     @SerializedName("ZMW") var zMW = 0.0
-    @SerializedName("ZWL") var zWL = 0
+    @SerializedName("ZWL") var zWL = 0.0
 }
