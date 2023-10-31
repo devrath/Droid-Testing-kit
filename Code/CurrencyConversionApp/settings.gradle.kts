@@ -16,11 +16,11 @@ dependencyResolutionManagement {
 rootProject.name = "code"
 include(":app")
 include(":core")
-include(":app-ui")
 include(":app-features")
 include(":app-features:currency-converter")
 include(":app-features:currency-result")
 include(":app-core")
+include(":app-core:ui")
 include(":app-core:data")
 include(":app-core:data:network")
 include(":app-core:data:database")

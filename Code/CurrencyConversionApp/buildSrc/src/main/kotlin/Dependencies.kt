@@ -196,7 +196,6 @@ fun DependencyHandler.common() {
 
 // <------------------------ Project Modules ------------------------>
 fun DependencyHandler.core() { implementation(project(":core")) }
-fun DependencyHandler.coreUi() { implementation(project(":app-ui")) }
 fun DependencyHandler.features() { implementation(project(":app-features")) }
 fun DependencyHandler.featureCurrencyConverter() { implementation(project(":app-features:currency-converter")) }
 fun DependencyHandler.featureCurrencyResult() { implementation(project(":app-features:currency-result")) }
@@ -208,4 +207,5 @@ fun DependencyHandler.appNetwork() { implementation(project(":app-core:data:netw
 fun DependencyHandler.appDatabase() { implementation(project(":app-core:data:database")) }
 fun DependencyHandler.appPreferences() { implementation(project(":app-core:data:preferences")) }
 fun DependencyHandler.appCommon() { implementation(project(":app-core:common")) }
+fun DependencyHandler.coreUi() { implementation(project(":app-core:ui")) }
 // <------------------------ Project Modules ------------------------>
