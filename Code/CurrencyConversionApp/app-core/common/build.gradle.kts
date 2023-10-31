@@ -11,10 +11,8 @@ android {
 }
 
 dependencies {
-
+    // ---> Dependencies
     common()
-
-
     // ---> project-modules
     coreModels()
 }

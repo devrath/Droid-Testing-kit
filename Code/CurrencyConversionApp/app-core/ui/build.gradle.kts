@@ -11,10 +11,8 @@ android {
 }
 
 dependencies {
-
+    // ---> Dependencies
     uiModuleDependencies()
-
-
+    // ---> project-modules
     coreModels()
-
 }
