@@ -1,4 +1,4 @@
-package com.istudio.common.modules.db.dao
+package com.istudio.database.room.dao
 
 import androidx.room.Dao
 import androidx.room.Query

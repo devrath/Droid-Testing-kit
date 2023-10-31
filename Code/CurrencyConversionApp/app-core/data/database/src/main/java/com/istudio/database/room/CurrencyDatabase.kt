@@ -1,9 +1,9 @@
-package com.istudio.common.modules.db
+package com.istudio.database.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.istudio.common.modules.db.CurrencyDatabase.Companion.DATABASE_VERSION
-import com.istudio.common.modules.db.dao.CurrencyDao
+import com.istudio.database.room.CurrencyDatabase.Companion.DATABASE_VERSION
+import com.istudio.database.room.dao.CurrencyDao
 import com.istudio.models.local.CurrencyConversionEntity
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity

@@ -23,4 +23,5 @@ dependencies {
     coreModels()
     appCommon()
     appNetwork()
+    appDatabase()
 }

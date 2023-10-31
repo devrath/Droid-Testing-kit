@@ -1,6 +1,6 @@
-package com.istudio.currency_converter.data.repository
+package com.istudio.database.data.repository
 
-import com.istudio.currency_converter.domain.features.CurrencyDbFeatures
+import com.istudio.database.domain.CurrencyDbFeatures
 import com.istudio.models.local.CurrencyEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

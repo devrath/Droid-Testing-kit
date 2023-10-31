@@ -1,9 +1,9 @@
-package com.istudio.common.di.modules
+package com.istudio.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.istudio.common.modules.db.CurrencyDatabase
-import com.istudio.common.modules.db.dao.CurrencyDao
+import com.istudio.database.room.CurrencyDatabase
+import com.istudio.database.room.dao.CurrencyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
