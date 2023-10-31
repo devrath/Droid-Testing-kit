@@ -58,4 +58,9 @@ dependencies {
     coreUi()
     featureCurrencyConverter()
     featureCurrencyResult()
+
+    appNetwork()
+    appDatabase()
+    appPreferences()
+    appCommon()
 }

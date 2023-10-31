@@ -35,7 +35,7 @@ fun CurrencyScreen(
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
 
     LaunchedEffect(key1 = state.value.launchedEffectState) {
-        viewModel.onEvent(CurrencyScreenViewEvent.GetCurrenciesFromApi)
+        //viewModel.onEvent(CurrencyScreenViewEvent.GetCurrenciesFromApi)
         // <***********> Event is observed from View-Model <************>
         viewModel.uiEvent.collect { event ->
             when (event) {
