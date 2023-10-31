@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.istudio.code.states.AppScreenResponseEvent
 import com.istudio.code.states.AppScreenUiState
 import com.istudio.code.states.AppScreenViewEvent
-import com.istudio.core.platform.functional.UseCaseResult
-import com.istudio.core.platform.uiEvent.UiText
-import com.istudio.core.platform.viewmodel.BaseViewModel
+import com.istudio.common.platform.functional.UseCaseResult
+import com.istudio.common.platform.uiEvent.UiText
+import com.istudio.common.platform.viewmodel.BaseViewModel
 import com.istudio.currency_converter.domain.usecases.CommonFeaturesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

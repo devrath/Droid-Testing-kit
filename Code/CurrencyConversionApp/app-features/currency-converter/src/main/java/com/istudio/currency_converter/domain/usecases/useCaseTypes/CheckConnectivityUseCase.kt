@@ -4,7 +4,7 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.istudio.core.platform.actions.FlowAction
+import com.istudio.common.platform.actions.FlowAction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 class CheckConnectivityUseCase @Inject constructor(
     private val connectivityManager: ConnectivityManager
-) : FlowAction<Unit, Boolean>() {
+) : com.istudio.common.platform.actions.FlowAction<Unit, Boolean>() {
 
     override suspend fun createFlow(input: Unit): Flow<Boolean> {
         return flowOf(connectivityCheckBasedOnOs())

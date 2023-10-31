@@ -1,6 +1,6 @@
 package com.istudio.currency_converter.di.modules
 
-import com.istudio.core.modules.db.dao.CurrencyDao
+import com.istudio.common.modules.db.dao.CurrencyDao
 import com.istudio.currency_converter.data.implementation.CurrencyDbImpl
 import com.istudio.currency_converter.data.repository.CurrencyDbRepository
 import com.istudio.currency_converter.domain.features.CurrencyDbFeatures
@@ -37,7 +37,7 @@ object DbFeatureAppModule {
      *****************************/
     @Provides
     @Singleton
-    fun provideApiImpl(dao: CurrencyDao): CurrencyDbFeatures {
+    fun provideApiImpl(dao: com.istudio.common.modules.db.dao.CurrencyDao): CurrencyDbFeatures {
         return CurrencyDbImpl(dao)
     }
 

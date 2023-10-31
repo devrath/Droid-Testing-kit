@@ -1,0 +1,9 @@
+package com.istudio.common.navigation
+
+object Route {
+
+    const val CURRENCY_CONVERSION_SCREEN = "currency_conversion_screen"
+    const val CURRENCY_RESULT_SCREEN = "currency_result_screen"
+
+
+}

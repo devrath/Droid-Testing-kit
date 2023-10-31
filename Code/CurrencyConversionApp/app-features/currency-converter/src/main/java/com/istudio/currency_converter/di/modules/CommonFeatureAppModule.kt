@@ -2,7 +2,7 @@ package com.istudio.currency_converter.di.modules
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.istudio.core.platform.extensions.connectivityManager
+import com.istudio.common.platform.extensions.connectivityManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

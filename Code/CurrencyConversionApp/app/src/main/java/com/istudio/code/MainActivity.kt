@@ -39,7 +39,7 @@ import androidx.navigation.compose.rememberNavController
 import com.istudio.code.states.AppScreenResponseEvent
 import com.istudio.code.states.AppScreenUiState
 import com.istudio.code.states.AppScreenViewEvent
-import com.istudio.core.navigation.Route
+import com.istudio.common.navigation.Route
 import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
 import com.istudio.core_ui.composables.ThemeSwitcher

@@ -3,11 +3,18 @@ plugins {
     `kotlin-android`
 }
 
-apply<plugins.FeaturesGradlePlugin>()
+apply<plugins.CoreGradlePlugin>()
 
 android {
     namespace = ProjectConfig.common
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { common() }
+dependencies {
+
+    common()
+
+
+    // ---> project-modules
+    coreModels()
+}

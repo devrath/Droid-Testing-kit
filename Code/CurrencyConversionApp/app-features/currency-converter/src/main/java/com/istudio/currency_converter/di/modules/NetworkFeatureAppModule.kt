@@ -1,6 +1,6 @@
 package com.istudio.currency_converter.di.modules
 
-import com.istudio.core.modules.network.api.CurrencyApi
+import com.istudio.common.modules.network.api.CurrencyApi
 import com.istudio.currency_converter.data.implementation.CurrencyApiImpl
 import com.istudio.currency_converter.data.repository.CurrencyApiRepository
 import com.istudio.currency_converter.domain.features.CurrencyApiFeatures
@@ -36,7 +36,7 @@ object NetworkFeatureAppModule {
      *****************************/
     @Provides
     @Singleton
-    fun provideApiImpl(api:CurrencyApi): CurrencyApiFeatures {
+    fun provideApiImpl(api: com.istudio.common.modules.network.api.CurrencyApi): CurrencyApiFeatures {
         return CurrencyApiImpl(api)
     }
 

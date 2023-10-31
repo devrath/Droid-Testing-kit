@@ -124,7 +124,7 @@ fun DependencyHandler.appModuleDependencies() {
     unitTesting()
     instrumentationTesting()
     // --> Single modules
-    core()
+    common()
 }
 
 fun DependencyHandler.coreModuleDependencies() {
@@ -140,7 +140,7 @@ fun DependencyHandler.dataModuleDependencies() {
     room()
     retrofit()
     // --> Single modules
-    core()
+    common()
 }
 
 fun DependencyHandler.uiModuleDependencies() {
@@ -157,7 +157,7 @@ fun DependencyHandler.featureDependencies() {
     compose()
     implementation(Dependencies.hiltNavigationCompose)
     // --> Single modules
-    core()
+    common()
     coreUi()
 }
 // <----------------- Root Module Dependencies ----------------------->
@@ -168,7 +168,7 @@ fun DependencyHandler.network() {
     unitTesting()
     retrofit()
     // --> Single modules
-    core()
+    common()
 }
 
 fun DependencyHandler.database() {
@@ -176,7 +176,7 @@ fun DependencyHandler.database() {
     unitTesting()
     room()
     // --> Single modules
-    core()
+    common()
 }
 
 fun DependencyHandler.preferences() {
@@ -184,7 +184,7 @@ fun DependencyHandler.preferences() {
     unitTesting()
     room()
     // --> Single modules
-    core()
+    common()
 }
 
 fun DependencyHandler.common() {
@@ -203,7 +203,6 @@ fun DependencyHandler.models() {
 
 
 // <------------------------ Project Modules ------------------------>
-fun DependencyHandler.core() { implementation(project(":core")) }
 fun DependencyHandler.features() { implementation(project(":app-features")) }
 fun DependencyHandler.featureCurrencyConverter() { implementation(project(":app-features:currency-converter")) }
 fun DependencyHandler.featureCurrencyResult() { implementation(project(":app-features:currency-result")) }
