@@ -160,6 +160,39 @@ fun DependencyHandler.featureDependencies() {
 }
 // <----------------- Root Module Dependencies ----------------------->
 
+// <----------------- App-Core Module Dependencies ------------------->
+fun DependencyHandler.network() {
+    coreDependencies()
+    unitTesting()
+    retrofit()
+    // --> Single modules
+    core()
+}
+
+fun DependencyHandler.database() {
+    coreDependencies()
+    unitTesting()
+    room()
+    // --> Single modules
+    core()
+}
+
+fun DependencyHandler.preferences() {
+    coreDependencies()
+    unitTesting()
+    room()
+    // --> Single modules
+    core()
+}
+
+fun DependencyHandler.common() {
+    coreDependencies()
+    retrofit()
+    room()
+}
+// <----------------- App-Core Module Dependencies ------------------->
+
+
 
 // <------------------------ Project Modules ------------------------>
 fun DependencyHandler.core() { implementation(project(":core")) }
