@@ -1,4 +1,4 @@
-package com.istudio.core.models.local
+package com.istudio.models.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

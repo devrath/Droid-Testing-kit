@@ -1,8 +1,8 @@
 package com.istudio.core.modules.network.api
 
 import com.istudio.core.BuildConfig
-import com.istudio.core.models.remote.Currencies
-import com.istudio.core.models.remote.CurrencyConversionValues
+import com.istudio.models.remote.Currencies
+import com.istudio.models.remote.CurrencyConversionValues
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 
@@ -15,11 +15,11 @@ interface CurrencyApi {
     // API -> Getting the list of currencies
     // DOC -> https://docs.openexchangerates.org/reference/currencies-json
     @GET("currencies.json")
-    suspend fun getCurrencies(): Currencies
+    suspend fun getCurrencies(): com.istudio.models.remote.Currencies
 
     // API -> Getting the conversion values for all currencies
     // DOC -> https://docs.openexchangerates.org/reference/latest-json
     @GET("latest.json?app_id=$APP_ID")
-    suspend fun getCurrencyConversionValues(): CurrencyConversionValues
+    suspend fun getCurrencyConversionValues(): com.istudio.models.remote.CurrencyConversionValues
 
 }

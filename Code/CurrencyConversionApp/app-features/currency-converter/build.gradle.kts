@@ -13,4 +13,12 @@ android {
 dependencies {
     featureDependencies()
     retrofit()
+
+
+
+
+
+
+
+    coreModels()
 }

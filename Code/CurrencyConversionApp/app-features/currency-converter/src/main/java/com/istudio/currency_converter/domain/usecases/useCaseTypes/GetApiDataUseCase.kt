@@ -1,6 +1,6 @@
 package com.istudio.currency_converter.domain.usecases.useCaseTypes
 
-import com.istudio.core.models.custom.MasterApiData
+import com.istudio.models.custom.MasterApiData
 import com.istudio.core.platform.actions.Action
 import com.istudio.core.platform.actions.FlowAction
 import com.istudio.core.platform.coroutines.dispatcher.IoDispatcher
@@ -18,11 +18,11 @@ import javax.inject.Inject
 class GetApiDataUseCase @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val api : CurrencyApiRepository
-) : Action<Unit, MasterApiData>() {
-   override suspend fun action(input: Unit): MasterApiData = withContext(context = dispatcher) {
+) : Action<Unit, com.istudio.models.custom.MasterApiData>() {
+   override suspend fun action(input: Unit): com.istudio.models.custom.MasterApiData = withContext(context = dispatcher) {
        val currencies = async { api.getCurrencies() }.await()
        val conversionValues = async { api.getCurrencyConversionValues() }.await()
-       return@withContext MasterApiData(
+       return@withContext com.istudio.models.custom.MasterApiData(
            currencies = currencies,
            conversionValues = conversionValues
        )

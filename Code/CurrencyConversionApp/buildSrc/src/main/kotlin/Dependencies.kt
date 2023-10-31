@@ -44,6 +44,7 @@ object Dependencies {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val kotlinxSerializationConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.kotlinxSerializationConverter}"
     const val kotlinxSerializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerializationJson}"
+    const val retrofit2ConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit2ConverterGson}"
     // <---------------------> Retrofit Dependencies <-------------------->
 
     // <---------------------> Room Dependencies <------------------------>
@@ -86,6 +87,7 @@ fun DependencyHandler.retrofit() {
     implementation(Dependencies.okHttpLoggingInterceptor)
     implementation(Dependencies.kotlinxSerializationConverter)
     implementation(Dependencies.kotlinxSerializationJson)
+    implementation(Dependencies.retrofit2ConverterGson)
 }
 
 fun DependencyHandler.compose() {

@@ -10,6 +10,7 @@ object Versions {
     const val retrofit = "2.9.0"
     const val kotlinxSerializationConverter = "1.0.0"
     const val kotlinxSerializationJson = "1.6.0"
+    const val retrofit2ConverterGson = "2.9.0"
     const val room = "2.5.0"
     // -----> Testing
     const val junit = "4.13.2"

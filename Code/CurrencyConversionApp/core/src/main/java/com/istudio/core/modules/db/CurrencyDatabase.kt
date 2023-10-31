@@ -4,9 +4,9 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.istudio.core.modules.db.CurrencyDatabase.Companion.DATABASE_VERSION
 import com.istudio.core.modules.db.dao.CurrencyDao
-import com.istudio.core.models.local.CurrencyConversionEntity
-import com.istudio.core.models.local.CurrencyEntity
-import com.istudio.core.models.local.RatesEntity
+import com.istudio.models.local.CurrencyConversionEntity
+import com.istudio.models.local.CurrencyEntity
+import com.istudio.models.local.RatesEntity
 
 
 @Database(

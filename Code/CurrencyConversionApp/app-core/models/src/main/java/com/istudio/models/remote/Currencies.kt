@@ -1,4 +1,4 @@
-package com.istudio.core.models.remote
+package com.istudio.models.remote
 
 import com.google.gson.annotations.SerializedName
 
