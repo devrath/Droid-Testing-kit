@@ -3,6 +3,8 @@ package com.istudio.currency_converter.presentation
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
+import com.istudio.common.platform.coroutines.dispatcher.MainDispatcher
 import com.istudio.currency_converter.domain.usecases.FeatureUseCases
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
@@ -16,8 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CurrencyScreenVm @Inject constructor(
-    @com.istudio.common.platform.coroutines.dispatcher.IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    @com.istudio.common.platform.coroutines.dispatcher.MainDispatcher private val mainDispatcher: CoroutineDispatcher,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
     val useCases : FeatureUseCases
 ): com.istudio.common.platform.viewmodel.BaseViewModel<Unit>() {
     override fun setupPrerequisites(params: Unit) = Unit
