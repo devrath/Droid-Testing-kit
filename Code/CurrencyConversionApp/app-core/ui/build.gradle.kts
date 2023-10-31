@@ -10,9 +10,4 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies {
-    // ---> Dependencies
-    uiModuleDependencies()
-    // ---> project-modules
-    coreModels()
-}
+dependencies { uiModuleDependencies() }

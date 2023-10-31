@@ -10,9 +10,4 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies {
-    // ---> Dependencies
-    network()
-    // ---> project-modules
-    coreModels()
-}
+dependencies { network() }

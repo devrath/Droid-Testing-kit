@@ -10,18 +10,4 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies {
-    featureDependencies()
-    retrofit()
-
-
-
-
-
-
-
-    coreModels()
-    appCommon()
-    appNetwork()
-    appDatabase()
-}
+dependencies { currencyConverterFeature() }

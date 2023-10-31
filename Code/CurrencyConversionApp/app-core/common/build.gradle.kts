@@ -10,9 +10,4 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies {
-    // ---> Dependencies
-    common()
-    // ---> project-modules
-    coreModels()
-}
+dependencies { common() }

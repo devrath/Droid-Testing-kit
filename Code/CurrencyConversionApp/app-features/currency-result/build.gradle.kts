@@ -10,4 +10,4 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { featureDependencies() }
+dependencies { currencyResultFeature() }

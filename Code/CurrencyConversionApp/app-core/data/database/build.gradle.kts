@@ -10,9 +10,4 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies {
-    // ---> Dependencies
-    database()
-    // ---> project-modules
-    coreModels()
-}
+dependencies { database() }

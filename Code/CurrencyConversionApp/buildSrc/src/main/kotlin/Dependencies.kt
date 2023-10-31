@@ -148,6 +148,8 @@ fun DependencyHandler.uiModuleDependencies() {
     instrumentationTesting()
     unitTesting()
     compose()
+    // --> Single modules
+    coreModelsModule()
 }
 
 fun DependencyHandler.featureDependencies() {
@@ -158,7 +160,7 @@ fun DependencyHandler.featureDependencies() {
     implementation(Dependencies.hiltNavigationCompose)
     // --> Single modules
     common()
-    coreUi()
+    coreUiModule()
 }
 // <----------------- Root Module Dependencies ----------------------->
 
@@ -169,6 +171,7 @@ fun DependencyHandler.network() {
     retrofit()
     // --> Single modules
     common()
+    coreModelsModule()
 }
 
 fun DependencyHandler.database() {
@@ -177,6 +180,7 @@ fun DependencyHandler.database() {
     room()
     // --> Single modules
     common()
+    coreModelsModule()
 }
 
 fun DependencyHandler.preferences() {
@@ -191,6 +195,8 @@ fun DependencyHandler.common() {
     coreDependencies()
     retrofit()
     room()
+    // --> Single modules
+    coreModelsModule()
 }
 
 fun DependencyHandler.models() {
@@ -200,20 +206,40 @@ fun DependencyHandler.models() {
 }
 // <----------------- App-Core Module Dependencies ------------------->
 
+// <----------------- Feature Module Dependencies ------------------->
+fun DependencyHandler.currencyConverterFeature() {
+    featureDependencies()
+    retrofit()
+
+    // --> Single modules
+    coreModelsModule()
+    appCommonModule()
+    appNetworkModule()
+    appDatabaseModlue()
+}
+
+fun DependencyHandler.currencyResultFeature() {
+    featureDependencies()
+}
+// <----------------- Feature Module Dependencies ------------------->
 
 
 // <------------------------ Project Modules ------------------------>
+// <-----------> Feature-Modules <------------>
 fun DependencyHandler.features() { implementation(project(":app-features")) }
 fun DependencyHandler.featureCurrencyConverter() { implementation(project(":app-features:currency-converter")) }
 fun DependencyHandler.featureCurrencyResult() { implementation(project(":app-features:currency-result")) }
-// --> Container-Modules
+// <-----------> Feature-Modules <------------->
+// <-----------> Container-Modules <----------->
 fun DependencyHandler.appCore() { implementation(project(":app-core")) }
 fun DependencyHandler.appData() { implementation(project(":app-core:app-data")) }
-// --> Container-Modules
-fun DependencyHandler.appNetwork() { implementation(project(":app-core:data:network")) }
-fun DependencyHandler.appDatabase() { implementation(project(":app-core:data:database")) }
-fun DependencyHandler.appPreferences() { implementation(project(":app-core:data:preferences")) }
-fun DependencyHandler.appCommon() { implementation(project(":app-core:common")) }
-fun DependencyHandler.coreUi() { implementation(project(":app-core:ui")) }
-fun DependencyHandler.coreModels() { implementation(project(":app-core:models")) }
+// <-----------> Container-Modules <----------->
+// <-----------> Core-Modules <----------------->
+fun DependencyHandler.appNetworkModule() { implementation(project(":app-core:data:network")) }
+fun DependencyHandler.appDatabaseModlue() { implementation(project(":app-core:data:database")) }
+fun DependencyHandler.appPreferencesModule() { implementation(project(":app-core:data:preferences")) }
+fun DependencyHandler.appCommonModule() { implementation(project(":app-core:common")) }
+fun DependencyHandler.coreUiModule() { implementation(project(":app-core:ui")) }
+fun DependencyHandler.coreModelsModule() { implementation(project(":app-core:models")) }
+// <-----------> Core-Modules <----------------->
 // <------------------------ Project Modules ------------------------>
