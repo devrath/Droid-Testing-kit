@@ -196,7 +196,7 @@ fun DependencyHandler.common() {
 
 // <------------------------ Project Modules ------------------------>
 fun DependencyHandler.core() { implementation(project(":core")) }
-fun DependencyHandler.coreUi() { implementation(project(":core-ui")) }
+fun DependencyHandler.coreUi() { implementation(project(":app-ui")) }
 fun DependencyHandler.features() { implementation(project(":app-features")) }
 fun DependencyHandler.featureCurrencyConverter() { implementation(project(":app-features:currency-converter")) }
 fun DependencyHandler.featureCurrencyResult() { implementation(project(":app-features:currency-result")) }
