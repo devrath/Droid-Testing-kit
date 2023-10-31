@@ -63,4 +63,5 @@ dependencies {
     appDatabase()
     appPreferences()
     appCommon()
+    coreModels()
 }

@@ -190,6 +190,12 @@ fun DependencyHandler.common() {
     retrofit()
     room()
 }
+
+fun DependencyHandler.models() {
+    coreDependencies()
+    retrofit()
+    room()
+}
 // <----------------- App-Core Module Dependencies ------------------->
 
 
@@ -208,4 +214,5 @@ fun DependencyHandler.appDatabase() { implementation(project(":app-core:data:dat
 fun DependencyHandler.appPreferences() { implementation(project(":app-core:data:preferences")) }
 fun DependencyHandler.appCommon() { implementation(project(":app-core:common")) }
 fun DependencyHandler.coreUi() { implementation(project(":app-core:ui")) }
+fun DependencyHandler.coreModels() { implementation(project(":app-core:models")) }
 // <------------------------ Project Modules ------------------------>
