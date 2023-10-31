@@ -1,8 +1,7 @@
-package com.istudio.currency_converter.data.repository
+package com.istudio.network.data
 
 import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues
-import com.istudio.currency_converter.data.implementation.CurrencyApiImpl
 import javax.inject.Inject
 
 class CurrencyApiRepository @Inject constructor(

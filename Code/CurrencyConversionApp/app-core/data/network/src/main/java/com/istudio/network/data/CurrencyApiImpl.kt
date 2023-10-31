@@ -1,13 +1,13 @@
-package com.istudio.currency_converter.data.implementation
+package com.istudio.network.data
 
-import com.istudio.currency_converter.domain.features.CurrencyApiFeatures
 import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues
-import com.istudio.common.modules.network.api.CurrencyApi
+import com.istudio.network.api.CurrencyApi
+import com.istudio.network.domain.CurrencyApiFeatures
 import javax.inject.Inject
 
 class CurrencyApiImpl @Inject constructor(
-    private val api : com.istudio.common.modules.network.api.CurrencyApi
+    private val api : CurrencyApi
 ) : CurrencyApiFeatures {
     override suspend fun getCurrencies(): Currencies {
         return api.getCurrencies()

@@ -3,7 +3,7 @@ plugins {
     `kotlin-android`
 }
 
-apply<plugins.FeaturesGradlePlugin>()
+apply<plugins.CoreGradlePlugin>()
 
 android {
     namespace = ProjectConfig.network

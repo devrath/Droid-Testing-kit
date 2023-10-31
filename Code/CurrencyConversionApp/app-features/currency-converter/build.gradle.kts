@@ -22,4 +22,5 @@ dependencies {
 
     coreModels()
     appCommon()
+    appNetwork()
 }

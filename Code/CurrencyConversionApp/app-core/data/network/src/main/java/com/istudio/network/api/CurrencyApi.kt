@@ -1,8 +1,8 @@
-package com.istudio.common.modules.network.api
+package com.istudio.network.api
 
-import com.istudio.common.BuildConfig
 import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues
+import com.istudio.network.BuildConfig
 import retrofit2.http.GET
 
 interface CurrencyApi {

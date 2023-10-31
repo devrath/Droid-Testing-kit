@@ -1,7 +1,7 @@
-package com.istudio.common.di.modules
+package com.istudio.network.di
 
-import com.istudio.common.BuildConfig
-import com.istudio.common.modules.network.api.CurrencyApi
+import com.istudio.network.BuildConfig
+import com.istudio.network.api.CurrencyApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

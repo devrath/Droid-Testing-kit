@@ -1,4 +1,4 @@
-package com.istudio.currency_converter.domain.features
+package com.istudio.network.domain
 
 import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues

@@ -1,9 +1,8 @@
-package com.istudio.currency_converter.di.modules
+package com.istudio.network.di
 
-import com.istudio.common.modules.network.api.CurrencyApi
-import com.istudio.currency_converter.data.implementation.CurrencyApiImpl
-import com.istudio.currency_converter.data.repository.CurrencyApiRepository
-import com.istudio.currency_converter.domain.features.CurrencyApiFeatures
+import com.istudio.network.api.CurrencyApi
+import com.istudio.network.data.CurrencyApiImpl
+import com.istudio.network.data.CurrencyApiRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +35,7 @@ object NetworkFeatureAppModule {
      *****************************/
     @Provides
     @Singleton
-    fun provideApiImpl(api: com.istudio.common.modules.network.api.CurrencyApi): CurrencyApiFeatures {
+    fun provideApiImpl(api: CurrencyApi): com.istudio.network.domain.CurrencyApiFeatures {
         return CurrencyApiImpl(api)
     }
 

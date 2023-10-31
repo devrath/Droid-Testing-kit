@@ -1,30 +1,17 @@
 package com.istudio.currency_converter.presentation
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
-import com.istudio.common.platform.coroutines.dispatcher.MainDispatcher
-import com.istudio.common.platform.functional.UseCaseResult
-import com.istudio.common.platform.uiEvent.UiText
-import com.istudio.common.platform.viewmodel.BaseViewModel
-import com.istudio.currency_converter.data.repository.CurrencyApiRepository
 import com.istudio.currency_converter.domain.usecases.FeatureUseCases
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
