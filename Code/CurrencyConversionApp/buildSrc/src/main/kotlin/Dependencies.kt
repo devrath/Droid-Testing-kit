@@ -65,6 +65,7 @@ object Dependencies {
 }
 
 // <----------- Individual Library group Dependencies ---------------->
+// <--------> Core Dependencies <---------------->
 fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.activitycompose)
@@ -74,13 +75,13 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.serilization)
     hilt()
 }
-
+// <--------> Room Dependencies <---------------->
 fun DependencyHandler.room() {
     implementation(Dependencies.roomRuntime)
     implementation(Dependencies.roomKtx)
     kapt(Dependencies.roomCompiler)
 }
-
+// <--------> Retrofit Dependencies <------------>
 fun DependencyHandler.retrofit() {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.okHttp)
@@ -89,7 +90,7 @@ fun DependencyHandler.retrofit() {
     implementation(Dependencies.kotlinxSerializationJson)
     implementation(Dependencies.retrofit2ConverterGson)
 }
-
+// <--------> Compose Dependencies <------------->
 fun DependencyHandler.compose() {
     implementation(Dependencies.composeUi)
     implementation(Dependencies.composeRuntime)
@@ -99,16 +100,16 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.materialIconsExtended)
     debugImplementation(Dependencies.composeUiToolingPreview)
 }
-
+// <---> Unit Testing Dependencies <---------------->
 fun DependencyHandler.unitTesting() {
     testImplementation(Dependencies.junit)
 }
-
+// <---> Instrumentation Testing Dependencies <----->
 fun DependencyHandler.instrumentationTesting() {
     implementation(Dependencies.junitInstrumentation)
     implementation(Dependencies.espressoCore)
 }
-
+// <--------> Hilt Dependencies <------------------->
 fun DependencyHandler.hilt() {
     implementation(Dependencies.hiltAndroid)
     kapt(Dependencies.hiltCompiler)
@@ -118,6 +119,7 @@ fun DependencyHandler.hilt() {
 
 
 // <----------------- Root Module Dependencies ----------------------->
+// <-----> App Dependencies <----->
 fun DependencyHandler.appModuleDependencies() {
     coreDependencies()
     compose()
@@ -126,14 +128,14 @@ fun DependencyHandler.appModuleDependencies() {
     // --> Single modules
     common()
 }
-
+// <-----> Core Dependencies <----->
 fun DependencyHandler.coreModuleDependencies() {
     coreDependencies()
     unitTesting()
     room()
     retrofit()
 }
-
+// <-----> Data Dependencies <----->
 fun DependencyHandler.dataModuleDependencies() {
     coreDependencies()
     unitTesting()
@@ -142,7 +144,7 @@ fun DependencyHandler.dataModuleDependencies() {
     // --> Single modules
     common()
 }
-
+// <-----> Ui Dependencies <------->
 fun DependencyHandler.uiModuleDependencies() {
     coreDependencies()
     instrumentationTesting()
@@ -151,7 +153,7 @@ fun DependencyHandler.uiModuleDependencies() {
     // --> Single modules
     coreModelsModule()
 }
-
+// <----> Feature Dependencies <---->
 fun DependencyHandler.featureDependencies() {
     coreDependencies()
     instrumentationTesting()
@@ -165,6 +167,7 @@ fun DependencyHandler.featureDependencies() {
 // <----------------- Root Module Dependencies ----------------------->
 
 // <----------------- App-Core Module Dependencies ------------------->
+// <----> Network Module Dependencies <---->
 fun DependencyHandler.network() {
     coreDependencies()
     unitTesting()
@@ -173,7 +176,7 @@ fun DependencyHandler.network() {
     common()
     coreModelsModule()
 }
-
+// <----> Database Module Dependencies <---->
 fun DependencyHandler.database() {
     coreDependencies()
     unitTesting()
@@ -182,7 +185,7 @@ fun DependencyHandler.database() {
     common()
     coreModelsModule()
 }
-
+// <---> Preferences Module Dependencies <--->
 fun DependencyHandler.preferences() {
     coreDependencies()
     unitTesting()
@@ -190,7 +193,7 @@ fun DependencyHandler.preferences() {
     // --> Single modules
     common()
 }
-
+// <---> Common Module Dependencies <--->
 fun DependencyHandler.common() {
     coreDependencies()
     retrofit()
@@ -198,7 +201,7 @@ fun DependencyHandler.common() {
     // --> Single modules
     coreModelsModule()
 }
-
+// <---> Models Module Dependencies <--->
 fun DependencyHandler.models() {
     coreDependencies()
     retrofit()
@@ -207,17 +210,17 @@ fun DependencyHandler.models() {
 // <----------------- App-Core Module Dependencies ------------------->
 
 // <----------------- Feature Module Dependencies ------------------->
+// <---> CurrencyConversion Feature Module Dependencies <--->
 fun DependencyHandler.currencyConverterFeature() {
     featureDependencies()
     retrofit()
-
     // --> Single modules
     coreModelsModule()
     appCommonModule()
     appNetworkModule()
     appDatabaseModlue()
 }
-
+// <---> CurrencyResult Feature Module Dependencies <--->
 fun DependencyHandler.currencyResultFeature() {
     featureDependencies()
 }
