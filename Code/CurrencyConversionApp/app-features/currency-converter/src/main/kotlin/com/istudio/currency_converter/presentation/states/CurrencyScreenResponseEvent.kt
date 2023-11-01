@@ -7,7 +7,7 @@ sealed class CurrencyScreenResponseEvent {
     data class ShowSnackBar(val message: String) : CurrencyScreenResponseEvent()
     data class InsertingCurrienciesToDbSuccessful(val data : MasterApiData) : CurrencyScreenResponseEvent()
     data class GettingDataFromServerSuccessful(val data : MasterApiData) : CurrencyScreenResponseEvent()
-
     data class ShouldUiBeDisplayed(val shouldUiBeDisplayed: Boolean) : CurrencyScreenResponseEvent()
+    object PreferencesSavedForLocalCache : CurrencyScreenResponseEvent()
 
 }

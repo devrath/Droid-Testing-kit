@@ -80,7 +80,7 @@ class CurrencyScreenVm @Inject constructor(
                 }
 
                 is CurrencyScreenViewEvent.SaveTimeStamp -> {
-
+                    savePreferencesLocalCacheSaved(event.data)
                 }
             }
         }
@@ -88,6 +88,22 @@ class CurrencyScreenVm @Inject constructor(
     /** <************> UI Action is invoked from composable <************> **/
 
     /** <*********************> Use case invocations <*******************> **/
+    /**
+     * USE-CASE :----> Preferences saved indicating cache is saved
+     */
+    private fun savePreferencesLocalCacheSaved(data: MasterApiData) = uiScope.launch {
+        try {
+            val result = useCases.saveTimeStampUseCase.invoke(data)
+            if(result.isSuccess){
+                _uiEvent.send(CurrencyScreenResponseEvent.PreferencesSavedForLocalCache)
+            }else{
+                useCaseErrorMessage(UiText.DynamicString("Error in saving preferences data"))
+            }
+        }catch (ex:Exception){
+            errorPerformingUseCase(ex)
+        }
+    }
+
     /**
      * USE-CASE :----> Can UI be displayed
      */

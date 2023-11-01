@@ -78,7 +78,9 @@ fun CurrencyScreen(
 
                 }
 
-
+                is CurrencyScreenResponseEvent.PreferencesSavedForLocalCache -> {
+                    print("Preferences are saved")
+                }
             }
         }
         // <***********> Event is observed from View-Model <************>

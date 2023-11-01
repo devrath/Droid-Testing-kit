@@ -9,6 +9,8 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyLi
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyRatesListDataFromDbUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetDataFromNetworkUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.InsertDataIntoDbUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.SaveTimeStampUseCase
+import com.istudio.preferences.data.RepositoryPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +28,8 @@ object FeaturesUseCaseModule {
     fun provideTrackerUseCases(
         @IoDispatcher dispatcher: CoroutineDispatcher,
         repo: RepositoryControllerFeatures,
-        gson: Gson
+        preferences : RepositoryPreferences,
+        gson: Gson,
     ): FeatureUseCases {
         return FeatureUseCases(
             network = GetDataFromNetworkUseCase(
@@ -41,7 +44,12 @@ object FeaturesUseCaseModule {
             dbRetrieveCurrencyRates = GetCurrencyRatesListDataFromDbUseCase(
                 dispatcher = dispatcher, repoController = repo
             ),
-            canUiBeDisplayedUseCase = CanUiBeDisplayedUseCase(dispatcher = dispatcher)
+            canUiBeDisplayedUseCase = CanUiBeDisplayedUseCase(
+                dispatcher = dispatcher
+            ),
+            saveTimeStampUseCase = SaveTimeStampUseCase(
+                dispatcher = dispatcher, preferences = preferences
+            )
         )
     }
 }

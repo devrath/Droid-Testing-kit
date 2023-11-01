@@ -5,6 +5,7 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyLi
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyRatesListDataFromDbUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetDataFromNetworkUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.InsertDataIntoDbUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.SaveTimeStampUseCase
 
 data class FeatureUseCases(
     // Use-Case:-> Network
@@ -16,5 +17,7 @@ data class FeatureUseCases(
     // Use-Case:-> Get Currency rates data from DB
     val dbRetrieveCurrencyRates: GetCurrencyRatesListDataFromDbUseCase,
     // Use-Case:-> Can UI be displayed
-    val canUiBeDisplayedUseCase : CanUiBeDisplayedUseCase
+    val canUiBeDisplayedUseCase : CanUiBeDisplayedUseCase,
+    // Use-Case:-> Save preferences to Datastore
+    val saveTimeStampUseCase : SaveTimeStampUseCase
 )
