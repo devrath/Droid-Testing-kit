@@ -1,15 +1,15 @@
 package com.istudio.models.local
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "rates_table")
 data class RatesEntity(
-    @PrimaryKey(autoGenerate = true)
-    val url: Int = 0,
+    @PrimaryKey @NonNull
     @ColumnInfo(name = "ratesKey")
-    val ratesKey : String? = null,
+    val ratesKey : String,
     @ColumnInfo(name = "ratesValue")
     val ratesValue : Double? = null
 )

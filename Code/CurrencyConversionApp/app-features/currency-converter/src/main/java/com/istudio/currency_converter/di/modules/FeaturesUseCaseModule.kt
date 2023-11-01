@@ -1,9 +1,14 @@
 package com.istudio.currency_converter.di.modules
 
+import com.google.gson.Gson
 import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
 import com.istudio.currency_converter.data.repository.RepositoryControllerFeatures
 import com.istudio.currency_converter.domain.usecases.FeatureUseCases
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDisplayedUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyListDataFromDbUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyRatesListDataFromDbUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetDataFromNetworkUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.InsertDataIntoDbUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,10 +25,23 @@ object FeaturesUseCaseModule {
     @Provides
     fun provideTrackerUseCases(
         @IoDispatcher dispatcher: CoroutineDispatcher,
-        repo: RepositoryControllerFeatures
+        repo: RepositoryControllerFeatures,
+        gson: Gson
     ): FeatureUseCases {
         return FeatureUseCases(
-            getDataFromNetworkUseCase = GetDataFromNetworkUseCase(dispatcher = dispatcher, repoController = repo)
+            network = GetDataFromNetworkUseCase(
+                dispatcher = dispatcher, repoController = repo
+            ),
+            dbInsertAllData = InsertDataIntoDbUseCase(
+                dispatcher = dispatcher, repoController = repo, gson = gson
+            ),
+            dbRetrieveCurrencies = GetCurrencyListDataFromDbUseCase(
+                dispatcher = dispatcher, repoController = repo
+            ),
+            dbRetrieveCurrencyRates = GetCurrencyRatesListDataFromDbUseCase(
+                dispatcher = dispatcher, repoController = repo
+            ),
+            canUiBeDisplayedUseCase = CanUiBeDisplayedUseCase(dispatcher = dispatcher)
         )
     }
 }

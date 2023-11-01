@@ -16,9 +16,9 @@ class GetDataFromNetworkUseCase @Inject constructor(
    override suspend fun action(input: Unit): Result<MasterApiData> = withContext(context = dispatcher) {
        try {
            // Currencies
-           val currencies = async { repoController.getCurrencies() }.await()
+           val currencies = async { repoController.getCurrenciesFromApi() }.await()
            // Currency Values
-           val conversionValues = async { repoController.getCurrencyConversionValues() }.await()
+           val conversionValues = async { repoController.getCurrencyConversionValuesFromApi() }.await()
            // Final result  = Currencies + Currency Values
            val result = MasterApiData(
                currencies = currencies,

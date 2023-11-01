@@ -10,20 +10,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.istudio.core_ui.composables.DropDownField
 import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
 import com.istudio.core_ui.theme.LocalSpacing
+import com.istudio.models.local.CurrencyEntity
+import com.istudio.models.local.RatesEntity
+
 @Composable
 fun CurrencyScreenPortrait(
+    curriencyList : List<CurrencyEntity>,
+    curriencyRatesList : List<RatesEntity>,
     currencyInputText : String,
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit
@@ -50,30 +53,23 @@ fun CurrencyScreenPortrait(
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.End
         ) {
 
-            Text(
-                text = "Output",
-                style = MaterialTheme.typography.titleMedium,
+            Spacer(
                 modifier = Modifier
-                    .weight(1.8f)
-                    .padding(
-                        horizontal = LocalSpacing.current.spaceExtraSmall,
-                        vertical = 20.dp
-                    ),
-                textAlign = TextAlign.Start,
-                maxLines = 1
+                .height(LocalSpacing.current.spaceExtraSmall)
+                .width(5.dp).weight(1f)
             )
 
-            Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
-
-            Box(modifier = Modifier.weight(1f)) { DropDownField() }
+            Box() {
+                DropDownField(dataList = curriencyList)
+            }
         }
 
         Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
-        GridInput(){ selectedItem ->
+        GridInput(data = curriencyRatesList){ selectedItem ->
 
         }
     }

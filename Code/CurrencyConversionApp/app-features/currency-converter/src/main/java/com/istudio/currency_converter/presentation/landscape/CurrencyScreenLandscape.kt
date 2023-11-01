@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,9 +25,13 @@ import com.istudio.core_ui.composables.DropDownField
 import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
 import com.istudio.core_ui.theme.LocalSpacing
+import com.istudio.models.local.CurrencyEntity
+import com.istudio.models.local.RatesEntity
 
 @Composable
 fun CurrencyScreenLandscape(
+    curriencyList : List<CurrencyEntity>,
+    curriencyRatesList : List<RatesEntity>,
     currencyInputText : String,
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit
@@ -58,7 +63,22 @@ fun CurrencyScreenLandscape(
 
                 Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
-                Box(modifier = Modifier.fillMaxWidth().weight(1f)) { DropDownField() }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End
+                ) {
+
+                    Spacer(
+                        modifier = Modifier
+                            .height(LocalSpacing.current.spaceExtraSmall)
+                            .width(5.dp).weight(1f)
+                    )
+
+                    Box() {
+                        DropDownField(dataList = curriencyList)
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
@@ -80,6 +100,7 @@ fun CurrencyScreenLandscape(
             modifier = Modifier.weight(1f).fillMaxHeight()
         ) {
             GridInput(
+                data = curriencyRatesList,
                 modifier = Modifier.fillMaxWidth().weight(1f),
             ){ selectedItem ->
 
@@ -95,6 +116,8 @@ fun CurrencyScreenLandscape(
 @Composable
 private fun CurrentScreen() {
     CurrencyScreenLandscape(
+        curriencyList = emptyList(),
+        curriencyRatesList = emptyList(),
         currencyInputText = "100",
         onKeyBoardOutsideClick = { },
         currencyInputChange = { }

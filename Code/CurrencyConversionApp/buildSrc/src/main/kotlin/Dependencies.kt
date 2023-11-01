@@ -1,3 +1,6 @@
+import Dependencies.coreSplash
+import Dependencies.hiltNavigationCompose
+import Dependencies.preferencesDataStore
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 
@@ -17,6 +20,13 @@ object Dependencies {
     const val serilization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serilization}"
     // <---------------------> Core Dependencies <------------------------>
 
+    // <---------------------> Preference Dependencies <------------------>
+    const val preferencesDataStore = "androidx.datastore:datastore-preferences:${Versions.datastorePreferences}"
+    // <---------------------> Preference Dependencies <------------------>
+
+    // <---------------------> Preference Dependencies <------------------>
+    const val coreSplash = "androidx.core:core-splashscreen:${Versions.coreSplash}"
+    // <---------------------> Preference Dependencies <------------------>
 
     // <---------------------> Compose Dependencies <--------------------->
     const val composeMaterial = "androidx.compose.material3:material3:${Versions.composeMaterial3}"
@@ -76,6 +86,10 @@ fun DependencyHandler.coreDependencies() {
     hilt()
 }
 // <--------> Room Dependencies <---------------->
+fun DependencyHandler.preferencesDataStore() {
+    implementation(Dependencies.preferencesDataStore)
+}
+// <--------> Room Dependencies <---------------->
 fun DependencyHandler.room() {
     implementation(Dependencies.roomRuntime)
     implementation(Dependencies.roomKtx)
@@ -125,8 +139,25 @@ fun DependencyHandler.appModuleDependencies() {
     compose()
     unitTesting()
     instrumentationTesting()
+    // <-----------> App Module Specific  <----------->
+    implementation(hiltNavigationCompose)
+    implementation(coreSplash)
+    // <-----------> App Module Specific  <----------->
     // --> Single modules
     common()
+    // <-----------> Module link to currency Feature  <----------->
+    coreUiModule()
+    featureCurrencyConverter()
+    featureCurrencyResult()
+    // <-----------> Module link to currency Feature  <----------->
+
+    // <-----------> Module Dependencies <----------->
+    appNetworkModule()
+    appDatabaseModlue()
+    appPreferencesModule()
+    appCommonModule()
+    coreModelsModule()
+    // <-----------> Module Dependencies <----------->
 }
 // <-----> Core Dependencies <----->
 fun DependencyHandler.coreModuleDependencies() {
@@ -189,7 +220,7 @@ fun DependencyHandler.database() {
 fun DependencyHandler.preferences() {
     coreDependencies()
     unitTesting()
-    room()
+    preferencesDataStore()
     // --> Single modules
     common()
 }

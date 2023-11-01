@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.istudio.currency_converter.R
+import com.istudio.models.local.CurrencyEntity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDownField(
     modifier: Modifier = Modifier,
-    dataList: MutableList<String> = mutableListOf(),
+    dataList: List<CurrencyEntity> = mutableListOf(),
     isExpanded: MutableState<Boolean> = mutableStateOf(false),
     actionText: MutableState<String> = mutableStateOf("")
 ) {
@@ -66,9 +67,9 @@ fun DropDownField(
             dataList.forEachIndexed { index, item ->
                 DropdownMenuItem(
                     modifier = Modifier.exposedDropdownSize(),
-                    text = { Text(text = item) },
+                    text = { Text(text = item.currencyName.toString()) },
                     onClick = {
-                        actionTextLocal = item
+                        actionTextLocal = item.currencyName.toString()
                         isExpandedLocal = false
                     }
                 )
@@ -83,6 +84,6 @@ fun DropDownField(
 @Composable
 private fun CurrentDisplay() {
     DropDownField(
-        dataList = mutableListOf("Item-1,Item-2,Item-3")
+        dataList = mutableListOf()
     )
 }

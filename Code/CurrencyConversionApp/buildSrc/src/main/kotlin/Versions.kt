@@ -1,7 +1,7 @@
 object Versions {
     const val compose = "1.4.3"
     const val composeMaterial3 = "1.1.1"
-    const val materialIconsExtended = "1.6.0-alpha08"
+    const val materialIconsExtended = "1.6.0-alpha07"
     const val composeCompiler = "1.4.6"
     const val hilt = "2.45"
     const val hiltNavigationCompose = "1.1.0-beta01"
@@ -24,5 +24,8 @@ object Versions {
     const val lifecycleRuntimeKtx = "2.6.2"
     const val serilization = "1.6.0"
     const val javapoet = "1.13.0"
+    const val datastorePreferences = "1.0.0"
+    const val coreSplash = "1.1.0-alpha02"
+
 
 }
