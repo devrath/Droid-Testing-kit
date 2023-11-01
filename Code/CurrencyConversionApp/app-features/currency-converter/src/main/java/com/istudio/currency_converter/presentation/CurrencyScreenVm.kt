@@ -67,9 +67,7 @@ class CurrencyScreenVm @Inject constructor(
         try{
             val result = useCases.database.invoke(data)
             if(result.isSuccess){
-                result.map { data ->
-                    println(data)
-                }
+                println(data)
             }
         }catch (ex:Exception){
             useCaseErrorMessage(UiText.DynamicString(ex.message.toString()))
