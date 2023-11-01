@@ -50,6 +50,10 @@ class MainVm @Inject constructor(
                 is AppScreenViewEvent.LoadingState -> {
                     viewState = viewState.copy(loadingState = true)
                 }
+
+                is AppScreenViewEvent.ToolbarVisibility -> {
+                    viewState = viewState.copy(isToolbarVisible = event.isVisible)
+                }
             }
         }
     }

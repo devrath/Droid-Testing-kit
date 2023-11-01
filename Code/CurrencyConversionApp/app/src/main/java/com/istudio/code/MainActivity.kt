@@ -151,22 +151,23 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize()
                     .nestedScroll(scrollBehaviour.nestedScrollConnection),
                 topBar = {
-
-                    TopAppBar(
-                        title = { Text(text = titleStr) },
-                        scrollBehavior = scrollBehaviour,
-                        actions = {
-                            ThemeSwitcher(
-                                darkTheme = viewModel.currentTheme.value,
-                                size = 50.dp,
-                                padding = 5.dp,
-                                onClick = {
-                                    // Update theme on-click
-                                    viewModel.currentTheme.value = !viewModel.currentTheme.value
-                                }
-                            )
-                        }
-                    )
+                    if(viewModel.viewState.isToolbarVisible){
+                        TopAppBar(
+                            title = { Text(text = titleStr) },
+                            scrollBehavior = scrollBehaviour,
+                            actions = {
+                                ThemeSwitcher(
+                                    darkTheme = viewModel.currentTheme.value,
+                                    size = 50.dp,
+                                    padding = 5.dp,
+                                    onClick = {
+                                        // Update theme on-click
+                                        viewModel.currentTheme.value = !viewModel.currentTheme.value
+                                    }
+                                )
+                            }
+                        )
+                    }
                 }
             ) {
                 Box(
@@ -191,6 +192,10 @@ class MainActivity : ComponentActivity() {
                                 onBackPress = {
                                     // Scenario : When user presses back button
 
+                                },
+                                onLoading = { isVisible ->
+                                    // Toggle toolbar visibility
+                                    viewModel.onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = isVisible))
                                 }
                             )
                         }

@@ -26,7 +26,8 @@ fun CurrencyScreen(
     modifier: Modifier = Modifier,
     onErrorAction: (String) -> Unit,
     onKeyBoardOutsideClick: () -> Unit,
-    onBackPress: () -> Unit
+    onBackPress: () -> Unit,
+    onLoading:(Boolean) -> Unit
 ) {
 
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
@@ -64,6 +65,7 @@ fun CurrencyScreen(
                     viewModel.onEvent(
                         CurrencyScreenViewEvent.ShouldUiBeDisplayed(event.shouldUiBeDisplayed)
                     )
+                    onLoading.invoke(event.shouldUiBeDisplayed)
                 }
 
                 is CurrencyScreenResponseEvent.CurrencyUserInputError -> {
