@@ -81,6 +81,12 @@ fun CurrencyScreen(
                 is CurrencyScreenResponseEvent.PreferencesSavedForLocalCache -> {
                     print("Preferences are saved")
                 }
+
+                is CurrencyScreenResponseEvent.ToggleData -> {
+                    viewModel.onEvent(
+                        CurrencyScreenViewEvent.GetCurrenciesFromApi(event.shouldNewDataBeRecievedFromServer)
+                    )
+                }
             }
         }
         // <***********> Event is observed from View-Model <************>

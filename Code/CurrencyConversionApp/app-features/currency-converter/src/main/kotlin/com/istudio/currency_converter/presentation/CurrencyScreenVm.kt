@@ -30,8 +30,10 @@ class CurrencyScreenVm @Inject constructor(
 ): BaseViewModel<Unit>() {
 
     init {
-        getDataFromServer()
+        toggleData()
+        //getDataFromServer()
     }
+
     override fun setupPrerequisites(params: Unit) = Unit
 
     // Holds the data of all the widgets in the view
@@ -53,8 +55,15 @@ class CurrencyScreenVm @Inject constructor(
                 }
 
                 is CurrencyScreenViewEvent.GetCurrenciesFromApi -> {
-                    // Getting the data from the server
-                    getDataFromServer()
+                    if(event.shouldNewDataBeFetchedFromServer){
+                        // Getting the data from the server
+                        getDataFromServer()
+                    }else{
+                        // Get data from currency list from database
+                        getCurrencyListFromDatabase()
+                        // Get data from currency rates list from database
+                        getCurrencyRatesListFromDatabase()
+                    }
                 }
 
                 is CurrencyScreenViewEvent.InsertDataIntoDb -> {
@@ -88,6 +97,25 @@ class CurrencyScreenVm @Inject constructor(
     /** <************> UI Action is invoked from composable <************> **/
 
     /** <*********************> Use case invocations <*******************> **/
+
+    /**
+     * USE-CASE :----> Toggle data from DB and Server
+     */
+    private fun toggleData() = uiScope.launch {
+        try {
+            val result = useCases.isNewDataToBeFetchedFromServerUseCase.invoke(Unit)
+            if(result.isSuccess){
+                result.map {
+                    _uiEvent.send(CurrencyScreenResponseEvent.ToggleData(it))
+                }
+            }else{
+                useCaseErrorMessage(UiText.DynamicString("Error in saving preferences data"))
+            }
+        }catch (ex:Exception){
+            errorPerformingUseCase(ex)
+        }
+    }
+
     /**
      * USE-CASE :----> Preferences saved indicating cache is saved
      */

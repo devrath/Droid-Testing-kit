@@ -5,6 +5,7 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyLi
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyRatesListDataFromDbUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetDataFromNetworkUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.InsertDataIntoDbUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.IsNewDataToBeFetchedFromServerUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.SaveTimeStampUseCase
 
 data class FeatureUseCases(
@@ -19,5 +20,7 @@ data class FeatureUseCases(
     // Use-Case:-> Can UI be displayed
     val canUiBeDisplayedUseCase : CanUiBeDisplayedUseCase,
     // Use-Case:-> Save preferences to Datastore
-    val saveTimeStampUseCase : SaveTimeStampUseCase
+    val saveTimeStampUseCase : SaveTimeStampUseCase,
+    // Use-Case:-> Determine if new data has to be fetched from server
+    val isNewDataToBeFetchedFromServerUseCase : IsNewDataToBeFetchedFromServerUseCase
 )

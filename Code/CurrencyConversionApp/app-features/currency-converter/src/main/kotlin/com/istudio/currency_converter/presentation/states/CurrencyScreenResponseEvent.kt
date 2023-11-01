@@ -9,5 +9,6 @@ sealed class CurrencyScreenResponseEvent {
     data class GettingDataFromServerSuccessful(val data : MasterApiData) : CurrencyScreenResponseEvent()
     data class ShouldUiBeDisplayed(val shouldUiBeDisplayed: Boolean) : CurrencyScreenResponseEvent()
     object PreferencesSavedForLocalCache : CurrencyScreenResponseEvent()
+    data class ToggleData(val shouldNewDataBeRecievedFromServer: Boolean) : CurrencyScreenResponseEvent()
 
 }

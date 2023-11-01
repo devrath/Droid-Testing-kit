@@ -4,7 +4,7 @@ import com.istudio.models.custom.MasterApiData
 
 sealed class CurrencyScreenViewEvent {
     data class SetCurrencyUserEnteredInput(val currencyInputValue: String) : CurrencyScreenViewEvent()
-    object GetCurrenciesFromApi : CurrencyScreenViewEvent()
+    data class GetCurrenciesFromApi(val shouldNewDataBeFetchedFromServer: Boolean) : CurrencyScreenViewEvent()
     data class InsertDataIntoDb(val data: MasterApiData)  : CurrencyScreenViewEvent()
     data class ShouldUiBeDisplayed(val shouldUiBeDisplayed: Boolean)  : CurrencyScreenViewEvent()
     data class SaveTimeStamp(val data: MasterApiData)  : CurrencyScreenViewEvent()
