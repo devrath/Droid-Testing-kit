@@ -4,8 +4,9 @@ import com.google.gson.Gson
 import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
 import com.istudio.currency_converter.data.repository.RepositoryControllerFeatures
 import com.istudio.currency_converter.domain.usecases.FeatureUseCases
-import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyListDataFromDb
-import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyRatesListDataFromDb
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDisplayedUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyListDataFromDbUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyRatesListDataFromDbUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetDataFromNetworkUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.InsertDataIntoDbUseCase
 import dagger.Module
@@ -34,12 +35,13 @@ object FeaturesUseCaseModule {
             dbInsertAllData = InsertDataIntoDbUseCase(
                 dispatcher = dispatcher, repoController = repo, gson = gson
             ),
-            dbRetrieveCurrencies = GetCurrencyListDataFromDb(
+            dbRetrieveCurrencies = GetCurrencyListDataFromDbUseCase(
                 dispatcher = dispatcher, repoController = repo
             ),
-            dbRetrieveCurrencyRates = GetCurrencyRatesListDataFromDb(
+            dbRetrieveCurrencyRates = GetCurrencyRatesListDataFromDbUseCase(
                 dispatcher = dispatcher, repoController = repo
-            )
+            ),
+            canUiBeDisplayedUseCase = CanUiBeDisplayedUseCase(dispatcher = dispatcher)
         )
     }
 }

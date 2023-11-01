@@ -8,4 +8,6 @@ sealed class CurrencyScreenResponseEvent {
     object InsertingCurrienciesToDbSuccessful : CurrencyScreenResponseEvent()
     data class GettingDataFromServerSuccessful(val data : MasterApiData) : CurrencyScreenResponseEvent()
 
+    data class ShouldUiBeDisplayed(val shouldUiBeDisplayed: Boolean) : CurrencyScreenResponseEvent()
+
 }

@@ -52,6 +52,12 @@ fun CurrencyScreen(
                     viewModel.onEvent(CurrencyScreenViewEvent.GetCurrencyRatesDataFromDb)
                 }
 
+                is CurrencyScreenResponseEvent.ShouldUiBeDisplayed -> {
+                    viewModel.onEvent(
+                        CurrencyScreenViewEvent.ShouldUiBeDisplayed(event.shouldUiBeDisplayed)
+                    )
+                }
+
                 is CurrencyScreenResponseEvent.CurrencyUserInputError -> {
 
                 }
@@ -59,6 +65,8 @@ fun CurrencyScreen(
                 is CurrencyScreenResponseEvent.ShowSnackBar -> {
 
                 }
+
+
             }
         }
         // <***********> Event is observed from View-Model <************>

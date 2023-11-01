@@ -7,6 +7,8 @@ import com.istudio.common.platform.coroutines.dispatcher.MainDispatcher
 import com.istudio.common.platform.uiEvent.UiText
 import com.istudio.common.platform.viewmodel.BaseViewModel
 import com.istudio.currency_converter.domain.usecases.FeatureUseCases
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDisplayedUseCase.Companion.keyIsCurrienciesDisplayed
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDisplayedUseCase.Companion.keyIsCurriencyRatesDisplayed
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
@@ -65,12 +67,46 @@ class CurrencyScreenVm @Inject constructor(
                     // Get data from currency rates list from database
                     getCurrencyRatesListFromDatabase()
                 }
+
+                is CurrencyScreenViewEvent.ShouldUiBeDisplayed -> {
+                    // Here we set the display state visible/invisible so UI observes it and changes it
+                    viewState.value = viewState.value.copy(
+                        canUiBeDisplayed = event.shouldUiBeDisplayed
+                    )
+                }
             }
         }
     }
     /** <************> UI Action is invoked from composable <************> **/
 
     /** <*********************> Use case invocations <*******************> **/
+    /**
+     * USE-CASE :----> Can UI be displayed
+     */
+    private fun canUiBeDisplayed() = uiScope.launch {
+        try{
+
+            val input = HashMap<String,Boolean>().apply {
+                this[keyIsCurrienciesDisplayed] = viewState.value.isCurrencyDataDisplayed
+                this[keyIsCurriencyRatesDisplayed] = viewState.value.isCurrencyRatesDataDisplayed
+            }
+
+            val result = useCases.canUiBeDisplayedUseCase.invoke(input)
+
+            withContext(mainDispatcher){
+                if(result.isSuccess){
+                    result.map { data ->
+                        _uiEvent.send(
+                            CurrencyScreenResponseEvent.ShouldUiBeDisplayed(data)
+                        )
+                    }
+                }else{
+                    useCaseErrorMessage(UiText.DynamicString("Retrieving data from server has failed"))
+                }
+            }
+        }catch (ex:Exception){ errorPerformingUseCase(ex) }
+    }
+
     /**
      * USE-CASE :----> Getting the data from server
      */
@@ -118,6 +154,8 @@ class CurrencyScreenVm @Inject constructor(
                         // Retrieving the currency list from DB is successful
                         viewState.value = viewState.value.copy(currencyList = it)
                         viewState.value = viewState.value.copy(isCurrencyDataDisplayed = true)
+                        // Check can UI be displayed
+                        canUiBeDisplayed()
                     }
                 }
             }else{
@@ -141,6 +179,8 @@ class CurrencyScreenVm @Inject constructor(
                         // Retrieving the currency list from DB is successful
                         viewState.value = viewState.value.copy(currencyRatesList = it)
                         viewState.value = viewState.value.copy(isCurrencyRatesDataDisplayed = true)
+                        // Check can UI be displayed
+                        canUiBeDisplayed()
                     }
                 }
             }else{

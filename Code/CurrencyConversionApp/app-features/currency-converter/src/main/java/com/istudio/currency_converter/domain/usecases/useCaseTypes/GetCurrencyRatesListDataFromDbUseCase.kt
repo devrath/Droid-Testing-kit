@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GetCurrencyRatesListDataFromDb @Inject constructor(
+class GetCurrencyRatesListDataFromDbUseCase @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val repoController: RepositoryControllerFeatures
 ) : Action<Unit, Result<Flow<List<RatesEntity>>>>() {
