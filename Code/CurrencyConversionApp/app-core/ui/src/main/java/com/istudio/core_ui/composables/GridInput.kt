@@ -8,11 +8,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.istudio.models.local.RatesEntity
 
 @Composable
 fun GridInput(
     modifier: Modifier = Modifier,
-    onClick : (Int) -> Unit
+    data: List<RatesEntity>,
+    onClick: (Int) -> Unit
 ){
     // Context
     val noOfColumns = 3
@@ -22,8 +24,10 @@ fun GridInput(
         columns = GridCells.Fixed(noOfColumns),
         state = state,
         content = {
-            items(100){ i ->
-                GridInputItem(i){ selectedItem ->
+            items(data.size){ i ->
+                GridInputItem(
+                    data[i], position = i,
+                ){ selectedItem ->
                     onClick.invoke(selectedItem)
                 }
             }
@@ -35,7 +39,7 @@ fun GridInput(
 @Preview
 @Composable
 private fun CurrentDisplay() {
-    GridInput(){
+    GridInput(data = emptyList()){
 
     }
 }

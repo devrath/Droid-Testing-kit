@@ -17,10 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.istudio.core_ui.theme.LocalSpacing
+import com.istudio.models.local.RatesEntity
 
 @Composable
 fun GridInputItem(
-    i: Int,
+    item : RatesEntity,
+    position : Int,
     onClick : (Int) -> Unit
 ) {
     Box(
@@ -34,15 +36,13 @@ fun GridInputItem(
                 indication = rememberRipple(
                     color = MaterialTheme.colorScheme.onSurface
                 ),
-                onClick = {
-                    onClick.invoke(i)
-                }
+                onClick = { onClick.invoke(position) }
             )
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Text->$i",
+            text = item.ratesKey,
             color = MaterialTheme.colorScheme.primary
         )
     }

@@ -86,6 +86,7 @@ fun CurrencyScreenLandscape(
             modifier = Modifier.weight(1f).fillMaxHeight()
         ) {
             GridInput(
+                data = curriencyRatesList,
                 modifier = Modifier.fillMaxWidth().weight(1f),
             ){ selectedItem ->
 

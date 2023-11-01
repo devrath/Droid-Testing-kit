@@ -11,13 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.istudio.core_ui.composables.DropDownField
 import com.istudio.core_ui.composables.GridInput
@@ -72,7 +69,7 @@ fun CurrencyScreenPortrait(
 
         Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
-        GridInput(){ selectedItem ->
+        GridInput(data = curriencyRatesList){ selectedItem ->
 
         }
     }
