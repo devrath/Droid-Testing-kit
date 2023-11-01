@@ -11,6 +11,7 @@ import com.istudio.common.platform.functional.UseCaseResult
 import com.istudio.common.platform.uiEvent.UiText
 import com.istudio.common.platform.viewmodel.BaseViewModel
 import com.istudio.currency_converter.domain.usecases.CommonFeaturesUseCases
+import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -54,6 +55,17 @@ class MainVm @Inject constructor(
                 is AppScreenViewEvent.ToolbarVisibility -> {
                     viewState = viewState.copy(isToolbarVisible = event.isVisible)
                 }
+
+                is AppScreenViewEvent.ToggleDataSource -> {
+                    toggleData()
+                }
+
+                is AppScreenViewEvent.LoadFromDatabase -> {
+                    // Start displaying of data from local database
+                    viewState = viewState.copy(
+                        loadingState = false, isConnectedToInternet = true
+                    )
+                }
             }
         }
     }
@@ -79,6 +91,23 @@ class MainVm @Inject constructor(
     }
 
 
+    /**
+     * USE-CASE :----> Toggle data from DB and Server
+     */
+    private fun toggleData() = uiScope.launch {
+        try {
+            val result = commonFeatureUseCases.IsNewDataToBeFetchedFromServerUseCase.invoke(Unit)
+            if(result.isSuccess){
+                result.map {
+                    _uiEvent.send(AppScreenResponseEvent.ToggleData(it))
+                }
+            }else{
+                displayErrorInSnackBar(UiText.DynamicString("Error in getting data from preferences"))
+            }
+        }catch (ex:Exception){
+            displayErrorInSnackBar(UiText.DynamicString(ex.message.toString()))
+        }
+    }
 
 
     /** ********************************* DISPLAY MESSAGES ****************************************/
@@ -87,7 +116,7 @@ class MainVm @Inject constructor(
      * Displaying messages to the snack-bar
      */
     private suspend fun displayErrorInSnackBar(result: UiText?) {
-       // result?.let { _uiEvent.send(AddBookResponseEvent.ShowSnackBar(it.toString())) }
+       result?.let { _uiEvent.send(AppScreenResponseEvent.ShowSnackBar(it.toString())) }
     }
 
     /**

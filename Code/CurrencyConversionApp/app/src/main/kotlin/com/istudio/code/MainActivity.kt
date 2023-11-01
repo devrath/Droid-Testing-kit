@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
             LaunchedEffect(key1 = state.launchedEffectState) {
                 viewModel.onEvent(AppScreenViewEvent.LoadingState)
                 // Check connectivity: once when the effect is launched
-                viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
+                viewModel.onEvent(AppScreenViewEvent.ToggleDataSource)
 
                 // <***********> Event is observed from View-Model <************>
                 viewModel.uiEvent.collect { event ->
@@ -103,6 +103,14 @@ class MainActivity : ComponentActivity() {
                         is AppScreenResponseEvent.ShowSnackBar -> {
                             coroutineScope.launch {
                                 snackBarController.showSnackbar(message = event.message)
+                            }
+                        }
+
+                        is AppScreenResponseEvent.ToggleData -> {
+                            if(event.isFetchFromServer){
+                                viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
+                            }else{
+                                viewModel.onEvent(AppScreenViewEvent.LoadFromDatabase)
                             }
                         }
                     }
