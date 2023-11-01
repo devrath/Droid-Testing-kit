@@ -2,6 +2,7 @@ package com.istudio.common.di.modules
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.google.gson.Gson
 import com.istudio.common.platform.extensions.connectivityManager
 import dagger.Module
 import dagger.Provides
@@ -20,6 +21,12 @@ object CommonAppFeaturesModule {
         @ApplicationContext context: Context
     ): ConnectivityManager {
         return context.connectivityManager
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        return Gson()
     }
 
 }

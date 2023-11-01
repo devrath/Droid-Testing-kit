@@ -51,7 +51,7 @@ class CurrencyScreenVm @Inject constructor(
     /** <*********************> Use case invocations <*******************> **/
     private fun getDataFromServer() = uiScope.launch {
         try{
-            val result = useCases.getDataFromNetworkUseCase.invoke(Unit)
+            val result = useCases.network.invoke(Unit)
             if(result.isSuccess){
                 result.map { data ->
                     println(data)
@@ -64,7 +64,16 @@ class CurrencyScreenVm @Inject constructor(
     }
 
     private fun insertIntoDatabase(data: MasterApiData) = uiScope.launch {
-
+        try{
+            val result = useCases.database.invoke(data)
+            if(result.isSuccess){
+                result.map { data ->
+                    println(data)
+                }
+            }
+        }catch (ex:Exception){
+            useCaseErrorMessage(UiText.DynamicString(ex.message.toString()))
+        }
     }
     /** <*********************> Use case invocations <*******************> **/
 
