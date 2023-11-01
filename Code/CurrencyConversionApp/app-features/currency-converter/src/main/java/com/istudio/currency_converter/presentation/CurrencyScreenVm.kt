@@ -4,10 +4,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.istudio.common.platform.coroutines.dispatcher.MainDispatcher
-import com.istudio.common.platform.functional.UseCaseResult
 import com.istudio.common.platform.uiEvent.UiText
 import com.istudio.common.platform.viewmodel.BaseViewModel
-import com.istudio.currency_converter.R
 import com.istudio.currency_converter.domain.usecases.FeatureUseCases
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
@@ -16,6 +14,8 @@ import com.istudio.models.custom.MasterApiData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -55,6 +55,16 @@ class CurrencyScreenVm @Inject constructor(
                     // Inserting the data into the database
                     insertIntoDatabase(event.data)
                 }
+
+                is CurrencyScreenViewEvent.GetCurrencyDataFromDb -> {
+                    // Get data from currency list from database
+                    getCurrencyListFromDatabase()
+                }
+
+                is CurrencyScreenViewEvent.GetCurrencyRatesDataFromDb -> {
+                    // Get data from currency rates list from database
+                    getCurrencyRatesListFromDatabase()
+                }
             }
         }
     }
@@ -86,7 +96,7 @@ class CurrencyScreenVm @Inject constructor(
      */
     private fun insertIntoDatabase(data: MasterApiData) = uiScope.launch {
         try{
-            val result = useCases.database.invoke(data)
+            val result = useCases.dbInsertAllData.invoke(data)
             withContext(mainDispatcher){
                 if(result.isSuccess){
                     _uiEvent.send(CurrencyScreenResponseEvent.InsertingCurrienciesToDbSuccessful)
@@ -95,6 +105,50 @@ class CurrencyScreenVm @Inject constructor(
                 }
             }
         }catch (ex:Exception){ errorPerformingUseCase(ex) }
+    }
+
+    private fun getCurrencyListFromDatabase()  = uiScope.launch {
+        try{
+            val result = useCases.dbRetrieveCurrencies.invoke(Unit)
+            if(result.isSuccess){
+                result.map { curriencyDataFlow ->
+                    curriencyDataFlow.catch {
+                        useCaseErrorMessage(UiText.DynamicString(it.message.toString()))
+                    }.collect{
+                        // Retrieving the currency list from DB is successful
+                        viewState.value = viewState.value.copy(currencyList = it)
+                    }
+                }
+            }else{
+                withContext(mainDispatcher){
+                    useCaseErrorMessage(UiText.DynamicString("Retrieving currencies from database has failed"))
+                }
+            }
+        }catch (ex:Exception){
+            errorPerformingUseCase(ex)
+        }
+    }
+
+    private fun getCurrencyRatesListFromDatabase()  = uiScope.launch {
+        try{
+            val result = useCases.dbRetrieveCurrencyRates.invoke(Unit)
+            if(result.isSuccess){
+                result.map { curriencyDataFlow ->
+                    curriencyDataFlow.catch {
+                        useCaseErrorMessage(UiText.DynamicString(it.message.toString()))
+                    }.collect{
+                        // Retrieving the currency list from DB is successful
+                        viewState.value = viewState.value.copy(currencyRatesList = it)
+                    }
+                }
+            }else{
+                withContext(mainDispatcher){
+                    useCaseErrorMessage(UiText.DynamicString("Retrieving currencies from database has failed"))
+                }
+            }
+        }catch (ex:Exception){
+            errorPerformingUseCase(ex)
+        }
     }
     /** <*********************> Use case invocations <*******************> **/
 

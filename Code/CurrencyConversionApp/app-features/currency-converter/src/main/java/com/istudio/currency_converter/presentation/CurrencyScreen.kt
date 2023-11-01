@@ -46,7 +46,10 @@ fun CurrencyScreen(
 
                 is CurrencyScreenResponseEvent.InsertingCurrienciesToDbSuccessful -> {
                     // Inserting the value in the local database is successful
-                    println()
+                    // Then : -> Fetch data from database -> Currency List
+                    viewModel.onEvent(CurrencyScreenViewEvent.GetCurrencyDataFromDb)
+                    // Then : -> Fetch data from database -> CurrencyRates List
+                    viewModel.onEvent(CurrencyScreenViewEvent.GetCurrencyRatesDataFromDb)
                 }
 
                 is CurrencyScreenResponseEvent.CurrencyUserInputError -> {

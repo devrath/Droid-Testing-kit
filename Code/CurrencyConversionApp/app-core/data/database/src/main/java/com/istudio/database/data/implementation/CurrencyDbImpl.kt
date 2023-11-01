@@ -15,6 +15,10 @@ class CurrencyDbImpl @Inject constructor(
         return currencyDao.getCurrencyList()
     }
 
+    override suspend fun getCurrencyRatesList(): Flow<List<RatesEntity>> {
+        return currencyDao.getCurrencyRatesList()
+    }
+
     override suspend fun addCurrency(currency: CurrencyEntity) {
         currencyDao.addCurrency(currency)
     }

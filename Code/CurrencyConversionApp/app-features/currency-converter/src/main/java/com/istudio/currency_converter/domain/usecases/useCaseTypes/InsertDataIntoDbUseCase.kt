@@ -13,7 +13,6 @@ import com.istudio.models.remote.Rates
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -38,7 +37,7 @@ class InsertDataIntoDbUseCase @Inject constructor(
 
                         println("$key $value")
 
-                        repoController.insertCurrencies(
+                        repoController.insertCurrenciesIntoDb(
                             CurrencyEntity(currencyKey = key, currencyName = value)
                         )
                     }
@@ -56,7 +55,7 @@ class InsertDataIntoDbUseCase @Inject constructor(
 
                         println("$key $value")
 
-                        repoController.insertRates(
+                        repoController.insertRatesIntoDb(
                             RatesEntity(ratesKey = key, ratesValue = value)
                         )
                     }

@@ -1,15 +1,15 @@
 package com.istudio.models.local
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "currency_table")
 data class CurrencyEntity(
-    @PrimaryKey(autoGenerate = true)
-    val url: Int = 0,
+    @PrimaryKey @NonNull
     @ColumnInfo(name = "currencyKey")
-    val currencyKey : String? = null,
+    val currencyKey : String,
     @ColumnInfo(name = "currencyName")
     val currencyName : String? = null
 )

@@ -14,6 +14,10 @@ class CurrencyDbRepository @Inject constructor(
         return features.getCurrencyList()
     }
 
+    suspend fun getCurrencyRates(): Flow<List<RatesEntity>> {
+        return features.getCurrencyRatesList()
+    }
+
     suspend fun addCurrency(currency: CurrencyEntity) {
         features.addCurrency(currency)
     }

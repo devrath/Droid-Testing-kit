@@ -20,6 +20,14 @@ interface CurrencyDao {
     fun getCurrencyList() : Flow<List<CurrencyEntity>>
 
     /**
+     * OPERATION: Retrieving
+     *
+     * Getting just a list of currency rates
+     */
+    @Query("SELECT * FROM rates_table")
+    fun getCurrencyRatesList() : Flow<List<RatesEntity>>
+
+    /**
      * OPERATION: Inserting
      *
      * Adding a new currency to the CurrencyEntity table

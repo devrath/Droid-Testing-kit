@@ -6,4 +6,7 @@ sealed class CurrencyScreenViewEvent {
     data class SetCurrencyUserEnteredInput(val currencyInputValue: String) : CurrencyScreenViewEvent()
     object GetCurrenciesFromApi : CurrencyScreenViewEvent()
     data class InsertDataIntoDb(val data: MasterApiData)  : CurrencyScreenViewEvent()
+
+    object GetCurrencyDataFromDb : CurrencyScreenViewEvent()
+    object GetCurrencyRatesDataFromDb : CurrencyScreenViewEvent()
 }

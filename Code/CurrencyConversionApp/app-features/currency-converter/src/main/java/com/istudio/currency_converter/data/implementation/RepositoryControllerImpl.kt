@@ -7,6 +7,7 @@ import com.istudio.models.local.RatesEntity
 import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues
 import com.istudio.network.data.CurrencyApiRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RepositoryControllerImpl @Inject constructor(
@@ -17,21 +18,29 @@ class RepositoryControllerImpl @Inject constructor(
 ) : CurrencyControllerFeatures {
 
     // Get the currencies fata from api
-    override suspend fun getCurrencies(): Currencies {
+    override suspend fun getCurrenciesFromApi(): Currencies {
         return api.getCurrencies()
     }
 
     // Get the currency conversion values fata from api
-    override suspend fun getCurrencyConversionValues(): CurrencyConversionValues {
+    override suspend fun getCurrencyConversionValuesFromApi(): CurrencyConversionValues {
         return api.getCurrencyConversionValues()
     }
 
-    override suspend fun insertCurrencies(currency: CurrencyEntity) {
+    override suspend fun insertCurrenciesIntoDb(currency: CurrencyEntity) {
         db.addCurrency(currency)
     }
 
-    override suspend fun insertRates(rates: RatesEntity) {
+    override suspend fun insertRatesIntoDb(rates: RatesEntity) {
         db.addRates(rates)
+    }
+
+    override suspend fun getCurrenciesListFromDb(): Flow<List<CurrencyEntity>> {
+        return db.getCurrencies()
+    }
+
+    override suspend fun getRatesListFromDb(): Flow<List<RatesEntity>> {
+        return db.getCurrencyRates()
     }
 
 

@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CurrencyDbFeatures {
     suspend fun getCurrencyList() : Flow<List<CurrencyEntity>>
+    suspend fun getCurrencyRatesList() : Flow<List<RatesEntity>>
     suspend fun addCurrency(currency: CurrencyEntity)
     suspend fun addRates(rate: RatesEntity)
 }

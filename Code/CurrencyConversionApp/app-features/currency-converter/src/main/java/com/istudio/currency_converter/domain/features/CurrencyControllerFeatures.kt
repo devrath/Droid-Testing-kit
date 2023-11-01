@@ -4,17 +4,31 @@ import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues
+import kotlinx.coroutines.flow.Flow
 
 interface CurrencyControllerFeatures {
 
-    // Get the currencies fata from api
-    suspend fun getCurrencies() : Currencies
-    // Get the currency conversion values fata from api
-    suspend fun getCurrencyConversionValues()  : CurrencyConversionValues
+    // <------------------------------------ API  <------------------------------------>
+    // <----- Retrieving Data  ----->
+    suspend fun getCurrenciesFromApi() : Currencies
+    suspend fun getCurrencyConversionValuesFromApi()  : CurrencyConversionValues
+    // <----- Retrieving Data  ----->
+    // <------------------------------------ API  <------------------------------------>
 
 
-    // Insert currency value into the Currency table
-    suspend fun insertCurrencies(currency : CurrencyEntity)
-    suspend fun insertRates(rates : RatesEntity)
+
+    // <------------------------------------ DB  <------------------------------------>
+    // <----- Inserting Data  ----->
+    suspend fun insertCurrenciesIntoDb(currency : CurrencyEntity)
+    suspend fun insertRatesIntoDb(rates : RatesEntity)
+    // <----- Inserting Data  ----->
+
+    // <----- Retrieving Data  ---->
+    suspend fun getCurrenciesListFromDb() : Flow<List<CurrencyEntity>>
+    suspend fun getRatesListFromDb() : Flow<List<RatesEntity>>
+    // <----- Retrieving Data  ---->
+    // <------------------------------------ DB  <------------------------------------>
+
+
 
 }
