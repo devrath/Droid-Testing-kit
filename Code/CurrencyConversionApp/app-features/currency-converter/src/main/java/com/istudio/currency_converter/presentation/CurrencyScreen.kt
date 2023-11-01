@@ -39,6 +39,16 @@ fun CurrencyScreen(
         // <***********> Event is observed from View-Model <************>
         viewModel.uiEvent.collect { event ->
             when (event) {
+                is CurrencyScreenResponseEvent.GettingDataFromServerSuccessful -> {
+                    // Getting the data from the server is successful
+                    viewModel.onEvent(CurrencyScreenViewEvent.InsertDataIntoDb(event.data))
+                }
+
+                is CurrencyScreenResponseEvent.InsertingCurrienciesToDbSuccessful -> {
+                    // Inserting the value in the local database is successful
+                    println()
+                }
+
                 is CurrencyScreenResponseEvent.CurrencyUserInputError -> {
 
                 }
