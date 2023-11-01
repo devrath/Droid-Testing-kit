@@ -59,6 +59,8 @@ fun CurrencyScreen(
                     viewModel.onEvent(CurrencyScreenViewEvent.GetCurrencyDataFromDb)
                     // Then : -> Fetch data from database -> CurrencyRates List
                     viewModel.onEvent(CurrencyScreenViewEvent.GetCurrencyRatesDataFromDb)
+                    // Then : -> Store the timestamp and flag that data local data is available
+                    viewModel.onEvent(CurrencyScreenViewEvent.SaveTimeStamp(data = event.data))
                 }
 
                 is CurrencyScreenResponseEvent.ShouldUiBeDisplayed -> {

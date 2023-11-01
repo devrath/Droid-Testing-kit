@@ -78,6 +78,10 @@ class CurrencyScreenVm @Inject constructor(
                         canUiBeDisplayed = event.shouldUiBeDisplayed
                     )
                 }
+
+                is CurrencyScreenViewEvent.SaveTimeStamp -> {
+
+                }
             }
         }
     }
@@ -139,7 +143,9 @@ class CurrencyScreenVm @Inject constructor(
             val result = useCases.dbInsertAllData.invoke(data)
             withContext(mainDispatcher){
                 if(result.isSuccess){
-                    _uiEvent.send(CurrencyScreenResponseEvent.InsertingCurrienciesToDbSuccessful)
+                    _uiEvent.send(
+                        CurrencyScreenResponseEvent.InsertingCurrienciesToDbSuccessful(data = data)
+                    )
                 }else{
                     useCaseErrorMessage(UiText.DynamicString("Inserting to data base has failed"))
                 }
