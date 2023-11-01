@@ -24,5 +24,8 @@ object Versions {
     const val lifecycleRuntimeKtx = "2.6.2"
     const val serilization = "1.6.0"
     const val javapoet = "1.13.0"
+    const val datastorePreferences = "1.0.0"
+    const val coreSplash = "1.1.0-alpha02"
+
 
 }

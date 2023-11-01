@@ -51,20 +51,4 @@ android {
     }
 }
 
-dependencies {
-    appModuleDependencies()
-    implementation(Dependencies.hiltNavigationCompose)
-    // <-----------> Module link to currency Feature  <----------->
-    coreUiModule()
-    featureCurrencyConverter()
-    featureCurrencyResult()
-    // <-----------> Module link to currency Feature  <----------->
-
-    // <-----------> Module Dependencies <----------->
-    appNetworkModule()
-    appDatabaseModlue()
-    appPreferencesModule()
-    appCommonModule()
-    coreModelsModule()
-    // <-----------> Module Dependencies <----------->
-}
+dependencies { appModuleDependencies() }
