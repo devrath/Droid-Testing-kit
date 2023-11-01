@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.istudio.core_ui.composables.LoadingAnimation
 import com.istudio.currency_converter.presentation.landscape.CurrencyScreenLandscape
 import com.istudio.currency_converter.presentation.portrait.CurrencyScreenPortrait
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
@@ -85,7 +86,7 @@ fun CurrencyScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CircularProgressIndicator()
+            LoadingAnimation()
         }
     } else {
         // Toggle Orientation of the screen
