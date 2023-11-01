@@ -3,8 +3,6 @@ package com.istudio.currency_converter.presentation
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
-import com.istudio.common.platform.coroutines.dispatcher.MainDispatcher
 import com.istudio.common.platform.functional.UseCaseResult
 import com.istudio.common.platform.uiEvent.UiText
 import com.istudio.common.platform.viewmodel.BaseViewModel
@@ -12,12 +10,11 @@ import com.istudio.currency_converter.domain.usecases.FeatureUseCases
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
+import com.istudio.models.custom.MasterApiData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -54,15 +51,20 @@ class CurrencyScreenVm @Inject constructor(
     /** <*********************> Use case invocations <*******************> **/
     private fun getDataFromServer() = uiScope.launch {
         try{
-            val result = useCases.getApiDataUseCase.invoke(Unit)
+            val result = useCases.getDataFromNetworkUseCase.invoke(Unit)
             if(result.isSuccess){
-                result.map {
-                    println(it)
+                result.map { data ->
+                    println(data)
+                    insertIntoDatabase(data)
                 }
             }
         }catch (ex:Exception){
             useCaseErrorMessage(UiText.DynamicString(ex.message.toString()))
         }
+    }
+
+    private fun insertIntoDatabase(data: MasterApiData) = uiScope.launch {
+
     }
     /** <*********************> Use case invocations <*******************> **/
 

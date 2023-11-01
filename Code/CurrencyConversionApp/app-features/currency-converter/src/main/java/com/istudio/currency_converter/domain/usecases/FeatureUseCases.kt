@@ -1,7 +1,7 @@
 package com.istudio.currency_converter.domain.usecases
 
-import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetApiDataUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetDataFromNetworkUseCase
 
 data class FeatureUseCases(
-    val getApiDataUseCase : GetApiDataUseCase
+    val getDataFromNetworkUseCase : GetDataFromNetworkUseCase
 )

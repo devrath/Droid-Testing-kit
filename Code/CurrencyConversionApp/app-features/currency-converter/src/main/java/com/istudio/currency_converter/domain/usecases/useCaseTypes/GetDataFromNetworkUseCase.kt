@@ -9,7 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GetApiDataUseCase @Inject constructor(
+class GetDataFromNetworkUseCase @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val repoController : RepositoryControllerFeatures
 ) : Action<Unit, Result<MasterApiData>>() {
