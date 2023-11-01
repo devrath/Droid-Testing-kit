@@ -28,6 +28,10 @@ class CurrencyScreenVm @Inject constructor(
     @MainDispatcher val mainDispatcher : CoroutineDispatcher,
     private val useCases : FeatureUseCases
 ): BaseViewModel<Unit>() {
+
+    init {
+        getDataFromServer()
+    }
     override fun setupPrerequisites(params: Unit) = Unit
 
     // Holds the data of all the widgets in the view

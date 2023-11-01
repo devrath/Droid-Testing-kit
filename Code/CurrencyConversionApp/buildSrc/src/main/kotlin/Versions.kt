@@ -1,7 +1,7 @@
 object Versions {
     const val compose = "1.4.3"
     const val composeMaterial3 = "1.1.1"
-    const val materialIconsExtended = "1.6.0-alpha08"
+    const val materialIconsExtended = "1.6.0-alpha07"
     const val composeCompiler = "1.4.6"
     const val hilt = "2.45"
     const val hiltNavigationCompose = "1.1.0-beta01"

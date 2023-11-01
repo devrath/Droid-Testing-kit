@@ -18,11 +18,10 @@ fun GridInput(
 ){
     // Context
     val noOfColumns = 3
-    val state = rememberLazyGridState()
     LazyVerticalGrid(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
         columns = GridCells.Fixed(noOfColumns),
-        state = state,
+        state = rememberLazyGridState(),
         content = {
             items(data.size){ i ->
                 GridInputItem(

@@ -1,8 +1,13 @@
 package com.istudio.currency_converter.presentation
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -38,7 +43,6 @@ fun CurrencyScreen(
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
 
     LaunchedEffect(key1 = state.value.launchedEffectState) {
-        viewModel.onEvent(CurrencyScreenViewEvent.GetCurrenciesFromApi)
         // <***********> Event is observed from View-Model <************>
         viewModel.uiEvent.collect { event ->
             when (event) {
@@ -75,28 +79,37 @@ fun CurrencyScreen(
         // <***********> Event is observed from View-Model <************>
     }
 
-
-    // Toggle Orientation of the screen
-    if(orientation == Configuration.ORIENTATION_PORTRAIT){
-        CurrencyScreenPortrait(
-            curriencyList = curriencyList,
-            curriencyRatesList = currencyRatesList,
-            currencyInputText = state.value.currencyUserEnteredInput,
-            onKeyBoardOutsideClick = onKeyBoardOutsideClick,
-            currencyInputChange = {
-                viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
-            }
-        )
-    }else{
-        CurrencyScreenLandscape(
-            curriencyList = curriencyList,
-            curriencyRatesList = currencyRatesList,
-            currencyInputText = state.value.currencyUserEnteredInput,
-            onKeyBoardOutsideClick = onKeyBoardOutsideClick,
-            currencyInputChange = {
-                viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
-            }
-        )
+    if (!viewModel.viewState.value.canUiBeDisplayed) {
+        Column(
+            modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {
+        // Toggle Orientation of the screen
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            CurrencyScreenPortrait(
+                curriencyList = curriencyList,
+                curriencyRatesList = currencyRatesList,
+                currencyInputText = state.value.currencyUserEnteredInput,
+                onKeyBoardOutsideClick = onKeyBoardOutsideClick,
+                currencyInputChange = {
+                    viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
+                }
+            )
+        } else {
+            CurrencyScreenLandscape(
+                curriencyList = curriencyList,
+                curriencyRatesList = currencyRatesList,
+                currencyInputText = state.value.currencyUserEnteredInput,
+                onKeyBoardOutsideClick = onKeyBoardOutsideClick,
+                currencyInputChange = {
+                    viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
+                }
+            )
+        }
     }
 
 }
