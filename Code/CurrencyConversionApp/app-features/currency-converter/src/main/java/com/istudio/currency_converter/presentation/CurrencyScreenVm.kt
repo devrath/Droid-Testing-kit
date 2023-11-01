@@ -5,6 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
 import com.istudio.common.platform.coroutines.dispatcher.MainDispatcher
+import com.istudio.common.platform.functional.UseCaseResult
+import com.istudio.common.platform.uiEvent.UiText
+import com.istudio.common.platform.viewmodel.BaseViewModel
 import com.istudio.currency_converter.domain.usecases.FeatureUseCases
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
@@ -14,14 +17,13 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class CurrencyScreenVm @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
-    val useCases : FeatureUseCases
-): com.istudio.common.platform.viewmodel.BaseViewModel<Unit>() {
+    private val useCases : FeatureUseCases
+): BaseViewModel<Unit>() {
     override fun setupPrerequisites(params: Unit) = Unit
 
     // Holds the data of all the widgets in the view
@@ -51,9 +53,16 @@ class CurrencyScreenVm @Inject constructor(
 
     /** <*********************> Use case invocations <*******************> **/
     private fun getDataFromServer() = uiScope.launch {
-        val result = useCases.getApiDataUseCase.invoke(Unit)
-        println(result.currencies)
-        println(result.conversionValues)
+        try{
+            val result = useCases.getApiDataUseCase.invoke(Unit)
+            if(result.isSuccess){
+                result.map {
+                    println(it)
+                }
+            }
+        }catch (ex:Exception){
+            useCaseErrorMessage(UiText.DynamicString(ex.message.toString()))
+        }
     }
     /** <*********************> Use case invocations <*******************> **/
 
@@ -62,8 +71,9 @@ class CurrencyScreenVm @Inject constructor(
     /**
      * ERROR HANDLING:
      * Displaying messages to the snack-bar
+     * Always publish the result in the main thread
      */
-    private suspend fun useCaseErrorMessage(result: com.istudio.common.platform.uiEvent.UiText?) {
+    private suspend fun useCaseErrorMessage(result: UiText?) = uiScope.launch {
         result?.let { _uiEvent.send(CurrencyScreenResponseEvent.ShowSnackBar(it.toString())) }
     }
 
@@ -71,8 +81,8 @@ class CurrencyScreenVm @Inject constructor(
      * ERROR HANDLING:
      * For the Use cases
      */
-    private suspend fun useCaseError(result: com.istudio.common.platform.functional.UseCaseResult.Error) {
-        val uiEvent = com.istudio.common.platform.uiEvent.UiText.DynamicString(result.exception.message.toString())
+    private suspend fun useCaseError(result: UseCaseResult.Error) {
+        val uiEvent = UiText.DynamicString(result.exception.message.toString())
         _uiEvent.send(CurrencyScreenResponseEvent.ShowSnackBar(uiEvent.text))
     }
     /** ********************************* DISPLAY MESSAGES ****************************************/
