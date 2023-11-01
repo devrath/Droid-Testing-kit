@@ -22,8 +22,13 @@ import com.istudio.core_ui.composables.DropDownField
 import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
 import com.istudio.core_ui.theme.LocalSpacing
+import com.istudio.models.local.CurrencyEntity
+import com.istudio.models.local.RatesEntity
+
 @Composable
 fun CurrencyScreenPortrait(
+    curriencyList : List<CurrencyEntity>,
+    curriencyRatesList : List<RatesEntity>,
     currencyInputText : String,
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit
@@ -68,7 +73,9 @@ fun CurrencyScreenPortrait(
 
             Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
-            Box(modifier = Modifier.weight(1f)) { DropDownField() }
+            Box(modifier = Modifier.weight(1f)) {
+                DropDownField(dataList = curriencyList)
+            }
         }
 
         Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))

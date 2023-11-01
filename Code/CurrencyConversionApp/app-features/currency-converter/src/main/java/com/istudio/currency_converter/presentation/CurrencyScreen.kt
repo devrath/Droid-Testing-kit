@@ -32,6 +32,9 @@ fun CurrencyScreen(
     val state = viewModel.viewState
     // Composable orientation
     val configuration = LocalConfiguration.current
+
+    val curriencyList = viewModel.viewState.value.currencyList
+    val currencyRatesList = viewModel.viewState.value.currencyRatesList
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
 
     LaunchedEffect(key1 = state.value.launchedEffectState) {
@@ -76,6 +79,8 @@ fun CurrencyScreen(
     // Toggle Orientation of the screen
     if(orientation == Configuration.ORIENTATION_PORTRAIT){
         CurrencyScreenPortrait(
+            curriencyList = curriencyList,
+            curriencyRatesList = currencyRatesList,
             currencyInputText = state.value.currencyUserEnteredInput,
             onKeyBoardOutsideClick = onKeyBoardOutsideClick,
             currencyInputChange = {
@@ -84,6 +89,8 @@ fun CurrencyScreen(
         )
     }else{
         CurrencyScreenLandscape(
+            curriencyList = curriencyList,
+            curriencyRatesList = currencyRatesList,
             currencyInputText = state.value.currencyUserEnteredInput,
             onKeyBoardOutsideClick = onKeyBoardOutsideClick,
             currencyInputChange = {
