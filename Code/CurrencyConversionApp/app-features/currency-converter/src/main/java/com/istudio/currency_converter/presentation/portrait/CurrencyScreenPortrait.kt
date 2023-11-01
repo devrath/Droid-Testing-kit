@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,25 +56,16 @@ fun CurrencyScreenPortrait(
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.End
         ) {
 
-            Text(
-                text = "Output",
-                style = MaterialTheme.typography.titleMedium,
+            Spacer(
                 modifier = Modifier
-                    .weight(1.8f)
-                    .padding(
-                        horizontal = LocalSpacing.current.spaceExtraSmall,
-                        vertical = 20.dp
-                    ),
-                textAlign = TextAlign.Start,
-                maxLines = 1
+                .height(LocalSpacing.current.spaceExtraSmall)
+                .width(5.dp).weight(1f)
             )
 
-            Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
-
-            Box(modifier = Modifier.weight(1f)) {
+            Box() {
                 DropDownField(dataList = curriencyList)
             }
         }
