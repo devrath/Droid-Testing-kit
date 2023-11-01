@@ -12,7 +12,8 @@ data class CurrencyScreenUiState(
 
     val launchedEffectState: Boolean = false,
 
-
+    val isCurrencyDataDisplayed : Boolean = false,
+    val isCurrencyRatesDataDisplayed : Boolean = false,
 
 
     val currencyList: List<CurrencyEntity> = emptyList(),

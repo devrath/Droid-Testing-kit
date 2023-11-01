@@ -117,6 +117,7 @@ class CurrencyScreenVm @Inject constructor(
                     }.collect{
                         // Retrieving the currency list from DB is successful
                         viewState.value = viewState.value.copy(currencyList = it)
+                        viewState.value = viewState.value.copy(isCurrencyDataDisplayed = true)
                     }
                 }
             }else{
@@ -139,6 +140,7 @@ class CurrencyScreenVm @Inject constructor(
                     }.collect{
                         // Retrieving the currency list from DB is successful
                         viewState.value = viewState.value.copy(currencyRatesList = it)
+                        viewState.value = viewState.value.copy(isCurrencyRatesDataDisplayed = true)
                     }
                 }
             }else{
