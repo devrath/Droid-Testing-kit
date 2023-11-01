@@ -250,6 +250,7 @@ fun DependencyHandler.currencyConverterFeature() {
     appCommonModule()
     appNetworkModule()
     appDatabaseModlue()
+    appPreferencesModule()
 }
 // <---> CurrencyResult Feature Module Dependencies <--->
 fun DependencyHandler.currencyResultFeature() {
