@@ -12,12 +12,12 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDispla
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
+import com.istudio.models.custom.GridSelectionInput
 import com.istudio.models.custom.MasterApiData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -92,16 +92,7 @@ class CurrencyScreenVm @Inject constructor(
                 }
 
                 is CurrencyScreenViewEvent.SetRatesItemSelection -> {
-                    viewModelScope.launch {
-                        val newSelection = viewState.value.currencyRatesList
-                        val selectedPosition = event.position
-
-                        newSelection.forEachIndexed { index, ratesEntity ->
-                            ratesEntity.isItemSelected.value = selectedPosition==index
-                        }
-
-                        viewState.value = viewState.value.copy(currencyRatesList = newSelection)
-                    }
+                    setRatesItemSelected(event.position)
                 }
             }
         }
@@ -109,6 +100,24 @@ class CurrencyScreenVm @Inject constructor(
     /** <************> UI Action is invoked from composable <************> **/
 
     /** <*********************> Use case invocations <*******************> **/
+    /**
+     * USE-CASE :----> Set rates list item selected
+     */
+    private fun setRatesItemSelected(position: Int) = uiScope.launch {
+        val input = GridSelectionInput(
+            data = viewState.value.currencyRatesList, selectedPosition = position
+        )
+        val result = useCases.setRateGridSelectionUseCase.invoke(input)
+        withContext(mainDispatcher){
+            if(result.isSuccess){
+                result.map { result ->
+                    viewState.value = viewState.value.copy(currencyRatesList = result)
+                }
+            }else{
+                useCaseErrorMessage(UiText.DynamicString("Error during rates selection"))
+            }
+        }
+    }
 
     /**
      * USE-CASE :----> Toggle data from DB and Server

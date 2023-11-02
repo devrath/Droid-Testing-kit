@@ -7,6 +7,7 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetDataFromNe
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.InsertDataIntoDbUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.IsNewDataToBeFetchedFromServerUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.SaveTimeStampUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.SetRateGridSelectionUseCase
 
 data class FeatureUseCases(
     // Use-Case:-> Network
@@ -22,5 +23,7 @@ data class FeatureUseCases(
     // Use-Case:-> Save preferences to Datastore
     val saveTimeStampUseCase : SaveTimeStampUseCase,
     // Use-Case:-> Determine if new data has to be fetched from server
-    val isNewDataToBeFetchedFromServerUseCase : IsNewDataToBeFetchedFromServerUseCase
+    val isNewDataToBeFetchedFromServerUseCase : IsNewDataToBeFetchedFromServerUseCase,
+    // Use-Case:-> Selection of grid item on item selected
+    val setRateGridSelectionUseCase : SetRateGridSelectionUseCase
 )
