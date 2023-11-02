@@ -1,5 +1,6 @@
 package com.istudio.currency_converter.presentation.states
 
+import com.istudio.models.custom.CurrencyResultInput
 import com.istudio.models.custom.MasterApiData
 
 sealed class CurrencyScreenResponseEvent {
@@ -10,9 +11,9 @@ sealed class CurrencyScreenResponseEvent {
     data class ShouldUiBeDisplayed(val shouldUiBeDisplayed: Boolean) : CurrencyScreenResponseEvent()
     object PreferencesSavedForLocalCache : CurrencyScreenResponseEvent()
     data class ToggleData(val shouldNewDataBeRecievedFromServer: Boolean) : CurrencyScreenResponseEvent()
-
-
     object CurrencyInputValueValidationSuccess : CurrencyScreenResponseEvent()
     object CurrencyInputTypeValidationSuccess : CurrencyScreenResponseEvent()
+
+    data class DisplayResultScreen(val data: CurrencyResultInput) : CurrencyScreenResponseEvent()
 
 }

@@ -16,6 +16,7 @@ import com.istudio.currency_converter.presentation.landscape.CurrencyScreenLands
 import com.istudio.currency_converter.presentation.portrait.CurrencyScreenPortrait
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
+import com.istudio.models.custom.CurrencyResultInput
 
 @Composable
 fun CurrencyScreen(
@@ -26,7 +27,8 @@ fun CurrencyScreen(
     onBackPress: () -> Unit,
     onLoading:(Boolean) -> Unit,
     onClickOfCalculatePlay: (onClick: () -> Unit) -> Unit,
-    displaySnackBar : (String) -> Unit
+    displaySnackBar : (String) -> Unit,
+    navigateToResultScreen : (CurrencyResultInput) -> Unit
 ) {
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // Context
@@ -102,6 +104,11 @@ fun CurrencyScreen(
 
                 is CurrencyScreenResponseEvent.CurrencyInputTypeValidationSuccess -> {
                     viewModel.onEvent(CurrencyScreenViewEvent.ValidateCurrencyCalculation)
+                }
+
+                is CurrencyScreenResponseEvent.DisplayResultScreen -> {
+                    // Navigate user to result Screen
+                    navigateToResultScreen.invoke(event.data)
                 }
             }
         }

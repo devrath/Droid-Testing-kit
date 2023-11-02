@@ -226,6 +226,9 @@ class MainActivity : ComponentActivity() {
                                 },
                                 displaySnackBar = { message ->
                                     displaySnackBar.invoke(message)
+                                },
+                                navigateToResultScreen = { resultInput ->
+
                                 }
                             )
                         }

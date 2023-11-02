@@ -12,6 +12,7 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDispla
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
+import com.istudio.models.custom.CurrencyResultInput
 import com.istudio.models.custom.CurrencyValidationInput
 import com.istudio.models.custom.GridSelectionInput
 import com.istudio.models.custom.MasterApiData
@@ -200,8 +201,35 @@ class CurrencyScreenVm @Inject constructor(
             val result = useCases.validateAllInputsForCalculationUseCase.invoke(input)
             withContext(mainDispatcher){
                 if(result.isSuccess){
+
                     // Successful validation
-                    println()
+                    val userFromEnteredCurrency = viewState.value.userEnteredCurrencyValueInput
+                    val userFromEnteredCurrencyType = viewState.value.userEnteredCurrencyTypeInput
+                    val userFromEnteredCurrencyKey = viewState.value.selectedDropDownModel?.currencyKey
+                    val userFromEnteredCurrencyName = viewState.value.selectedDropDownModel?.currencyName
+
+                    var currencyToRateKey = ""
+                    var currencyToRateValue = 0.0
+
+                    viewState.value.currencyRatesList.forEachIndexed { index, ratesEntity ->
+                        if(ratesEntity.isItemSelected.value){
+                            currencyToRateKey = ratesEntity.ratesKey
+                            currencyToRateValue = ratesEntity.ratesValue!!
+                        }
+                    }
+
+                    _uiEvent.send(
+                        CurrencyScreenResponseEvent.DisplayResultScreen(
+                            CurrencyResultInput(
+                                userFromEnteredCurrency = userFromEnteredCurrency,
+                                userFromEnteredCurrencyType = userFromEnteredCurrencyType,
+                                userFromEnteredCurrencyKey = userFromEnteredCurrencyKey,
+                                userFromEnteredCurrencyName= userFromEnteredCurrencyName,
+                                currencyToRateKey = currencyToRateKey,
+                                currencyToRateValue = currencyToRateValue
+                            )
+                        )
+                    )
                 }else{
                     val message = result.exceptionOrNull()?.message.toString()
                     errorPerformingUseCase(Exception(message))
