@@ -1,9 +1,7 @@
 package com.istudio.currency_converter.presentation
 
-import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewModelScope
 import com.istudio.common.platform.coroutines.dispatcher.MainDispatcher
 import com.istudio.common.platform.uiEvent.UiText
@@ -52,20 +50,26 @@ class CurrencyScreenVm @Inject constructor(
         viewModelScope.launch {
             when (event) {
 
-                is CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown -> {
-                    viewState.value = viewState.value.copy(selectedDropDownModel = event.item)
+                is CurrencyScreenViewEvent.SetCurrencyUserEnteredInput -> {
+                    // Update the latest UI state value in the state holder
                     viewState.value = viewState.value.copy(
-                        userEnteredCurrencyTypeInput = event.item.currencyKey
+                        userEnteredCurrencyValueInput = event.currencyInputValue
+                    )
+                    viewState.value = viewState.value.copy(
+                        userEnteredCurrencyValueInputError = false
                     )
                 }
 
-                is CurrencyScreenViewEvent.ValidateCurrencyCalculation -> {
-                    initiateCurrencyValidation()
-                }
-
-                is CurrencyScreenViewEvent.SetCurrencyUserEnteredInput -> {
-                    // Update the latest UI state value in the state holder
-                    viewState.value = viewState.value.copy(userEnteredCurrencyValueInput = event.currencyInputValue)
+                is CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown -> {
+                    viewState.value = viewState.value.copy(
+                        selectedDropDownModel = event.item
+                    )
+                    viewState.value = viewState.value.copy(
+                        userEnteredCurrencyTypeInput = event.item.currencyKey
+                    )
+                    viewState.value = viewState.value.copy(
+                        userEnteredCurrencyTypeInputError = false
+                    )
                 }
 
                 is CurrencyScreenViewEvent.GetCurrenciesFromApi -> {
@@ -109,6 +113,21 @@ class CurrencyScreenVm @Inject constructor(
                 is CurrencyScreenViewEvent.SetRatesItemSelection -> {
                     setRatesItemSelected(event.position)
                 }
+
+                is CurrencyScreenViewEvent.CurrencyInputValueValidationInitiate -> {
+                    // Input validation
+                    initiateValidationOfCurrencyInputValue()
+                }
+
+                is CurrencyScreenViewEvent.CurrencyInputTypeValidationInitiate -> {
+                    // Type validation
+                    initiateValidationOfCurrencyType()
+                }
+
+                is CurrencyScreenViewEvent.ValidateCurrencyCalculation -> {
+                    // All validations
+                    initiateCurrencyValidation()
+                }
             }
         }
     }
@@ -116,30 +135,81 @@ class CurrencyScreenVm @Inject constructor(
 
     /** <*********************> Use case invocations <*******************> **/
     /**
-     * USE-CASE :----> Initiate currency validation
+     * USE-CASE :----> Initiate the validation of currency input value done from user
+     */
+    private fun initiateValidationOfCurrencyInputValue() = uiScope.launch {
+        try {
+            val input = viewState.value.userEnteredCurrencyValueInput
+            val result = useCases.validateCurrencyInputValueUseCase.invoke(input)
+            withContext(mainDispatcher){
+                if(result.isSuccess){
+                    _uiEvent.send(CurrencyScreenResponseEvent.CurrencyInputValueValidationSuccess)
+                }else{
+                    // error state
+                    viewState.value = viewState.value.copy(
+                        userEnteredCurrencyValueInputError = true
+                    )
+                    // Snack bar message
+                    useCaseErrorMessage(UiText.DynamicString("Please enter a currency value to convert"))
+                }
+            }
+        }catch (ex:Exception){
+            errorPerformingUseCase(ex)
+        }
+    }
+
+    /**
+     * USE-CASE :----> Initiate the validation of currency type done from user
+     */
+    private fun initiateValidationOfCurrencyType() = uiScope.launch {
+        try {
+            val input = viewState.value.userEnteredCurrencyTypeInput
+            val result = useCases.validateCurrencyInputValueUseCase.invoke(input)
+            withContext(mainDispatcher){
+                if(result.isSuccess){
+                    _uiEvent.send(CurrencyScreenResponseEvent.CurrencyInputTypeValidationSuccess)
+                }else{
+                    // error state
+                    viewState.value = viewState.value.copy(
+                        userEnteredCurrencyTypeInputError = true
+                    )
+                    useCaseErrorMessage(
+                        UiText.DynamicString("Select a currency type from drop down")
+                    )
+                }
+            }
+        }catch (ex:Exception){
+            errorPerformingUseCase(ex)
+        }
+    }
+
+    /**
+     * USE-CASE :----> Initiate currency validation of all the selected fields
      */
     private fun initiateCurrencyValidation() = uiScope.launch {
+        try{
+            val input = CurrencyValidationInput(
+                // Text Field - Input
+                userEnteredCurrencyValueInput = viewState.value.userEnteredCurrencyValueInput,
+                // Drop down menu - Input
+                userEnteredCurrencyTypeInput = viewState.value.userEnteredCurrencyTypeInput,
+                // Grid Selection - Input
+                userSelectedCurrencyConversionTypeInput = viewState.value.currencyRatesList
+            )
 
-        val input = CurrencyValidationInput(
-            // Text Field - Input
-            userEnteredCurrencyValueInput = viewState.value.userEnteredCurrencyValueInput,
-            // Drop down menu - Input
-            userEnteredCurrencyTypeInput = viewState.value.userEnteredCurrencyTypeInput,
-            // Grid Selection - Input
-            userSelectedCurrencyConversionTypeInput = viewState.value.currencyRatesList
-        )
-
-        val result = useCases.validateCurrencyInput.invoke(input)
-        withContext(mainDispatcher){
-            if(result.isSuccess){
-                // Successful validation
-                println()
-            }else{
-                val message = result.exceptionOrNull()?.message.toString()
-                errorPerformingUseCase(Exception(message))
+            val result = useCases.validateAllInputsForCalculationUseCase.invoke(input)
+            withContext(mainDispatcher){
+                if(result.isSuccess){
+                    // Successful validation
+                    println()
+                }else{
+                    val message = result.exceptionOrNull()?.message.toString()
+                    errorPerformingUseCase(Exception(message))
+                }
             }
+        }catch (ex:Exception){
+            errorPerformingUseCase(ex)
         }
-
     }
 
     /**

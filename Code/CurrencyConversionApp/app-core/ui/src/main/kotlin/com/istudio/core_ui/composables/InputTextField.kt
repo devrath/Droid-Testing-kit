@@ -19,7 +19,8 @@ import com.istudio.currency_converter.R
 fun InputTextField(
     modifier: Modifier = Modifier,
     currencyInputText: String,
-    currencyInputChange : (String) -> Unit
+    currencyInputChange : (String) -> Unit,
+    isError : Boolean = false
 ){
     // Context
     val cxt = LocalContext.current
@@ -42,6 +43,7 @@ fun InputTextField(
         textStyle = LocalTextStyle.current.copy( textAlign = TextAlign.Left),
         placeholder = { Text(text = placeholder) },
         maxLines = maxLines,
+        isError = isError,
         keyboardOptions = KeyboardOptions( keyboardType = KeyboardType.Number),
     )
 }

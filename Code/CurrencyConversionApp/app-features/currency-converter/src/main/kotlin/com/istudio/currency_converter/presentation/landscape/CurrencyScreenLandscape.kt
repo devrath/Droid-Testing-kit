@@ -33,6 +33,8 @@ fun CurrencyScreenLandscape(
     curriencyList : List<CurrencyEntity>,
     curriencyRatesList : List<RatesEntity>,
     currencyInputText : String,
+    isCurrencyFieldError : Boolean = false,
+    isCurrencyValueDropDownError : Boolean = false,
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit,
     setRatesItemSelection : (Int) -> Unit,
@@ -60,6 +62,7 @@ fun CurrencyScreenLandscape(
                 InputTextField(
                     modifier = Modifier.fillMaxWidth(),
                     currencyInputText = currencyInputText,
+                    isError = isCurrencyFieldError,
                     currencyInputChange = { currencyInputChange.invoke(it) }
                 )
 
@@ -80,6 +83,7 @@ fun CurrencyScreenLandscape(
                     Box() {
                         DropDownField(
                             dataList = curriencyList,
+                            isError = isCurrencyValueDropDownError,
                             selectionAction = { itemSelection ->
                                 onCurrencyDropDownSelection.invoke(itemSelection)
                             }

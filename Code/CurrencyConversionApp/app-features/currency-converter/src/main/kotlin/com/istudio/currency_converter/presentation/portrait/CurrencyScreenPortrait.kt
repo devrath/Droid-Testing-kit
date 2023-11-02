@@ -28,6 +28,8 @@ fun CurrencyScreenPortrait(
     curriencyList : List<CurrencyEntity>,
     curriencyRatesList : List<RatesEntity>,
     currencyInputText : String,
+    isCurrencyFieldError : Boolean = false,
+    isCurrencyValueDropDownError : Boolean = false,
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit,
     setRatesItemSelection : (Int) -> Unit,
@@ -49,7 +51,8 @@ fun CurrencyScreenPortrait(
         InputTextField(
             modifier = Modifier.fillMaxWidth(),
             currencyInputText = currencyInputText,
-            currencyInputChange = { currencyInputChange.invoke(it) }
+            isError = isCurrencyFieldError,
+            currencyInputChange = { currencyInputChange.invoke(it) },
         )
 
         Row(
@@ -67,6 +70,7 @@ fun CurrencyScreenPortrait(
             Box() {
                 DropDownField(
                     dataList = curriencyList,
+                    isError = isCurrencyValueDropDownError,
                     selectionAction = { itemSelection ->
                         onCurrencyDropDownSelection.invoke(itemSelection)
                     }

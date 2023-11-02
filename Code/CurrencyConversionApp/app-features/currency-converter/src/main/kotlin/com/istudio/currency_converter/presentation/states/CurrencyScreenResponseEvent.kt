@@ -11,4 +11,8 @@ sealed class CurrencyScreenResponseEvent {
     object PreferencesSavedForLocalCache : CurrencyScreenResponseEvent()
     data class ToggleData(val shouldNewDataBeRecievedFromServer: Boolean) : CurrencyScreenResponseEvent()
 
+
+    object CurrencyInputValueValidationSuccess : CurrencyScreenResponseEvent()
+    object CurrencyInputTypeValidationSuccess : CurrencyScreenResponseEvent()
+
 }

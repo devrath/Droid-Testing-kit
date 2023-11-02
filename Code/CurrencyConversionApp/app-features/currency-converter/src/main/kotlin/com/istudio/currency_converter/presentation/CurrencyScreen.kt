@@ -46,7 +46,7 @@ fun CurrencyScreen(
     onClickOfCalculatePlay {
         // Get the data from the screen and pass to parent
         // Perform validation
-        viewModel.onEvent(CurrencyScreenViewEvent.ValidateCurrencyCalculation)
+        viewModel.onEvent(CurrencyScreenViewEvent.CurrencyInputValueValidationInitiate)
     }
     // <!----------- Parent composable click actions -------------->
 
@@ -95,6 +95,14 @@ fun CurrencyScreen(
                         CurrencyScreenViewEvent.GetCurrenciesFromApi(event.shouldNewDataBeRecievedFromServer)
                     )
                 }
+
+                is CurrencyScreenResponseEvent.CurrencyInputValueValidationSuccess -> {
+                    viewModel.onEvent(CurrencyScreenViewEvent.CurrencyInputTypeValidationInitiate)
+                }
+
+                is CurrencyScreenResponseEvent.CurrencyInputTypeValidationSuccess -> {
+                    viewModel.onEvent(CurrencyScreenViewEvent.ValidateCurrencyCalculation)
+                }
             }
         }
         // <***********> Event is observed from View-Model <************>
@@ -116,6 +124,8 @@ fun CurrencyScreen(
                 curriencyRatesList = currencyRatesList,
                 currencyInputText = state.value.userEnteredCurrencyValueInput,
                 onKeyBoardOutsideClick = onKeyBoardOutsideClick,
+                isCurrencyFieldError = viewModel.viewState.value.userEnteredCurrencyValueInputError,
+                isCurrencyValueDropDownError = viewModel.viewState.value.userEnteredCurrencyTypeInputError,
                 currencyInputChange = {
                     viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
                 },
@@ -127,6 +137,7 @@ fun CurrencyScreen(
                         CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown(item = it)
                     )
                 }
+
             )
         } else {
             CurrencyScreenLandscape(
@@ -134,6 +145,8 @@ fun CurrencyScreen(
                 curriencyRatesList = currencyRatesList,
                 currencyInputText = state.value.userEnteredCurrencyValueInput,
                 onKeyBoardOutsideClick = onKeyBoardOutsideClick,
+                isCurrencyFieldError = viewModel.viewState.value.userEnteredCurrencyValueInputError,
+                isCurrencyValueDropDownError = viewModel.viewState.value.userEnteredCurrencyTypeInputError,
                 currencyInputChange = {
                     viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
                 },

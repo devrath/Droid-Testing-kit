@@ -8,7 +8,9 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.InsertDataInt
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.IsNewDataToBeFetchedFromServerUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.SaveTimeStampUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.SetRateGridSelectionUseCase
-import com.istudio.currency_converter.domain.usecases.useCaseTypes.ValidateCurrencyInput
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.ValidateAllInputsForCalculationUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.ValidateCurrencyInputTypeUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.ValidateCurrencyInputValueUseCase
 
 data class FeatureUseCases(
     // Use-Case:-> Network
@@ -27,6 +29,10 @@ data class FeatureUseCases(
     val isNewDataToBeFetchedFromServerUseCase : IsNewDataToBeFetchedFromServerUseCase,
     // Use-Case:-> Selection of grid item on item selected
     val setRateGridSelectionUseCase : SetRateGridSelectionUseCase,
+    // Use-Case:-> Validate the currency input value done from user
+    val validateCurrencyInputValueUseCase : ValidateCurrencyInputValueUseCase,
+    // Use-Case:-> Validate the currency input type done from user
+    val validateCurrencyInputTypeUseCase : ValidateCurrencyInputTypeUseCase,
     // Use-Case:-> Validate the inputs involved in currency conversion
-    val validateCurrencyInput : ValidateCurrencyInput
+    val validateAllInputsForCalculationUseCase : ValidateAllInputsForCalculationUseCase,
 )

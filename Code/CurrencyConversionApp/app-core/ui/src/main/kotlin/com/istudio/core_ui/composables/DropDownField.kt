@@ -25,6 +25,7 @@ import com.istudio.models.local.CurrencyEntity
 @Composable
 fun DropDownField(
     modifier: Modifier = Modifier,
+    isError : Boolean = false,
     dataList: List<CurrencyEntity> = mutableListOf(),
     isExpanded: MutableState<Boolean> = mutableStateOf(false),
     actionText: MutableState<String> = mutableStateOf(""),
@@ -57,7 +58,8 @@ fun DropDownField(
             },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor(),
-            placeholder = { Text(text = placeholder) }
+            placeholder = { Text(text = placeholder) },
+            isError = isError
         )
 
         AnimatedVisibility(
