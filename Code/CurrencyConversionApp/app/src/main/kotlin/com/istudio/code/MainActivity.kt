@@ -45,7 +45,12 @@ import com.istudio.code.states.AppScreenResponseEvent
 import com.istudio.code.states.AppScreenUiState
 import com.istudio.code.states.AppScreenViewEvent
 import com.istudio.common.navigation.Screen
-import com.istudio.common.navigation.Screen.Companion.userEnteredCurrencyValue_key
+import com.istudio.common.navigation.Screen.Companion.currencyToRateKey_key
+import com.istudio.common.navigation.Screen.Companion.currencyToRateValue_key
+import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyKey_key
+import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyName_key
+import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyType_key
+import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrency_key
 import com.istudio.core_ui.composables.FloatingActionButton
 import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
@@ -234,10 +239,20 @@ class MainActivity : ComponentActivity() {
                                 },
                                 navigateToResultScreen = { resultInput ->
                                     val userEnteredCurrencyValue = resultInput.userFromEnteredCurrency
+                                    val userFromEnteredCurrencyType = resultInput.userFromEnteredCurrencyType
+                                    val userFromEnteredCurrencyKey = resultInput.userFromEnteredCurrencyKey?:""
+                                    val userFromEnteredCurrencyName = resultInput.userFromEnteredCurrencyName?:""
+                                    val currencyToRateKey = resultInput.currencyToRateKey
+                                    val currencyToRateValue = resultInput.userFromEnteredCurrency.toString()
                                     controller.navigate(
-                                        route = Screen.CurrencyResult.passCurrencyValue(userEnteredCurrencyValue)
-
-
+                                        route = Screen.CurrencyResult.passParameters(
+                                            userFromEnteredCurrency = userEnteredCurrencyValue,
+                                            userFromEnteredCurrencyType = userFromEnteredCurrencyType,
+                                            userFromEnteredCurrencyKey = userFromEnteredCurrencyKey,
+                                            userFromEnteredCurrencyName = userFromEnteredCurrencyName,
+                                            currencyToRateKey = currencyToRateKey,
+                                            currencyToRateValue =currencyToRateValue,
+                                        )
                                     )
                                 }
                             )
@@ -245,10 +260,30 @@ class MainActivity : ComponentActivity() {
 
                         composable(
                             route = Screen.CurrencyResult.route,
+                            arguments = listOf(
+                                navArgument(userFromEnteredCurrency_key){
+                                    type = NavType.StringType
+                                },
+                                navArgument(userFromEnteredCurrencyType_key){
+                                    type = NavType.StringType
+                                },
+                                navArgument(userFromEnteredCurrencyKey_key){
+                                    type = NavType.StringType
+                                },
+                                navArgument(userFromEnteredCurrencyName_key){
+                                    type = NavType.StringType
+                                },
+                                navArgument(currencyToRateKey_key){
+                                    type = NavType.StringType
+                                },
+                                navArgument(currencyToRateValue_key){
+                                    type = NavType.StringType
+                                }
+                            )
 
                         ) { navBackStackEntry ->
 
-                            val userEnteredCurrencyValue = navBackStackEntry.arguments?.getString(userEnteredCurrencyValue_key).toString()
+                            val userEnteredCurrencyValue = navBackStackEntry.arguments?.getString(userFromEnteredCurrency_key).toString()
                             Log.d("Args",userEnteredCurrencyValue)
                             CurrencyResultScreen(
 
