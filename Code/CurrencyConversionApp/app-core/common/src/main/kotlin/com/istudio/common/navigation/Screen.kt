@@ -13,7 +13,10 @@ sealed class Screen(val route : String) {
         route = "currency_result_screen/{$userEnteredCurrencyValue_key}"
     ){
         fun passCurrencyValue(userEnteredCurrencyValue:String) : String{
-            return "currency_result_screen/$userEnteredCurrencyValue"
+            return this.route.replace(
+                oldValue = "{$userEnteredCurrencyValue_key}",
+                newValue = userEnteredCurrencyValue
+            )
         }
     }
 }
