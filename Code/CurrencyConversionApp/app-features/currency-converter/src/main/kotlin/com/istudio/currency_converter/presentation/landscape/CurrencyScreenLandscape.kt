@@ -34,7 +34,8 @@ fun CurrencyScreenLandscape(
     curriencyRatesList : List<RatesEntity>,
     currencyInputText : String,
     onKeyBoardOutsideClick: () -> Unit,
-    currencyInputChange : (String) -> Unit
+    currencyInputChange : (String) -> Unit,
+    setRatesItemSelection : (Int) -> Unit
 ) {
 
     Row(modifier = Modifier
@@ -103,7 +104,7 @@ fun CurrencyScreenLandscape(
                 data = curriencyRatesList,
                 modifier = Modifier.fillMaxWidth().weight(1f),
             ){ selectedItem ->
-
+                setRatesItemSelection.invoke(selectedItem)
             }
         }
     }
@@ -120,6 +121,7 @@ private fun CurrentScreen() {
         curriencyRatesList = emptyList(),
         currencyInputText = "100",
         onKeyBoardOutsideClick = { },
-        currencyInputChange = { }
+        currencyInputChange = { },
+        setRatesItemSelection = { }
     )
 }

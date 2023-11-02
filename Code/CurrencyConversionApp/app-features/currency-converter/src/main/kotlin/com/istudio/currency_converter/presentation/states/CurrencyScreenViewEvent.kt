@@ -10,6 +10,5 @@ sealed class CurrencyScreenViewEvent {
     data class SaveTimeStamp(val data: MasterApiData)  : CurrencyScreenViewEvent()
     object GetCurrencyDataFromDb : CurrencyScreenViewEvent()
     object GetCurrencyRatesDataFromDb : CurrencyScreenViewEvent()
-
-
+    data class SetRatesItemSelection(val position: Int)  : CurrencyScreenViewEvent()
 }

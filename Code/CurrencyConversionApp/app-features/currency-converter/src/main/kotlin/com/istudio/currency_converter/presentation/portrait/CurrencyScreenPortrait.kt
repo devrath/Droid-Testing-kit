@@ -29,7 +29,8 @@ fun CurrencyScreenPortrait(
     curriencyRatesList : List<RatesEntity>,
     currencyInputText : String,
     onKeyBoardOutsideClick: () -> Unit,
-    currencyInputChange : (String) -> Unit
+    currencyInputChange : (String) -> Unit,
+    setRatesItemSelection : (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -70,7 +71,7 @@ fun CurrencyScreenPortrait(
         Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
 
         GridInput(data = curriencyRatesList){ selectedItem ->
-
+            setRatesItemSelection.invoke(selectedItem)
         }
     }
 }

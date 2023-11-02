@@ -90,6 +90,19 @@ class CurrencyScreenVm @Inject constructor(
                 is CurrencyScreenViewEvent.SaveTimeStamp -> {
                     savePreferencesLocalCacheSaved(event.data)
                 }
+
+                is CurrencyScreenViewEvent.SetRatesItemSelection -> {
+                    viewModelScope.launch {
+                        val newSelection = viewState.value.currencyRatesList
+                        val selectedPosition = event.position
+
+                        newSelection.forEachIndexed { index, ratesEntity ->
+                            ratesEntity.isItemSelected.value = selectedPosition==index
+                        }
+
+                        viewState.value = viewState.value.copy(currencyRatesList = newSelection)
+                    }
+                }
             }
         }
     }

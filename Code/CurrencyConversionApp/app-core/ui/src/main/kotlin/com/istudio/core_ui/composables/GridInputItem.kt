@@ -21,16 +21,25 @@ import com.istudio.models.local.RatesEntity
 
 @Composable
 fun GridInputItem(
-    item : RatesEntity,
-    position : Int,
-    onClick : (Int) -> Unit
+    item: RatesEntity,
+    position: Int,
+    onClick: (Int) -> Unit
 ) {
     Box(
         modifier = Modifier
             .padding(LocalSpacing.current.spaceExtraSmall)
             .aspectRatio(1f)
             .clip(RoundedCornerShape(5.dp))
-            .background(color = MaterialTheme.colorScheme.primaryContainer)
+            .background(
+                color =
+                if (item.isItemSelected.value) {
+                    // Indicate selected
+                    MaterialTheme.colorScheme.tertiaryContainer
+                } else {
+                    // Indicate not selected
+                    MaterialTheme.colorScheme.primaryContainer
+                }
+            )
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(

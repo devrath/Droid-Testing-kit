@@ -115,6 +115,9 @@ fun CurrencyScreen(
                 onKeyBoardOutsideClick = onKeyBoardOutsideClick,
                 currencyInputChange = {
                     viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
+                },
+                setRatesItemSelection = {
+                    viewModel.onEvent(CurrencyScreenViewEvent.SetRatesItemSelection(position = it))
                 }
             )
         } else {
@@ -125,6 +128,9 @@ fun CurrencyScreen(
                 onKeyBoardOutsideClick = onKeyBoardOutsideClick,
                 currencyInputChange = {
                     viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
+                },
+                setRatesItemSelection = {
+                    viewModel.onEvent(CurrencyScreenViewEvent.SetRatesItemSelection(position = it))
                 }
             )
         }
