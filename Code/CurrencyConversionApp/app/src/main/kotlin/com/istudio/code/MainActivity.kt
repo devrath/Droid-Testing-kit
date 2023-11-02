@@ -132,7 +132,12 @@ class MainActivity : ComponentActivity() {
                             titleStr = titleStr,
                             controller = controller,
                             orientation = orientation,
-                            focusManager = focusManager
+                            focusManager = focusManager,
+                            displaySnackBar = { message ->
+                                coroutineScope.launch {
+                                    snackBarController.showSnackbar(message = message)
+                                }
+                            }
                         )
                     },
                     modifier = Modifier.fillMaxSize()
@@ -150,7 +155,8 @@ class MainActivity : ComponentActivity() {
         titleStr: String,
         controller: NavHostController,
         orientation: Int,
-        focusManager: FocusManager
+        focusManager: FocusManager,
+        displaySnackBar : (String) -> Unit
     ) {
         // View model reference
         val viewModel: MainVm = hiltViewModel()
@@ -215,7 +221,12 @@ class MainActivity : ComponentActivity() {
                                     // Toggle toolbar visibility
                                     viewModel.onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = isVisible))
                                 },
-                                onClickOfCalculatePlay = { onClickOfCalculatePlay = it }
+                                onClickOfCalculatePlay = {
+                                    onClickOfCalculatePlay = it
+                                },
+                                displaySnackBar = { message ->
+                                    displaySnackBar.invoke(message)
+                                }
                             )
                         }
                     }

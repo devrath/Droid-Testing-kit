@@ -1,7 +1,9 @@
 package com.istudio.currency_converter.presentation
 
+import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewModelScope
 import com.istudio.common.platform.coroutines.dispatcher.MainDispatcher
 import com.istudio.common.platform.uiEvent.UiText
@@ -109,16 +111,27 @@ class CurrencyScreenVm @Inject constructor(
     /**
      * USE-CASE :----> Initiate currency validation
      */
-    private fun initiateCurrencyValidation() {
+    private fun initiateCurrencyValidation() = uiScope.launch {
 
         val input = CurrencyValidationInput(
+            // Text Field - Input
             userEnteredCurrencyValueInput = viewState.value.userEnteredCurrencyValueInput,
+            // Drop down menu - Input
             userEnteredCurrencyTypeInput = viewState.value.userEnteredCurrencyTypeInput,
+            // Grid Selection - Input
             userSelectedCurrencyConversionTypeInput = viewState.value.currencyRatesList
         )
 
-
-
+        val result = useCases.validateCurrencyInput.invoke(input)
+        withContext(mainDispatcher){
+            if(result.isSuccess){
+                // Successful validation
+                println()
+            }else{
+                val message = result.exceptionOrNull()?.message.toString()
+                errorPerformingUseCase(Exception(message))
+            }
+        }
 
     }
 
@@ -292,18 +305,6 @@ class CurrencyScreenVm @Inject constructor(
     /** <*********************> Use case invocations <*******************> **/
 
 
-    /** ********************************* DISPLAY MESSAGES ****************************************/
-    /**
-     * ERROR HANDLING:
-     * Displaying messages to the snack-bar
-     * Always publish the result in the main thread
-     */
-    private suspend fun useCaseErrorMessage(result: UiText?) = uiScope.launch {
-        result?.let { _uiEvent.send(CurrencyScreenResponseEvent.ShowSnackBar(it.toString())) }
-    }
-    /** ********************************* DISPLAY MESSAGES ****************************************/
-
-
     /** ********************************* OTHER FUNCTIONS *****************************************/
     private suspend fun errorPerformingUseCase(ex: Exception) {
         withContext(mainDispatcher) {
@@ -311,6 +312,21 @@ class CurrencyScreenVm @Inject constructor(
         }
     }
     /** ********************************* OTHER FUNCTIONS *****************************************/
+
+
+    /** ********************************* DISPLAY MESSAGES ****************************************/
+    /**
+     * ERROR HANDLING:
+     * Displaying messages to the snack-bar
+     * Always publish the result in the main thread
+     */
+    private suspend fun useCaseErrorMessage(result: UiText?) = uiScope.launch {
+        result?.let {
+            val message = (result as UiText.DynamicString).text
+            _uiEvent.send(CurrencyScreenResponseEvent.ShowSnackBar(message))
+        }
+    }
+    /** ********************************* DISPLAY MESSAGES ****************************************/
 
 
 }

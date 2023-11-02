@@ -25,7 +25,8 @@ fun CurrencyScreen(
     onKeyBoardOutsideClick: () -> Unit,
     onBackPress: () -> Unit,
     onLoading:(Boolean) -> Unit,
-    onClickOfCalculatePlay: (onClick: () -> Unit) -> Unit
+    onClickOfCalculatePlay: (onClick: () -> Unit) -> Unit,
+    displaySnackBar : (String) -> Unit
 ) {
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // Context
@@ -42,9 +43,10 @@ fun CurrencyScreen(
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
 
     // <!----------- Parent composable click actions -------------->
-    onClickOfCalculatePlay() {
-        // Get the data from the screen and pass to parent 
-        println("")
+    onClickOfCalculatePlay {
+        // Get the data from the screen and pass to parent
+        // Perform validation
+        viewModel.onEvent(CurrencyScreenViewEvent.ValidateCurrencyCalculation)
     }
     // <!----------- Parent composable click actions -------------->
 
@@ -80,7 +82,8 @@ fun CurrencyScreen(
                 }
 
                 is CurrencyScreenResponseEvent.ShowSnackBar -> {
-
+                    // Display snackBar error
+                    displaySnackBar.invoke(event.message)
                 }
 
                 is CurrencyScreenResponseEvent.PreferencesSavedForLocalCache -> {

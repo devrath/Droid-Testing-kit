@@ -12,6 +12,7 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.InsertDataInt
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.IsNewDataToBeFetchedFromServerUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.SaveTimeStampUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.SetRateGridSelectionUseCase
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.ValidateCurrencyInput
 import com.istudio.preferences.data.RepositoryPreferences
 import dagger.Module
 import dagger.Provides
@@ -57,7 +58,11 @@ object FeaturesUseCaseModule {
             ),
             setRateGridSelectionUseCase = SetRateGridSelectionUseCase(
                 dispatcher = dispatcher
+            ),
+            validateCurrencyInput = ValidateCurrencyInput(
+                dispatcher = dispatcher
             )
         )
     }
+
 }
