@@ -1,11 +1,14 @@
 package com.istudio.core_ui.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayCircleFilled
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.istudio.currency_converter.R
 
@@ -23,6 +26,7 @@ fun FloatingActionButton(
             )
         },
         text = { Text(text = cxt.getString(R.string.str_currency_calculate)) },
-        expanded = true
+        expanded = true,
+        containerColor = MaterialTheme.colorScheme.tertiary
     )
 }
