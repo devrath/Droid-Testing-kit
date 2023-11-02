@@ -32,8 +32,8 @@ class CurrencyResultScreenVm @Inject constructor(
     fun onEvent(event: CurrencyResultScreenViewEvent) {
         viewModelScope.launch {
             when (event) {
-                CurrencyResultScreenViewEvent.SetResultDataInVm -> {
-
+                is CurrencyResultScreenViewEvent.SetResultDataInVm -> {
+                    viewState.value = viewState.value.copy(inputData = event.data)
                 }
             }
         }
