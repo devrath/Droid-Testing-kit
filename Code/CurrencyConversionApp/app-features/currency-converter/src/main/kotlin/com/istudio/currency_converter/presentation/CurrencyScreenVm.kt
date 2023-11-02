@@ -52,6 +52,13 @@ class CurrencyScreenVm @Inject constructor(
         viewModelScope.launch {
             when (event) {
 
+                is CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown -> {
+                    viewState.value = viewState.value.copy(selectedDropDownModel = event.item)
+                    viewState.value = viewState.value.copy(
+                        userEnteredCurrencyTypeInput = event.item.currencyKey
+                    )
+                }
+
                 is CurrencyScreenViewEvent.ValidateCurrencyCalculation -> {
                     initiateCurrencyValidation()
                 }

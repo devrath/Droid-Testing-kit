@@ -121,6 +121,11 @@ fun CurrencyScreen(
                 },
                 setRatesItemSelection = {
                     viewModel.onEvent(CurrencyScreenViewEvent.SetRatesItemSelection(position = it))
+                },
+                onCurrencyDropDownSelection = {
+                    viewModel.onEvent(
+                        CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown(item = it)
+                    )
                 }
             )
         } else {
@@ -134,6 +139,11 @@ fun CurrencyScreen(
                 },
                 setRatesItemSelection = {
                     viewModel.onEvent(CurrencyScreenViewEvent.SetRatesItemSelection(position = it))
+                },
+                onCurrencyDropDownSelection = {
+                    viewModel.onEvent(
+                        CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown(item = it)
+                    )
                 }
             )
         }

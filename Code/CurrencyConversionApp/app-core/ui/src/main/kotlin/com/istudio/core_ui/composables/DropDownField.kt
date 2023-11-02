@@ -27,7 +27,8 @@ fun DropDownField(
     modifier: Modifier = Modifier,
     dataList: List<CurrencyEntity> = mutableListOf(),
     isExpanded: MutableState<Boolean> = mutableStateOf(false),
-    actionText: MutableState<String> = mutableStateOf("")
+    actionText: MutableState<String> = mutableStateOf(""),
+    selectionAction : (CurrencyEntity) -> Unit
 ) {
 
     // Context
@@ -76,6 +77,7 @@ fun DropDownField(
                         onClick = {
                             actionTextLocal = item.currencyName.toString()
                             isExpandedLocal = false
+                            selectionAction.invoke(item)
                         }
                     )
                 }
@@ -92,5 +94,5 @@ fun DropDownField(
 private fun CurrentDisplay() {
     DropDownField(
         dataList = mutableListOf()
-    )
+    ){}
 }

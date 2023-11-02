@@ -35,7 +35,8 @@ fun CurrencyScreenLandscape(
     currencyInputText : String,
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit,
-    setRatesItemSelection : (Int) -> Unit
+    setRatesItemSelection : (Int) -> Unit,
+    onCurrencyDropDownSelection : (CurrencyEntity) -> Unit
 ) {
 
     Row(modifier = Modifier
@@ -77,7 +78,12 @@ fun CurrencyScreenLandscape(
                     )
 
                     Box() {
-                        DropDownField(dataList = curriencyList)
+                        DropDownField(
+                            dataList = curriencyList,
+                            selectionAction = { itemSelection ->
+                                onCurrencyDropDownSelection.invoke(itemSelection)
+                            }
+                        )
                     }
                 }
 
@@ -122,6 +128,7 @@ private fun CurrentScreen() {
         currencyInputText = "100",
         onKeyBoardOutsideClick = { },
         currencyInputChange = { },
-        setRatesItemSelection = { }
+        setRatesItemSelection = { },
+        onCurrencyDropDownSelection = { }
     )
 }

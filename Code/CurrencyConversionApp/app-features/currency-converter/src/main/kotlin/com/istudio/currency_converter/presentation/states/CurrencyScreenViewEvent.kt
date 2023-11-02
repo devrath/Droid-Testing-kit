@@ -1,6 +1,7 @@
 package com.istudio.currency_converter.presentation.states
 
 import com.istudio.models.custom.MasterApiData
+import com.istudio.models.local.CurrencyEntity
 
 sealed class CurrencyScreenViewEvent {
     data class SetCurrencyUserEnteredInput(val currencyInputValue: String) : CurrencyScreenViewEvent()
@@ -12,4 +13,6 @@ sealed class CurrencyScreenViewEvent {
     object GetCurrencyRatesDataFromDb : CurrencyScreenViewEvent()
     data class SetRatesItemSelection(val position: Int)  : CurrencyScreenViewEvent()
     object ValidateCurrencyCalculation : CurrencyScreenViewEvent()
+    data class SetCurrencyTypeSelectedFromDropDown(val item: CurrencyEntity) : CurrencyScreenViewEvent()
+
 }

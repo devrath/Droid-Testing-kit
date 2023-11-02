@@ -11,6 +11,8 @@ data class CurrencyScreenUiState(
     // Currency conversion input ---> value
     val userSelectedCurrencyConversionTypeInput: String = "",
 
+    val selectedDropDownModel : CurrencyEntity? = null,
+
     // User entered currency ---> boolean
     val userEnteredCurrencyValueInputError: Boolean = false,
     // User entered currency type  ---> boolean

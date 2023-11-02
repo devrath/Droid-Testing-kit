@@ -30,7 +30,8 @@ fun CurrencyScreenPortrait(
     currencyInputText : String,
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit,
-    setRatesItemSelection : (Int) -> Unit
+    setRatesItemSelection : (Int) -> Unit,
+    onCurrencyDropDownSelection : (CurrencyEntity) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -64,7 +65,12 @@ fun CurrencyScreenPortrait(
             )
 
             Box() {
-                DropDownField(dataList = curriencyList)
+                DropDownField(
+                    dataList = curriencyList,
+                    selectionAction = { itemSelection ->
+                        onCurrencyDropDownSelection.invoke(itemSelection)
+                    }
+                )
             }
         }
 
