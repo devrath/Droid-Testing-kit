@@ -11,4 +11,5 @@ sealed class CurrencyScreenViewEvent {
     object GetCurrencyDataFromDb : CurrencyScreenViewEvent()
     object GetCurrencyRatesDataFromDb : CurrencyScreenViewEvent()
     data class SetRatesItemSelection(val position: Int)  : CurrencyScreenViewEvent()
+    object ValidateCurrencyCalculation : CurrencyScreenViewEvent()
 }

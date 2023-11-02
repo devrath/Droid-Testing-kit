@@ -4,11 +4,20 @@ import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 
 data class CurrencyScreenUiState(
-    val currencyUserEnteredInput: String = "",
-    val currencyUserConversionInput: String = "",
+    // User entered currency ---> value
+    val userEnteredCurrencyValueInput: String = "",
+    // User entered currency type  ---> value
+    val userEnteredCurrencyTypeInput: String = "",
+    // Currency conversion input ---> value
+    val userSelectedCurrencyConversionTypeInput: String = "",
 
-    val currencyUserEnteredInputError: Boolean = false,
-    val currencyUserConversionInputError: Boolean = false,
+    // User entered currency ---> boolean
+    val userEnteredCurrencyValueInputError: Boolean = false,
+    // User entered currency type  ---> boolean
+    val userEnteredCurrencyTypeInputError: Boolean = false,
+    // Currency conversion input  ---> boolean
+    val userSelectedCurrencyConversionTypeInputError: Boolean = false,
+
     // This flg is set once - > From launched effect state, To start collecting emits only once
     val launchedEffectState: Boolean = false,
     // This variable holds the currency list data

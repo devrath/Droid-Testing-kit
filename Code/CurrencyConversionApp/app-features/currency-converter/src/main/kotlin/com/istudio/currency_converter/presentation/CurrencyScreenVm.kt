@@ -12,6 +12,7 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDispla
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
+import com.istudio.models.custom.CurrencyValidationInput
 import com.istudio.models.custom.GridSelectionInput
 import com.istudio.models.custom.MasterApiData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,9 +49,14 @@ class CurrencyScreenVm @Inject constructor(
     fun onEvent(event: CurrencyScreenViewEvent) {
         viewModelScope.launch {
             when (event) {
+
+                is CurrencyScreenViewEvent.ValidateCurrencyCalculation -> {
+                    initiateCurrencyValidation()
+                }
+
                 is CurrencyScreenViewEvent.SetCurrencyUserEnteredInput -> {
                     // Update the latest UI state value in the state holder
-                    viewState.value = viewState.value.copy(currencyUserEnteredInput = event.currencyInputValue)
+                    viewState.value = viewState.value.copy(userEnteredCurrencyValueInput = event.currencyInputValue)
                 }
 
                 is CurrencyScreenViewEvent.GetCurrenciesFromApi -> {
@@ -100,6 +106,22 @@ class CurrencyScreenVm @Inject constructor(
     /** <************> UI Action is invoked from composable <************> **/
 
     /** <*********************> Use case invocations <*******************> **/
+    /**
+     * USE-CASE :----> Initiate currency validation
+     */
+    private fun initiateCurrencyValidation() {
+
+        val input = CurrencyValidationInput(
+            userEnteredCurrencyValueInput = viewState.value.userEnteredCurrencyValueInput,
+            userEnteredCurrencyTypeInput = viewState.value.userEnteredCurrencyTypeInput,
+            userSelectedCurrencyConversionTypeInput = viewState.value.currencyRatesList
+        )
+
+
+
+
+    }
+
     /**
      * USE-CASE :----> Set rates list item selected
      */

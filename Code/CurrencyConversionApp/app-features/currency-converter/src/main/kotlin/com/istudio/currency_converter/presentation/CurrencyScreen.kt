@@ -111,7 +111,7 @@ fun CurrencyScreen(
             CurrencyScreenPortrait(
                 curriencyList = curriencyList,
                 curriencyRatesList = currencyRatesList,
-                currencyInputText = state.value.currencyUserEnteredInput,
+                currencyInputText = state.value.userEnteredCurrencyValueInput,
                 onKeyBoardOutsideClick = onKeyBoardOutsideClick,
                 currencyInputChange = {
                     viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
@@ -124,7 +124,7 @@ fun CurrencyScreen(
             CurrencyScreenLandscape(
                 curriencyList = curriencyList,
                 curriencyRatesList = currencyRatesList,
-                currencyInputText = state.value.currencyUserEnteredInput,
+                currencyInputText = state.value.userEnteredCurrencyValueInput,
                 onKeyBoardOutsideClick = onKeyBoardOutsideClick,
                 currencyInputChange = {
                     viewModel.onEvent(CurrencyScreenViewEvent.SetCurrencyUserEnteredInput(it))
