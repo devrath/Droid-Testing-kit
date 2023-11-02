@@ -31,7 +31,6 @@ class CurrencyScreenVm @Inject constructor(
 
     init {
         toggleData()
-        //getDataFromServer()
     }
 
     override fun setupPrerequisites(params: Unit) = Unit

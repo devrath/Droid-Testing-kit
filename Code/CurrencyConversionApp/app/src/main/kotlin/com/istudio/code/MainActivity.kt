@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -41,6 +42,7 @@ import com.istudio.code.states.AppScreenResponseEvent
 import com.istudio.code.states.AppScreenUiState
 import com.istudio.code.states.AppScreenViewEvent
 import com.istudio.common.navigation.Route
+import com.istudio.core_ui.composables.FloatingActionButton
 import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
 import com.istudio.core_ui.composables.ThemeSwitcher
@@ -152,6 +154,7 @@ class MainActivity : ComponentActivity() {
     ) {
         // View model reference
         val viewModel: MainVm = hiltViewModel()
+        var onClickOfCalculatePlay by remember { mutableStateOf({}) }
 
         if (state.isConnectedToInternet) {
             // Connected to internet
@@ -177,6 +180,11 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         )
+                    }
+                },
+                floatingActionButton = {
+                    FloatingActionButton{
+                        onClickOfCalculatePlay()
                     }
                 }
             ) {
@@ -206,7 +214,8 @@ class MainActivity : ComponentActivity() {
                                 onLoading = { isVisible ->
                                     // Toggle toolbar visibility
                                     viewModel.onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = isVisible))
-                                }
+                                },
+                                onClickOfCalculatePlay = { onClickOfCalculatePlay = it }
                             )
                         }
                     }

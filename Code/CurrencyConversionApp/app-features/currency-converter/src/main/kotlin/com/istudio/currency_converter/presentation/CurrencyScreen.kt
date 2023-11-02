@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -12,8 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.istudio.core_ui.composables.LoadingAnimation
 import com.istudio.currency_converter.presentation.landscape.CurrencyScreenLandscape
 import com.istudio.currency_converter.presentation.portrait.CurrencyScreenPortrait
@@ -27,9 +24,9 @@ fun CurrencyScreen(
     onErrorAction: (String) -> Unit,
     onKeyBoardOutsideClick: () -> Unit,
     onBackPress: () -> Unit,
-    onLoading:(Boolean) -> Unit
+    onLoading:(Boolean) -> Unit,
+    onClickOfCalculatePlay: (onClick: () -> Unit) -> Unit
 ) {
-
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // Context
     val cxt = LocalContext.current
@@ -43,6 +40,14 @@ fun CurrencyScreen(
     val curriencyList = viewModel.viewState.value.currencyList
     val currencyRatesList = viewModel.viewState.value.currencyRatesList
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
+
+    // <!----------- Parent composable click actions -------------->
+    onClickOfCalculatePlay() {
+        // Get the data from the screen and pass to parent 
+        println("")
+    }
+    // <!----------- Parent composable click actions -------------->
+
 
     LaunchedEffect(key1 = state.value.launchedEffectState) {
         // <***********> Event is observed from View-Model <************>
