@@ -7,9 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.istudio.models.custom.CurrencyResultInput
 
 @Composable
 fun  CurrencyResultScreen(
+    input : CurrencyResultInput,
     orientation: Int = Configuration.ORIENTATION_PORTRAIT,
     modifier: Modifier = Modifier,
 ) {

@@ -58,6 +58,7 @@ import com.istudio.core_ui.composables.ThemeSwitcher
 import com.istudio.core_ui.theme.MaterialAppTheme
 import com.istudio.currency_converter.presentation.CurrencyScreen
 import com.istudio.currency_result.presentation.CurrencyResultScreen
+import com.istudio.models.custom.CurrencyResultInput
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -261,33 +262,38 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.CurrencyResult.route,
                             arguments = listOf(
-                                navArgument(userFromEnteredCurrency_key){
-                                    type = NavType.StringType
-                                },
-                                navArgument(userFromEnteredCurrencyType_key){
-                                    type = NavType.StringType
-                                },
-                                navArgument(userFromEnteredCurrencyKey_key){
-                                    type = NavType.StringType
-                                },
-                                navArgument(userFromEnteredCurrencyName_key){
-                                    type = NavType.StringType
-                                },
-                                navArgument(currencyToRateKey_key){
-                                    type = NavType.StringType
-                                },
-                                navArgument(currencyToRateValue_key){
-                                    type = NavType.StringType
-                                }
+                                navArgument(userFromEnteredCurrency_key){ type = NavType.StringType },
+                                navArgument(userFromEnteredCurrencyType_key){ type = NavType.StringType },
+                                navArgument(userFromEnteredCurrencyKey_key){ type = NavType.StringType },
+                                navArgument(userFromEnteredCurrencyName_key){ type = NavType.StringType },
+                                navArgument(currencyToRateKey_key){ type = NavType.StringType },
+                                navArgument(currencyToRateValue_key){ type = NavType.StringType }
                             )
 
                         ) { navBackStackEntry ->
 
-                            val userEnteredCurrencyValue = navBackStackEntry.arguments?.getString(userFromEnteredCurrency_key).toString()
-                            Log.d("Args",userEnteredCurrencyValue)
-                            CurrencyResultScreen(
+                            navBackStackEntry.arguments?.let { bundle ->
 
-                            )
+                                val userFromEnteredCurrency = bundle.getString(userFromEnteredCurrency_key).toString()
+                                val userFromEnteredCurrencyType = bundle.getString(userFromEnteredCurrencyType_key).toString()
+                                val userFromEnteredCurrencyKey = bundle.getString(userFromEnteredCurrencyKey_key).toString()
+                                val userFromEnteredCurrencyName = bundle.getString(userFromEnteredCurrencyName_key).toString()
+                                val currencyToRateKey = bundle.getString(currencyToRateKey_key).toString()
+                                val currencyToRateValue = bundle.getString(currencyToRateValue_key).toString()
+
+                                val currencyResultInput = CurrencyResultInput(
+                                    userFromEnteredCurrency = userFromEnteredCurrency,
+                                    userFromEnteredCurrencyType = userFromEnteredCurrencyType,
+                                    userFromEnteredCurrencyKey = userFromEnteredCurrencyKey,
+                                    userFromEnteredCurrencyName = userFromEnteredCurrencyName,
+                                    currencyToRateKey = currencyToRateKey,
+                                    currencyToRateValue = currencyToRateValue.toDouble(),
+                                )
+                                Log.d("Args",currencyResultInput.toString())
+                                CurrencyResultScreen(
+                                    input = currencyResultInput
+                                )
+                            }
                         }
                     }
                 }
