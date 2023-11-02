@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.istudio.common.platform.uiEvent.UiEvent
 import com.istudio.core_ui.composables.LoadingAnimation
 import com.istudio.currency_converter.presentation.landscape.CurrencyScreenLandscape
 import com.istudio.currency_converter.presentation.portrait.CurrencyScreenPortrait

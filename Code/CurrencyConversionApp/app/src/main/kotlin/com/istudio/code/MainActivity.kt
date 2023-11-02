@@ -2,6 +2,7 @@ package com.istudio.code
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -35,19 +36,23 @@ import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.istudio.code.states.AppScreenResponseEvent
 import com.istudio.code.states.AppScreenUiState
 import com.istudio.code.states.AppScreenViewEvent
-import com.istudio.common.navigation.Route
+import com.istudio.common.navigation.Screen
+import com.istudio.common.navigation.Screen.Companion.userEnteredCurrencyValue_key
 import com.istudio.core_ui.composables.FloatingActionButton
 import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
 import com.istudio.core_ui.composables.ThemeSwitcher
 import com.istudio.core_ui.theme.MaterialAppTheme
 import com.istudio.currency_converter.presentation.CurrencyScreen
+import com.istudio.currency_result.presentation.CurrencyResultScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -199,10 +204,10 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(
                         navController = controller,
-                        startDestination = Route.CURRENCY_CONVERSION_SCREEN
+                        startDestination = Screen.CurrencyConverter.route
                     ) {
 
-                        composable(route = Route.CURRENCY_CONVERSION_SCREEN) {
+                        composable(route = Screen.CurrencyConverter.route) {
                             CurrencyScreen(
                                 orientation = orientation,
                                 onErrorAction = { message ->
@@ -214,8 +219,8 @@ class MainActivity : ComponentActivity() {
                                     focusManager.clearFocus()
                                 },
                                 onBackPress = {
-                                    // Scenario : When user presses back button
-
+                                    // Scenario : When user presses back button: Using Ui widget Action if present
+                                    controller.popBackStack()
                                 },
                                 onLoading = { isVisible ->
                                     // Toggle toolbar visibility
@@ -228,8 +233,25 @@ class MainActivity : ComponentActivity() {
                                     displaySnackBar.invoke(message)
                                 },
                                 navigateToResultScreen = { resultInput ->
+                                    val userEnteredCurrencyValue = resultInput.userFromEnteredCurrency
+                                    controller.navigate(
+                                        route = Screen.CurrencyResult.passCurrencyValue(userEnteredCurrencyValue)
 
+
+                                    )
                                 }
+                            )
+                        }
+
+                        composable(
+                            route = Screen.CurrencyResult.route,
+
+                        ) { navBackStackEntry ->
+
+                            val userEnteredCurrencyValue = navBackStackEntry.arguments?.getString(userEnteredCurrencyValue_key).toString()
+                            Log.d("Args",userEnteredCurrencyValue)
+                            CurrencyResultScreen(
+
                             )
                         }
                     }

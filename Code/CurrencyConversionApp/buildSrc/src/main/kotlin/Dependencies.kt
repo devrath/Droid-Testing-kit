@@ -18,6 +18,7 @@ object Dependencies {
     const val coreMaterial = "com.google.android.material:material:${Versions.coreMaterial}"
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
     const val serilization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serilization}"
+    const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigationUiKtx}"
     // <---------------------> Core Dependencies <------------------------>
 
     // <---------------------> Preference Dependencies <------------------>
@@ -36,6 +37,7 @@ object Dependencies {
     const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
     const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
     const val materialIconsExtended = "androidx.compose.material:material-icons-extended:${Versions.materialIconsExtended}"
+    const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     // <---------------------> Compose Dependencies <--------------------->
 
     // <---------------------> Hilt Dependencies <------------------------>
@@ -83,6 +85,7 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.coreMaterial)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.serilization)
+    implementation(Dependencies.navigationUiKtx)
     hilt()
 }
 // <--------> Room Dependencies <---------------->
@@ -112,6 +115,7 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeMaterial)
     implementation(Dependencies.materialIconsExtended)
+    implementation(Dependencies.navigationCompose)
     debugImplementation(Dependencies.composeUiToolingPreview)
 }
 // <---> Unit Testing Dependencies <---------------->
