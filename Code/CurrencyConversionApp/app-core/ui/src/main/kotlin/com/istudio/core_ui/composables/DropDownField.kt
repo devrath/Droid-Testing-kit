@@ -1,5 +1,8 @@
 package com.istudio.core_ui.composables
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -56,25 +59,29 @@ fun DropDownField(
             placeholder = { Text(text = placeholder) }
         )
 
-        ExposedDropdownMenu(
-            expanded = isExpandedLocal,
-            onDismissRequest = {
-                isExpanded.value = false
-                isExpandedLocal = false
-            }
+        AnimatedVisibility(
+            visible = isExpandedLocal, enter = expandVertically(), exit = shrinkVertically()
         ) {
-
-            dataList.forEachIndexed { index, item ->
-                DropdownMenuItem(
-                    modifier = Modifier.exposedDropdownSize(),
-                    text = { Text(text = item.currencyName.toString()) },
-                    onClick = {
-                        actionTextLocal = item.currencyName.toString()
-                        isExpandedLocal = false
-                    }
-                )
+            ExposedDropdownMenu(
+                expanded = isExpandedLocal,
+                onDismissRequest = {
+                    isExpanded.value = false
+                    isExpandedLocal = false
+                }
+            ) {
+                dataList.forEachIndexed { index, item ->
+                    DropdownMenuItem(
+                        modifier = Modifier.exposedDropdownSize(),
+                        text = { Text(text = item.currencyName.toString()) },
+                        onClick = {
+                            actionTextLocal = item.currencyName.toString()
+                            isExpandedLocal = false
+                        }
+                    )
+                }
             }
         }
+
     }
 
 }
