@@ -19,6 +19,7 @@ object Dependencies {
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
     const val serilization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serilization}"
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigationUiKtx}"
+    const val uiTextGoogleFonts = "androidx.compose.ui:ui-text-google-fonts:${Versions.uiTextGoogleFonts}"
     // <---------------------> Core Dependencies <------------------------>
 
     // <---------------------> Preference Dependencies <------------------>
@@ -86,6 +87,7 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.serilization)
     implementation(Dependencies.navigationUiKtx)
+    implementation(Dependencies.uiTextGoogleFonts)
     hilt()
 }
 // <--------> Room Dependencies <---------------->

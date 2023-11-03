@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.istudio.core_ui.theme.fontFamily
 import com.istudio.currency_converter.R
 import com.istudio.models.local.CurrencyEntity
 
@@ -25,13 +26,13 @@ import com.istudio.models.local.CurrencyEntity
 @Composable
 fun DropDownField(
     modifier: Modifier = Modifier,
-    isError : Boolean = false,
+    isError: Boolean = false,
     dataList: List<CurrencyEntity> = mutableListOf(),
     isExpanded: MutableState<Boolean> = mutableStateOf(false),
-    selectionAction : (CurrencyEntity) -> Unit,
+    selectionAction: (CurrencyEntity) -> Unit,
     // -----> Drop down data
     currencyTypeState: MutableState<String> = mutableStateOf(""),
-    updateDropDownState : (MutableState<String>) -> Unit
+    updateDropDownState: (MutableState<String>) -> Unit
 ) {
 
     // Context
@@ -60,7 +61,12 @@ fun DropDownField(
             },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor(),
-            placeholder = { Text(text = placeholder) },
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    fontFamily = fontFamily,
+                )
+            },
             isError = isError
         )
 
@@ -77,7 +83,12 @@ fun DropDownField(
                 dataList.forEachIndexed { index, item ->
                     DropdownMenuItem(
                         modifier = Modifier.exposedDropdownSize(),
-                        text = { Text(text = item.currencyName.toString()) },
+                        text = {
+                            Text(
+                                text = item.currencyName.toString(),
+                                fontFamily = fontFamily,
+                            )
+                        },
                         onClick = {
                             actionTextLocal = item.currencyName.toString()
                             isExpandedLocal = false

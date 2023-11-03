@@ -63,6 +63,7 @@ import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
 import com.istudio.core_ui.composables.ThemeSwitcher
 import com.istudio.core_ui.theme.MaterialAppTheme
+import com.istudio.core_ui.theme.fontFamily
 import com.istudio.currency_converter.presentation.CurrencyScreen
 import com.istudio.currency_result.presentation.CurrencyResultScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -172,7 +173,7 @@ class MainActivity : ComponentActivity() {
         focusManager: FocusManager,
         displaySnackBar: (String) -> Unit,
         // -----> KeyBoard Action
-        keyBoardDoneAction : () -> Unit
+        keyBoardDoneAction: () -> Unit
     ) {
         // View model reference
         val viewModel: MainVm = hiltViewModel()
@@ -188,7 +189,12 @@ class MainActivity : ComponentActivity() {
                 topBar = {
                     if (viewModel.viewState.isToolbarVisible) {
                         TopAppBar(
-                            title = { Text(text = state.toolBarTitle) },
+                            title = {
+                                Text(
+                                    text = state.toolBarTitle,
+                                    fontFamily = fontFamily,
+                                )
+                            },
                             scrollBehavior = scrollBehaviour,
                             actions = {
                                 ThemeSwitcher(
