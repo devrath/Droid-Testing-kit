@@ -272,19 +272,13 @@ class CurrencyScreenVm @Inject constructor(
         try {
             val result = useCases.isNewDataToBeFetchedFromServerUseCase.invoke(Unit)
 
-
-            useCases.isNewDataToBeFetchedFromServerUseCase.invoke(Unit).onSuccess {
-                if(result.isSuccess){
-                    result.map {
-                        _uiEvent.send(CurrencyScreenResponseEvent.ToggleData(it))
-                    }
-                }else{
-                    useCaseErrorMessage(UiText.DynamicString("Error in saving preferences data"))
+            if(result.isSuccess){
+                result.map {
+                    _uiEvent.send(CurrencyScreenResponseEvent.ToggleData(it))
                 }
-            }.onFailure {
-                println(it.message)
+            }else{
+                useCaseErrorMessage(UiText.DynamicString("Error in saving preferences data"))
             }
-
         }catch (ex:Exception){
             errorPerformingUseCase(ex)
         }
