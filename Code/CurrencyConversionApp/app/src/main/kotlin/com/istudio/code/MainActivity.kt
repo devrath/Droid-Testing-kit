@@ -44,6 +44,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -65,6 +66,7 @@ import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyKey
 import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyName_key
 import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyType_key
 import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrency_key
+import com.istudio.core_ui.composables.ExitAlert
 import com.istudio.core_ui.composables.FloatingActionButton
 import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
@@ -74,142 +76,190 @@ import com.istudio.core_ui.theme.fontFamily
 import com.istudio.currency_converter.presentation.CurrencyScreen
 import com.istudio.currency_result.presentation.CurrencyResultScreen
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalMaterial3Api::class)
+    /** ******************************** Life-cycle Methods  ***************************************/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        setContent {
-            // View model reference
-            val viewModel: MainVm = hiltViewModel()
-            // View state reference from view model
-            val state = viewModel.viewState
-            // <!--------------------- CONTROLLERS ------------------------>
-            // SnackBar controller
-            val snackBarController = remember { SnackbarHostState() }
-            // coroutine scope to handle co-routines
-            val coroutineScope = rememberCoroutineScope()
-            // Scroll behaviour
-            val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
-            // Nav controller
-            val controller = rememberNavController()
-            // Focus Manager
-            val focusManager = LocalFocusManager.current
-            // Keyboard Manager
-            val keyboardController = LocalSoftwareKeyboardController.current
-            // <!--------------------- CONTROLLERS ------------------------>
+        setContent { initOnCreate() }
+    }
+    /** ******************************** Life-cycle Methods  ***************************************/
 
-            BackHandler {
-                // ---> Handle Alert dialog for closing application
-                viewModel.onEvent(AppScreenViewEvent.HandleExitAlertDisplay(true))
-            }
+    /** ************************************* Init Methods  ***************************************/
+    /** <*******> Init OnCreate <******> **/
+    @Composable
+    private fun initOnCreate() {
+        val viewModel: MainVm = hiltViewModel()
+        // --> This is used to handle the device back button
+        BackButtonHandler()
+        // --> This is used to handle the exit alert dialog
+        ExitAlertHandler()
+        // --> This is used to update the Orientation
+        handleConfigurationEffect()
+        // --> Launch only once per session
+        LaunchOncePerSession()
+        // Material theme content
+        MaterialAppTheme(darkTheme = viewModel.currentTheme.value) { ThemeContent() }
+    }
+    /** ************************************* Init Methods  ***************************************/
 
-            if (state.isExitAlertDisplayed) {
+    /** ********************************* Screen utility composables  *****************************/
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun ThemeContent() {
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
 
-                AlertDialog(
-                    onDismissRequest = {
-                        viewModel.onEvent(AppScreenViewEvent.HandleExitAlertDisplay(false))
-                    },
-                    title = {
-                        Text(
-                            text = "Geeks for Geeks",
-                            color = Color.White)
-                            },
-                    text = {
-                        Text(
-                            text = "Hello! This is our Alert Dialog..",
-                            color = Color.White)
-                           },
-                    confirmButton = {
-                        TextButton(
-                            onClick = {
-                                viewModel.onEvent(AppScreenViewEvent.HandleExitAlertDisplay(false))
-                            }
-                        ) {
+        // <!--------------------- CONTROLLERS ------------------------>
+        // SnackBar controller
+        val snackBarController = remember { SnackbarHostState() }
+        // coroutine scope to handle co-routines
+        val coroutineScope = rememberCoroutineScope()
+        // Scroll behaviour
+        val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
+        // Nav controller
+        val controller = rememberNavController()
+        // Focus Manager
+        val focusManager = LocalFocusManager.current
+        // Keyboard Manager
+        val keyboardController = LocalSoftwareKeyboardController.current
+        // <!--------------------- CONTROLLERS ------------------------>
 
-                            Text("Confirm", color = Color.White)
+
+        ShimmerHomeLoadingComposable(
+            isLoading = state.loadingState,
+            contentAfterLoading = {
+                // Main content of the screen
+                MainContent(
+                    state = state,
+                    snackBarController = snackBarController,
+                    scrollBehaviour = scrollBehaviour,
+                    controller = controller,
+                    orientation = state.orientation,
+                    focusManager = focusManager,
+                    displaySnackBar = { message ->
+                        coroutineScope.launch {
+                            snackBarController.showSnackbar(message = message)
                         }
                     },
-                    dismissButton = {
-                        TextButton(
-                            onClick = {
-                                viewModel.onEvent(AppScreenViewEvent.HandleExitAlertDisplay(false))
-                            }
-                        ) {
-                            Text("Dismiss", color = MaterialTheme.colorScheme.primary)
-                        }
-                    },
-                    containerColor = MaterialTheme.colorScheme.background,
-                    textContentColor = Color.White
+                    keyBoardDoneAction = {
+                        keyboardController?.hide()
+                    }
                 )
-            }
+            },
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 
-            // --> This is used to update the Orientation
-            handleConfigurationEffect()
+    @Composable
+    private fun LaunchOncePerSession() {
 
-            LaunchedEffect(key1 = state.launchedEffectState) {
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+        // <!--------------------- CONTROLLERS ------------------------>
+        // SnackBar controller
+        val snackBarController = remember { SnackbarHostState() }
+        // coroutine scope to handle co-routines
+        val coroutineScope = rememberCoroutineScope()
 
-                // <-------------> once when the effect is launched  <------------->
-                // Notify the loading state to be displayed in the screen
-                viewModel.onEvent(AppScreenViewEvent.LoadingState)
-                // Either get the data from the server / or / ge the data from the local database
-                viewModel.onEvent(AppScreenViewEvent.ToggleDataSource)
-                // <-------------> once when the effect is launched  <------------->
+        LaunchedEffect(key1 = state.launchedEffectState) {
 
-                // <***********> Event is observed from View-Model <************>
-                viewModel.uiEvent.collect { event ->
-                    when (event) {
-                        // ---> Display messages in snack-bar
-                        is AppScreenResponseEvent.ShowSnackBar -> {
-                            coroutineScope.launch {
-                                snackBarController.showSnackbar(message = event.message)
-                            }
+            // <-------------> once when the effect is launched  <------------->
+            // Notify the loading state to be displayed in the screen
+            viewModel.onEvent(AppScreenViewEvent.LoadingState)
+            // Either get the data from the server / or / ge the data from the local database
+            viewModel.onEvent(AppScreenViewEvent.ToggleDataSource)
+            // <-------------> once when the effect is launched  <------------->
+
+            // <***********> Event is observed from View-Model <************>
+            viewModel.uiEvent.collect { event ->
+                when (event) {
+                    // ---> Display messages in snack-bar
+                    is AppScreenResponseEvent.ShowSnackBar -> {
+                        coroutineScope.launch {
+                            snackBarController.showSnackbar(message = event.message)
                         }
+                    }
 
-                        // ---> Get the data from server/database
-                        is AppScreenResponseEvent.ToggleData -> {
-                            if (event.isFetchFromServer) {
-                                // --> Get the data from server
-                                viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
-                            } else {
-                                // --> Get the data from database
-                                viewModel.onEvent(AppScreenViewEvent.LoadFromDatabase)
-                            }
+                    // ---> Get the data from server/database
+                    is AppScreenResponseEvent.ToggleData -> {
+                        if (event.isFetchFromServer) {
+                            // --> Get the data from server
+                            viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
+                        } else {
+                            // --> Get the data from database
+                            viewModel.onEvent(AppScreenViewEvent.LoadFromDatabase)
                         }
                     }
                 }
-                // <***********> Event is observed from View-Model <************>
             }
+            // <***********> Event is observed from View-Model <************>
+        }
+    }
 
-            MaterialAppTheme(darkTheme = viewModel.currentTheme.value) {
-                // A surface container using the 'background' color from the theme
-                ShimmerHomeLoadingComposable(
-                    isLoading = state.loadingState,
-                    contentAfterLoading = {
-                        // Main content of the screen
-                        MainContent(
-                            state = state,
-                            snackBarController = snackBarController,
-                            scrollBehaviour = scrollBehaviour,
-                            controller = controller,
-                            orientation = state.orientation,
-                            focusManager = focusManager,
-                            displaySnackBar = { message ->
-                                coroutineScope.launch {
-                                    snackBarController.showSnackbar(message = message)
-                                }
-                            },
-                            keyBoardDoneAction = {
-                                keyboardController?.hide()
-                            }
-                        )
-                    },
-                    modifier = Modifier.fillMaxSize()
+    @Composable
+    private fun BackButtonHandler() {
+
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+
+        BackHandler {
+            // ---> Handle Alert dialog for closing application
+            viewModel.onEvent(
+                AppScreenViewEvent.HandleExitAlertDisplay(mutableStateOf(value = true))
+            )
+        }
+    }
+
+    @Composable
+    private fun ExitAlertHandler() {
+
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+
+        ExitAlert(
+            currentExitAlertVisibility = state.isExitAlertDisplayed,
+            closeApplication = { closeApplication ->
+                // Close the dialog
+                viewModel.onEvent(
+                    AppScreenViewEvent.HandleExitAlertDisplay(mutableStateOf(value = false))
                 )
+                if (closeApplication) {
+                    // Close the application
+                    finish()
+                }
+            }
+        )
+    }
+
+    @Composable
+    private fun handleConfigurationEffect() {
+
+        // Configuration Manager
+        val configuration = LocalConfiguration.current
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+
+        LaunchedEffect(configuration) {
+            // Save any changes to the orientation value on the configuration object
+            snapshotFlow {
+                configuration.orientation
+            }.collect {
+                // Update configuration to mutable view state so that composable can display appropriate screen modes
+                viewModel.onEvent(AppScreenViewEvent.SetScreenOrientation(it))
             }
         }
     }
@@ -416,25 +466,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-@Composable
-private fun handleConfigurationEffect() {
-
-    // Configuration Manager
-    val configuration = LocalConfiguration.current
-    // View model reference
-    val viewModel: MainVm = hiltViewModel()
-
-    LaunchedEffect(configuration) {
-        // Save any changes to the orientation value on the configuration object
-        snapshotFlow {
-            configuration.orientation
-        }.collect {
-            // Update configuration to mutable view state so that composable can display appropriate screen modes
-            viewModel.onEvent(AppScreenViewEvent.SetScreenOrientation(it))
-        }
-    }
+    /** ********************************* Screen utility composables  *****************************/
 }
 
 @Composable

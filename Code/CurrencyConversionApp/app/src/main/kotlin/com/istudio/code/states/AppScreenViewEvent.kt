@@ -1,5 +1,7 @@
 package com.istudio.code.states
 
+import androidx.compose.runtime.MutableState
+
 sealed class AppScreenViewEvent {
     object LoadingState : AppScreenViewEvent()
     object CheckConnectivity : AppScreenViewEvent()
@@ -11,5 +13,5 @@ sealed class AppScreenViewEvent {
     // Screen Orientation is updated so composable can display appropriate screens
     data class SetScreenOrientation(val orientation : Int) : AppScreenViewEvent()
     // Handle exit alert display
-    data class HandleExitAlertDisplay(val isExitAlertDisplayed : Boolean) : AppScreenViewEvent()
+    data class HandleExitAlertDisplay(val isExitAlertDisplayed : MutableState<Boolean>) : AppScreenViewEvent()
 }
