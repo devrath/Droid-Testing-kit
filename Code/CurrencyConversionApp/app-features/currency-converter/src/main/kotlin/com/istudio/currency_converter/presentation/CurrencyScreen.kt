@@ -144,8 +144,11 @@ fun CurrencyScreen(
                     viewModel.onEvent(
                         CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown(item = it)
                     )
-                }
+                },
+                currencyTypeState = state.value.currencyTypeState,
+                updateDropDownState = {
 
+                }
             )
         } else {
             CurrencyScreenLandscape(
@@ -164,6 +167,12 @@ fun CurrencyScreen(
                 onCurrencyDropDownSelection = {
                     viewModel.onEvent(
                         CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown(item = it)
+                    )
+                },
+                currencyTypeState = state.value.currencyTypeState,
+                updateDropDownState = {
+                    viewModel.onEvent(
+                        CurrencyScreenViewEvent.UpdateCurrencyTypeState(state = it)
                     )
                 }
             )

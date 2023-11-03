@@ -129,6 +129,12 @@ class CurrencyScreenVm @Inject constructor(
                     // All validations
                     initiateCurrencyValidation()
                 }
+
+                is CurrencyScreenViewEvent.UpdateCurrencyTypeState -> {
+                    viewState.value = viewState.value.copy(
+                        currencyTypeState = event.state
+                    )
+                }
             }
         }
     }

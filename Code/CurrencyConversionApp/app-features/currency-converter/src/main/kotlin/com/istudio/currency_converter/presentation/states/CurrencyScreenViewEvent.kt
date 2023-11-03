@@ -1,5 +1,6 @@
 package com.istudio.currency_converter.presentation.states
 
+import androidx.compose.runtime.MutableState
 import com.istudio.models.custom.MasterApiData
 import com.istudio.models.local.CurrencyEntity
 
@@ -16,5 +17,5 @@ sealed class CurrencyScreenViewEvent {
     data class SetCurrencyTypeSelectedFromDropDown(val item: CurrencyEntity) : CurrencyScreenViewEvent()
     object CurrencyInputValueValidationInitiate : CurrencyScreenViewEvent()
     object CurrencyInputTypeValidationInitiate : CurrencyScreenViewEvent()
-
+    data class UpdateCurrencyTypeState(val state: MutableState<String>)  : CurrencyScreenViewEvent()
 }

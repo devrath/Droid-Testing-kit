@@ -28,8 +28,10 @@ fun DropDownField(
     isError : Boolean = false,
     dataList: List<CurrencyEntity> = mutableListOf(),
     isExpanded: MutableState<Boolean> = mutableStateOf(false),
-    actionText: MutableState<String> = mutableStateOf(""),
-    selectionAction : (CurrencyEntity) -> Unit
+    selectionAction : (CurrencyEntity) -> Unit,
+    // -----> Drop down data
+    currencyTypeState: MutableState<String> = mutableStateOf(""),
+    updateDropDownState : (MutableState<String>) -> Unit
 ) {
 
     // Context
@@ -38,7 +40,7 @@ fun DropDownField(
     val placeholder = cxt.getString(R.string.str_entered_currency_type)
 
     var isExpandedLocal by remember { isExpanded }
-    var actionTextLocal by remember { actionText }
+    var actionTextLocal by remember { currencyTypeState }
 
     ExposedDropdownMenuBox(
         expanded = isExpandedLocal,
@@ -80,6 +82,7 @@ fun DropDownField(
                             actionTextLocal = item.currencyName.toString()
                             isExpandedLocal = false
                             selectionAction.invoke(item)
+                            updateDropDownState.invoke(currencyTypeState)
                         }
                     )
                 }
@@ -95,6 +98,12 @@ fun DropDownField(
 @Composable
 private fun CurrentDisplay() {
     DropDownField(
-        dataList = mutableListOf()
-    ){}
+        dataList = mutableListOf(),
+        updateDropDownState = {
+
+        },
+        selectionAction = {
+
+        }
+    )
 }

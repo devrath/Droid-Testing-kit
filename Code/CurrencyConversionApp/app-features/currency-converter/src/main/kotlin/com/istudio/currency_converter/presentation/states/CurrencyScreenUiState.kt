@@ -1,5 +1,7 @@
 package com.istudio.currency_converter.presentation.states
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 
@@ -12,6 +14,7 @@ data class CurrencyScreenUiState(
     val userSelectedCurrencyConversionTypeInput: String = "",
 
     val selectedDropDownModel : CurrencyEntity? = null,
+    val currencyTypeState : MutableState<String> = mutableStateOf(""),
 
     // User entered currency ---> boolean
     val userEnteredCurrencyValueInputError: Boolean = false,

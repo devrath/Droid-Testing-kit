@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -33,7 +35,10 @@ fun CurrencyScreenPortrait(
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit,
     setRatesItemSelection : (Int) -> Unit,
-    onCurrencyDropDownSelection : (CurrencyEntity) -> Unit
+    onCurrencyDropDownSelection : (CurrencyEntity) -> Unit,
+    // -----> Drop down data
+    currencyTypeState: MutableState<String> = mutableStateOf(""),
+    updateDropDownState : (MutableState<String>) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -73,7 +78,10 @@ fun CurrencyScreenPortrait(
                     isError = isCurrencyValueDropDownError,
                     selectionAction = { itemSelection ->
                         onCurrencyDropDownSelection.invoke(itemSelection)
-                    }
+                    },
+                    currencyTypeState = currencyTypeState,
+                    updateDropDownState = updateDropDownState,
+
                 )
             }
         }

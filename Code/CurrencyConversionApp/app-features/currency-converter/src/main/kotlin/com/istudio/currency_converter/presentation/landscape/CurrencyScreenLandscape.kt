@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -38,7 +40,10 @@ fun CurrencyScreenLandscape(
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit,
     setRatesItemSelection : (Int) -> Unit,
-    onCurrencyDropDownSelection : (CurrencyEntity) -> Unit
+    onCurrencyDropDownSelection : (CurrencyEntity) -> Unit,
+    // -----> Drop down data
+    currencyTypeState: MutableState<String> = mutableStateOf(""),
+    updateDropDownState : (MutableState<String>) -> Unit,
 ) {
 
     Row(modifier = Modifier
@@ -86,7 +91,9 @@ fun CurrencyScreenLandscape(
                             isError = isCurrencyValueDropDownError,
                             selectionAction = { itemSelection ->
                                 onCurrencyDropDownSelection.invoke(itemSelection)
-                            }
+                            },
+                            currencyTypeState = currencyTypeState,
+                            updateDropDownState = updateDropDownState,
                         )
                     }
                 }
@@ -126,13 +133,14 @@ fun CurrencyScreenLandscape(
 )
 @Composable
 private fun CurrentScreen() {
-    CurrencyScreenLandscape(
+   /* CurrencyScreenLandscape(
         curriencyList = emptyList(),
         curriencyRatesList = emptyList(),
         currencyInputText = "100",
         onKeyBoardOutsideClick = { },
         currencyInputChange = { },
         setRatesItemSelection = { },
-        onCurrencyDropDownSelection = { }
-    )
+        onCurrencyDropDownSelection = { },
+        currencyTypeState = { }
+    )*/
 }
