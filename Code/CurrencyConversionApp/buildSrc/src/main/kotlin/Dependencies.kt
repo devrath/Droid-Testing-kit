@@ -40,6 +40,7 @@ object Dependencies {
     const val materialIconsExtended = "androidx.compose.material:material-icons-extended:${Versions.materialIconsExtended}"
     const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     const val lifecycleRuntimeCompose = "androidx.lifecycle:lifecycle-runtime-compose:${Versions.lifecycleRuntimeCompose}"
+    const val materialCompose = "androidx.compose.material:material:${Versions.materialCompose}"
     // <---------------------> Compose Dependencies <--------------------->
 
     // <---------------------> Hilt Dependencies <------------------------>
@@ -120,6 +121,7 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.materialIconsExtended)
     implementation(Dependencies.navigationCompose)
     implementation(Dependencies.lifecycleRuntimeCompose)
+    implementation(Dependencies.materialCompose)
     debugImplementation(Dependencies.composeUiToolingPreview)
 }
 // <---> Unit Testing Dependencies <---------------->

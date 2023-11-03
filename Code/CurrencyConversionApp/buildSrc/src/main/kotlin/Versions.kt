@@ -4,6 +4,7 @@ object Versions {
     const val materialIconsExtended = "1.6.0-alpha07"
     const val navigationCompose = "2.5.3"
     const val lifecycleRuntimeCompose = "2.7.0-beta01"
+    const val materialCompose = "1.4.0-beta01"
     const val composeCompiler = "1.4.6"
     const val hilt = "2.45"
     const val hiltNavigationCompose = "1.1.0-beta01"
