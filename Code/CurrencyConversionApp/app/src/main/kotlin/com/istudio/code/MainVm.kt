@@ -74,6 +74,11 @@ class MainVm @Inject constructor(
                         loadingState = false, isConnectedToInternet = true
                     )
                 }
+
+                is AppScreenViewEvent.SetScreenOrientation -> {
+                    // Main Activity Composable calls this to keep the current orientation of the screen
+                    viewState = viewState.copy(orientation = event.orientation)
+                }
             }
         }
     }

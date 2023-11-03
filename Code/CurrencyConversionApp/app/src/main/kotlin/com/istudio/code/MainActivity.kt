@@ -93,15 +93,14 @@ class MainActivity : ComponentActivity() {
             // Title
             val titleStr = state.toolBarTitle
 
-            // Orientation
-            var orientation by remember { mutableIntStateOf(Configuration.ORIENTATION_PORTRAIT) }
-
+            // --> This is used to update the Orientation
             LaunchedEffect(configuration) {
                 // Save any changes to the orientation value on the configuration object
                 snapshotFlow {
                     configuration.orientation
                 }.collect {
-                    orientation = it
+                    // Update configuration to mutable view state so that composable can display appropriate screen modes
+                    viewModel.onEvent(AppScreenViewEvent.SetScreenOrientation(it))
                 }
             }
 
@@ -142,7 +141,7 @@ class MainActivity : ComponentActivity() {
                             scrollBehaviour= scrollBehaviour,
                             titleStr = titleStr,
                             controller = controller,
-                            orientation = orientation,
+                            orientation = state.orientation,
                             focusManager = focusManager,
                             displaySnackBar = { message ->
                                 coroutineScope.launch {

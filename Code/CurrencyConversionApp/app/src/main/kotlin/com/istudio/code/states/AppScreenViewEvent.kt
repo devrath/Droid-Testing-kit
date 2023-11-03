@@ -8,4 +8,6 @@ sealed class AppScreenViewEvent {
     data class ToolbarVisibility(val isVisible : Boolean) : AppScreenViewEvent()
     data class IsActionButtonVisible(val isVisible : Boolean) : AppScreenViewEvent()
     data class SetToolBarTitle(val title : String) : AppScreenViewEvent()
+    // Screen Orientation is updated so composable can display appropriate screens
+    data class SetScreenOrientation(val orientation : Int) : AppScreenViewEvent()
 }
