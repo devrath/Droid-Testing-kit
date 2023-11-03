@@ -13,5 +13,7 @@ data class AppScreenUiState(
     val isActionButtonVisible : Boolean = false,
     val toolBarTitle : String = "",
     val isExitAlertDisplayed : MutableState<Boolean> = mutableStateOf(false),
+    val isErrorAlertDisplayed : MutableState<Boolean> = mutableStateOf(false),
+    val errorMessage : String = "",
     val orientation : Int = Configuration.ORIENTATION_PORTRAIT
 )

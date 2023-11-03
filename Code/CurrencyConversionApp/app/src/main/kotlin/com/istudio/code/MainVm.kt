@@ -84,6 +84,16 @@ class MainVm @Inject constructor(
                     // Handle exit alert display
                     viewState = viewState.copy(isExitAlertDisplayed = event.isExitAlertDisplayed)
                 }
+
+                is AppScreenViewEvent.HandleErrorAlertDisplay -> {
+                    // Handle exit alert display
+                    viewState = viewState.copy(isErrorAlertDisplayed = event.isErrorAlertDisplayed)
+                }
+
+                is AppScreenViewEvent.SetMessageForError -> {
+                    // Set message for the error to be displayed
+                    viewState = viewState.copy(errorMessage = event.message)
+                }
             }
         }
     }

@@ -66,6 +66,7 @@ import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyKey
 import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyName_key
 import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyType_key
 import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrency_key
+import com.istudio.core_ui.composables.ErrorAlert
 import com.istudio.core_ui.composables.ExitAlert
 import com.istudio.core_ui.composables.FloatingActionButton
 import com.istudio.core_ui.composables.NoConnectivity
@@ -99,6 +100,8 @@ class MainActivity : ComponentActivity() {
         BackButtonHandler()
         // --> This is used to handle the exit alert dialog
         ExitAlertHandler()
+        // --> Error alert handler
+        ErrorAlertHandler()
         // --> This is used to update the Orientation
         handleConfigurationEffect()
         // --> Launch only once per session
@@ -146,7 +149,12 @@ class MainActivity : ComponentActivity() {
                     focusManager = focusManager,
                     displaySnackBar = { message ->
                         coroutineScope.launch {
-                            snackBarController.showSnackbar(message = message)
+                            //snackBarController.showSnackbar(message = message)
+                            // Show error dialog
+                            viewModel.onEvent(AppScreenViewEvent.SetMessageForError(message=message))
+                            viewModel.onEvent(
+                                AppScreenViewEvent.HandleErrorAlertDisplay(mutableStateOf(value = true))
+                            )
                         }
                     },
                     keyBoardDoneAction = {
@@ -241,6 +249,25 @@ class MainActivity : ComponentActivity() {
                     // Close the application
                     finish()
                 }
+            }
+        )
+    }
+
+    @Composable
+    private fun ErrorAlertHandler() {
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+
+        ErrorAlert(
+            currentExitAlertVisibility = state.isErrorAlertDisplayed,
+            message = state.errorMessage,
+            closeApplication = {
+                // Close the dialog
+                viewModel.onEvent(
+                    AppScreenViewEvent.HandleErrorAlertDisplay(mutableStateOf(value = false))
+                )
             }
         )
     }

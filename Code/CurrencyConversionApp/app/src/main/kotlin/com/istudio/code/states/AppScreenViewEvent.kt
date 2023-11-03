@@ -14,4 +14,8 @@ sealed class AppScreenViewEvent {
     data class SetScreenOrientation(val orientation : Int) : AppScreenViewEvent()
     // Handle exit alert display
     data class HandleExitAlertDisplay(val isExitAlertDisplayed : MutableState<Boolean>) : AppScreenViewEvent()
+    // Set message for hte error to be displayed
+    data class SetMessageForError(val message : String) : AppScreenViewEvent()
+    // Handle error alert display
+    data class HandleErrorAlertDisplay(val isErrorAlertDisplayed : MutableState<Boolean>) : AppScreenViewEvent()
 }
