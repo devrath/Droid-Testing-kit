@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,14 +21,14 @@ import com.istudio.models.custom.CurrencyResultInput
 
 @Composable
 fun CurrencyResultPortrait(
-    viewState: CurrencyResultInput
+    viewState: CurrencyResultInput,
+    currencyConvertedResult: String
 ) {
 
     val userEnteredInput : String = viewState.userFromEnteredCurrency
-    val calculatedCurrency = (viewState.currencyToRateValue) * (userEnteredInput.toDouble())
 
     val userEnteredInputResult = userEnteredInput.plus("--").plus(viewState.userFromEnteredCurrencyName)
-    val calculatedCurrencyResult = calculatedCurrency.toString().plus("--").plus(viewState.currencyToRateKey)
+    val calculatedCurrencyResult = currencyConvertedResult.plus("--").plus(viewState.currencyToRateKey)
 
     Column(
         modifier = Modifier.fillMaxSize(),

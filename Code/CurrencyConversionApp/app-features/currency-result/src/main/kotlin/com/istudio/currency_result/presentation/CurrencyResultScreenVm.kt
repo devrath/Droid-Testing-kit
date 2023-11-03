@@ -8,6 +8,7 @@ import com.istudio.common.platform.viewmodel.BaseViewModel
 import com.istudio.currency_result.presentation.states.CurrencyResultScreenResponseEvent
 import com.istudio.currency_result.presentation.states.CurrencyResultScreenUiState
 import com.istudio.currency_result.presentation.states.CurrencyResultScreenViewEvent
+import com.istudio.models.custom.CurrencyResultInput
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
@@ -39,7 +40,14 @@ class CurrencyResultScreenVm @Inject constructor(
         }
     }
     /** <************> UI Action is invoked from composable <************> **/
-
-
+    fun calculateCurrencyConversion(input: CurrencyResultInput): String {
+        val userFromEnteredCurrency = input.userFromEnteredCurrency
+        val currencyToRateValue = input.currencyToRateValue
+        return if(userFromEnteredCurrency!=null && currencyToRateValue!=null) {
+            ((userFromEnteredCurrency.toDouble()) * (currencyToRateValue)).toString()
+        }else{
+            ""
+        }
+    }
 
 }

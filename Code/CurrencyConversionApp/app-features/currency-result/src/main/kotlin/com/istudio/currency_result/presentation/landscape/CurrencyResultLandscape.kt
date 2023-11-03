@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,14 +22,14 @@ import com.istudio.models.custom.CurrencyResultInput
 
 @Composable
 fun CurrencyResultLandscape(
-    viewState: CurrencyResultInput
+    viewState: CurrencyResultInput,
+    currencyConvertedResult: String
 ) {
 
     val userEnteredInput : String = viewState.userFromEnteredCurrency
-    val calculatedCurrency = (viewState.currencyToRateValue) * (userEnteredInput.toDouble())
 
     val userEnteredInputResult = userEnteredInput.plus("--").plus(viewState.userFromEnteredCurrencyName)
-    val calculatedCurrencyResult = calculatedCurrency.toString().plus("--").plus(viewState.currencyToRateKey)
+    val calculatedCurrencyResult = currencyConvertedResult.plus("--").plus(viewState.currencyToRateKey)
 
 
 

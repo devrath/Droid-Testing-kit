@@ -29,6 +29,8 @@ fun CurrencyResultScreen(
     val state = viewModel.viewState
     // Composable orientation
     val configuration = LocalConfiguration.current
+    // Currency converted value
+    val currencyConvertedValue = viewModel.calculateCurrencyConversion(input)
 
     LaunchedEffect(key1 = state.value.launchedEffectState) {
         // Set the data in view model
@@ -44,7 +46,11 @@ fun CurrencyResultScreen(
 
 
     viewModel.viewState.value.inputData?.let {
-        CurrentScreen(it,orientation)
+        CurrentScreen(
+            viewState = it,
+            currencyConvertedResult = currencyConvertedValue,
+            orientation = orientation
+        )
     }
 
 }
@@ -52,14 +58,15 @@ fun CurrencyResultScreen(
 @Composable
 private fun CurrentScreen(
     viewState: CurrencyResultInput,
+    currencyConvertedResult : String,
     orientation: Int
 ) {
 
     // Toggle Orientation of the screen
     if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-        CurrencyResultPortrait(viewState)
+        CurrencyResultPortrait(viewState,currencyConvertedResult)
     }else{
-        CurrencyResultLandscape(viewState)
+        CurrencyResultLandscape(viewState,currencyConvertedResult)
     }
 
 }
@@ -77,6 +84,7 @@ private fun ScreenPreview() {
             currencyToRateKey = "82",
             currencyToRateValue = 99.2
         ),
-        orientation = Configuration.ORIENTATION_PORTRAIT
+        orientation = Configuration.ORIENTATION_PORTRAIT,
+        currencyConvertedResult = "22"
     )
 }
