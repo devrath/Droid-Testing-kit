@@ -144,7 +144,7 @@ class MainVm @Inject constructor(
         val userFromEnteredCurrencyKey = resultInput.userFromEnteredCurrencyKey ?: ""
         val userFromEnteredCurrencyName = resultInput.userFromEnteredCurrencyName ?: ""
         val currencyToRateKey = resultInput.currencyToRateKey
-        val currencyToRateValue = resultInput.userFromEnteredCurrency
+        val currencyToRateValue = resultInput.currencyToRateValue.toString()
 
         return Screen.CurrencyResult.passParameters(
             userFromEnteredCurrency = userEnteredCurrencyValue,
