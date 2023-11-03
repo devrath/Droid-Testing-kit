@@ -37,6 +37,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -90,6 +91,8 @@ class MainActivity : ComponentActivity() {
             val controller = rememberNavController()
             // Focus Manager
             val focusManager = LocalFocusManager.current
+            // Keyboard Manager
+            val keyboardController = LocalSoftwareKeyboardController.current
             // <!--------------------- CONTROLLERS ------------------------>
 
             // --> This is used to update the Orientation
@@ -146,6 +149,9 @@ class MainActivity : ComponentActivity() {
                                 coroutineScope.launch {
                                     snackBarController.showSnackbar(message = message)
                                 }
+                            },
+                            keyBoardDoneAction = {
+                                keyboardController?.hide()
                             }
                         )
                     },
@@ -164,7 +170,9 @@ class MainActivity : ComponentActivity() {
         controller: NavHostController,
         orientation: Int,
         focusManager: FocusManager,
-        displaySnackBar: (String) -> Unit
+        displaySnackBar: (String) -> Unit,
+        // -----> KeyBoard Action
+        keyBoardDoneAction : () -> Unit
     ) {
         // View model reference
         val viewModel: MainVm = hiltViewModel()
@@ -277,7 +285,8 @@ class MainActivity : ComponentActivity() {
                                     controller.navigate(
                                         viewModel.prepareScreenResultRoute(resultInput)
                                     )
-                                }
+                                },
+                                keyBoardDoneAction = { keyBoardDoneAction }
                             )
                         }
 

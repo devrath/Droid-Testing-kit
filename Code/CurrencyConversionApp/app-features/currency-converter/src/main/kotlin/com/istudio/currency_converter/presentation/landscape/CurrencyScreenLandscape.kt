@@ -44,6 +44,8 @@ fun CurrencyScreenLandscape(
     // -----> Drop down data
     currencyTypeState: MutableState<String> = mutableStateOf(""),
     updateDropDownState : (MutableState<String>) -> Unit,
+    // -----> KeyBoard Action
+    keyBoardDoneAction : () -> Unit
 ) {
 
     Row(modifier = Modifier
@@ -68,7 +70,8 @@ fun CurrencyScreenLandscape(
                     modifier = Modifier.fillMaxWidth(),
                     currencyInputText = currencyInputText,
                     isError = isCurrencyFieldError,
-                    currencyInputChange = { currencyInputChange.invoke(it) }
+                    currencyInputChange = { currencyInputChange.invoke(it) },
+                    doneAction = { keyBoardDoneAction }
                 )
 
                 Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))

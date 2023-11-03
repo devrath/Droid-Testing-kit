@@ -39,6 +39,8 @@ fun CurrencyScreenPortrait(
     // -----> Drop down data
     currencyTypeState: MutableState<String> = mutableStateOf(""),
     updateDropDownState : (MutableState<String>) -> Unit,
+    // -----> KeyBoard Action
+    keyBoardDoneAction : () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -58,6 +60,7 @@ fun CurrencyScreenPortrait(
             currencyInputText = currencyInputText,
             isError = isCurrencyFieldError,
             currencyInputChange = { currencyInputChange.invoke(it) },
+            doneAction = { keyBoardDoneAction }
         )
 
         Row(

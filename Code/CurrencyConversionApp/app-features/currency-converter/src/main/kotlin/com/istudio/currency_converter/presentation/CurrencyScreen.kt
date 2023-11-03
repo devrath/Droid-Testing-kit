@@ -29,7 +29,9 @@ fun CurrencyScreen(
     onLoading:(Boolean) -> Unit,
     onClickOfCalculatePlay: (onClick: () -> Unit) -> Unit,
     displaySnackBar : (String) -> Unit,
-    navigateToResultScreen : (CurrencyResultInput) -> Unit
+    navigateToResultScreen : (CurrencyResultInput) -> Unit,
+    // -----> KeyBoard Action
+    keyBoardDoneAction : () -> Unit
 ) {
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // Context
@@ -148,7 +150,8 @@ fun CurrencyScreen(
                 currencyTypeState = state.value.currencyTypeState,
                 updateDropDownState = {
 
-                }
+                },
+                keyBoardDoneAction = { keyBoardDoneAction }
             )
         } else {
             CurrencyScreenLandscape(
@@ -174,7 +177,8 @@ fun CurrencyScreen(
                     viewModel.onEvent(
                         CurrencyScreenViewEvent.UpdateCurrencyTypeState(state = it)
                     )
-                }
+                },
+                keyBoardDoneAction = { keyBoardDoneAction }
             )
         }
     }

@@ -1,6 +1,9 @@
 package com.istudio.core_ui.composables
 
+import android.view.KeyEvent.KEYCODE_ENTER
+import android.view.KeyEvent.KEYCODE_NUMPAD_ENTER
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
@@ -8,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,7 +24,8 @@ fun InputTextField(
     modifier: Modifier = Modifier,
     currencyInputText: String,
     currencyInputChange : (String) -> Unit,
-    isError : Boolean = false
+    isError : Boolean = false,
+    doneAction : () -> Unit
 ){
     // Context
     val cxt = LocalContext.current
@@ -30,7 +35,18 @@ fun InputTextField(
     val maxLines = 1
 
     OutlinedTextField(
-        modifier = modifier.padding(LocalSpacing.current.spaceExtraSmall),
+        modifier = modifier
+            .padding(LocalSpacing.current.spaceExtraSmall)
+            .onKeyEvent {
+                if (
+                    (it.nativeKeyEvent.keyCode == KEYCODE_ENTER) ||
+                    (it.nativeKeyEvent.keyCode == KEYCODE_NUMPAD_ENTER)
+                ) {
+                    doneAction.invoke()
+                    true
+                }
+                false
+            },
         // Setting current value - Which is displayed
         value = currencyInputText,
         // Updating new value to the displayed text
@@ -45,6 +61,8 @@ fun InputTextField(
         maxLines = maxLines,
         isError = isError,
         keyboardOptions = KeyboardOptions( keyboardType = KeyboardType.Number),
+        keyboardActions = KeyboardActions( onNext = { doneAction.invoke() }
+        )
     )
 }
 
@@ -54,7 +72,8 @@ fun InputTextField(
 private fun CurrentDisplay() {
     InputTextField(
         currencyInputText = "100",
-        currencyInputChange = { }
+        currencyInputChange = { },
+        doneAction = { }
     )
 }
 
