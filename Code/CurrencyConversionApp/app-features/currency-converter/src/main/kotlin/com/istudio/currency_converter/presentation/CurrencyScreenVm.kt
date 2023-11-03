@@ -271,13 +271,20 @@ class CurrencyScreenVm @Inject constructor(
     private fun toggleData() = uiScope.launch {
         try {
             val result = useCases.isNewDataToBeFetchedFromServerUseCase.invoke(Unit)
-            if(result.isSuccess){
-                result.map {
-                    _uiEvent.send(CurrencyScreenResponseEvent.ToggleData(it))
+
+
+            useCases.isNewDataToBeFetchedFromServerUseCase.invoke(Unit).onSuccess {
+                if(result.isSuccess){
+                    result.map {
+                        _uiEvent.send(CurrencyScreenResponseEvent.ToggleData(it))
+                    }
+                }else{
+                    useCaseErrorMessage(UiText.DynamicString("Error in saving preferences data"))
                 }
-            }else{
-                useCaseErrorMessage(UiText.DynamicString("Error in saving preferences data"))
+            }.onFailure {
+                println(it.message)
             }
+
         }catch (ex:Exception){
             errorPerformingUseCase(ex)
         }
