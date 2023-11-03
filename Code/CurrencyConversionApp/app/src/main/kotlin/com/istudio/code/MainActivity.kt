@@ -291,6 +291,7 @@ class MainActivity : ComponentActivity() {
                                 )
                                 Log.d("Args",currencyResultInput.toString())
                                 CurrencyResultScreen(
+                                    orientation = orientation,
                                     input = currencyResultInput
                                 )
                             }
