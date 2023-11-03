@@ -5,6 +5,9 @@ import android.view.KeyEvent.KEYCODE_NUMPAD_ENTER
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
@@ -55,13 +58,18 @@ fun InputTextField(
                 currencyInputChange.invoke(updatedText)
             }
         },
+        leadingIcon = {
+            Icon(imageVector = Icons.Default.AttachMoney,
+                contentDescription = currencyInputText,
+            )
+        },
         // Always use copy to modify a particular attribute
         textStyle = LocalTextStyle.current.copy( textAlign = TextAlign.Left),
         placeholder = { Text(text = placeholder) },
         maxLines = maxLines,
         isError = isError,
         keyboardOptions = KeyboardOptions( keyboardType = KeyboardType.Number),
-        keyboardActions = KeyboardActions( onNext = { doneAction.invoke() }
+        keyboardActions = KeyboardActions( onNext = { doneAction.invoke() },
         )
     )
 }

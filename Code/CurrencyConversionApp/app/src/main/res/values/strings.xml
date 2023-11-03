@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="str_currency_converter">Currency Converter</string>
+    <string name="str_currency_result">Currency Result</string>
 </resources>

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.istudio.core_ui.composables.AnimatedCard
 import com.istudio.models.custom.CurrencyResultInput
 
 
@@ -41,7 +42,7 @@ fun CurrencyResultLandscape(
         val paddingModifier = Modifier.padding(10.dp)
         val cardPadding = 16.dp
 
-        Card(
+        AnimatedCard(
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier.padding(cardPadding).height(200.dp),
         ) {
@@ -71,7 +72,7 @@ fun CurrencyResultLandscape(
             }
         }
 
-        Card(
+        AnimatedCard(
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier.padding(16.dp).height(200.dp),
         ) {

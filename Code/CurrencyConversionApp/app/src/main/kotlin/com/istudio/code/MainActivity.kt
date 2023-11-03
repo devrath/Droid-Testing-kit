@@ -184,6 +184,8 @@ class MainActivity : ComponentActivity() {
             // <-------------> once when the effect is launched  <------------->
             // Notify the loading state to be displayed in the screen
             viewModel.onEvent(AppScreenViewEvent.LoadingState)
+            // Initially action button is invisible since loader is currently displayed
+            viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
             // Either get the data from the server / or / ge the data from the local database
             viewModel.onEvent(AppScreenViewEvent.ToggleDataSource)
             // <-------------> once when the effect is launched  <------------->
@@ -469,8 +471,11 @@ class MainActivity : ComponentActivity() {
                             // <------------------------- Screen Prerequisites -------------------->
                             // Set the Action button invisible
                             viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
+                            val cxt = LocalContext.current
                             // Set the screen title
-                            viewModel.onEvent(AppScreenViewEvent.SetToolBarTitle(title = "Currency Result"))
+                            viewModel.onEvent(AppScreenViewEvent.SetToolBarTitle(
+                                title = cxt.getString(R.string.str_currency_result))
+                            )
                             // <------------------------- Screen Prerequisites -------------------->
 
                             navBackStackEntry.arguments?.let { bundle ->

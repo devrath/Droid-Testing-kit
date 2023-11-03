@@ -1,5 +1,6 @@
 package com.istudio.currency_converter.presentation.portrait
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -75,7 +76,9 @@ fun CurrencyScreenPortrait(
                 .width(5.dp).weight(1f)
             )
 
-            Box() {
+            Box(
+                modifier = Modifier.animateContentSize()
+            ) {
                 DropDownField(
                     dataList = curriencyList,
                     isError = isCurrencyValueDropDownError,

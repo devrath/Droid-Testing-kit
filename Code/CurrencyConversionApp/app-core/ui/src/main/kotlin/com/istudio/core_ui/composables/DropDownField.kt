@@ -1,6 +1,7 @@
 package com.istudio.core_ui.composables
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.material3.DropdownMenuItem
@@ -74,6 +75,7 @@ fun DropDownField(
             visible = isExpandedLocal, enter = expandVertically(), exit = shrinkVertically()
         ) {
             ExposedDropdownMenu(
+                modifier = Modifier.animateContentSize(),
                 expanded = isExpandedLocal,
                 onDismissRequest = {
                     isExpanded.value = false
