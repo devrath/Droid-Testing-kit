@@ -56,6 +56,14 @@ class MainVm @Inject constructor(
                     viewState = viewState.copy(isToolbarVisible = event.isVisible)
                 }
 
+                is AppScreenViewEvent.IsActionButtonVisible ->{
+                    viewState = viewState.copy(isActionButtonVisible = event.isVisible)
+                }
+
+                is AppScreenViewEvent.SetToolBarTitle -> {
+                    viewState = viewState.copy(toolBarTitle = event.title)
+                }
+
                 is AppScreenViewEvent.ToggleDataSource -> {
                     toggleData()
                 }

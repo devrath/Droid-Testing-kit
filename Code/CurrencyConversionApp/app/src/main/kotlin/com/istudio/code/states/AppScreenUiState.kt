@@ -6,5 +6,6 @@ data class AppScreenUiState(
     val isConnectedToInternet : Boolean = false,
     val launchedEffectState : Boolean = false,
     val isToolbarVisible : Boolean = false,
-    //val genreList: List<String> = emptyList(),
+    val isActionButtonVisible : Boolean = false,
+    val toolBarTitle : String = "",
 )

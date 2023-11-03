@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
             val configuration = LocalConfiguration.current
             // <!--------------------- CONTROLLERS ------------------------>
             // Title
-            val titleStr = "Currency Converter"
+            val titleStr = state.toolBarTitle
 
             // Orientation
             var orientation by remember { mutableIntStateOf(Configuration.ORIENTATION_PORTRAIT) }
@@ -200,8 +200,10 @@ class MainActivity : ComponentActivity() {
                     }
                 },
                 floatingActionButton = {
-                    FloatingActionButton{
-                        onClickOfCalculatePlay()
+                    if(state.isActionButtonVisible){
+                        FloatingActionButton{
+                            onClickOfCalculatePlay()
+                        }
                     }
                 }
             ) {
@@ -214,6 +216,11 @@ class MainActivity : ComponentActivity() {
                     ) {
 
                         composable(route = Screen.CurrencyConverter.route) {
+                            // Set the Action button visible
+                            viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = true))
+                            // Change the screen title
+                            viewModel.onEvent(AppScreenViewEvent.SetToolBarTitle(title = "Currency Converter"))
+
                             CurrencyScreen(
                                 orientation = orientation,
                                 onErrorAction = { message ->
@@ -269,8 +276,12 @@ class MainActivity : ComponentActivity() {
                                 navArgument(currencyToRateKey_key){ type = NavType.StringType },
                                 navArgument(currencyToRateValue_key){ type = NavType.StringType }
                             )
-
                         ) { navBackStackEntry ->
+
+                            // Set the Action button invisible
+                            viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
+                            // Set the screen title
+                            viewModel.onEvent(AppScreenViewEvent.SetToolBarTitle(title = "Currency Result"))
 
                             navBackStackEntry.arguments?.let { bundle ->
 
