@@ -10,4 +10,6 @@ sealed class AppScreenViewEvent {
     data class SetToolBarTitle(val title : String) : AppScreenViewEvent()
     // Screen Orientation is updated so composable can display appropriate screens
     data class SetScreenOrientation(val orientation : Int) : AppScreenViewEvent()
+    // Handle exit alert display
+    data class HandleExitAlertDisplay(val isExitAlertDisplayed : Boolean) : AppScreenViewEvent()
 }

@@ -10,5 +10,6 @@ data class AppScreenUiState(
     val isToolbarVisible : Boolean = false,
     val isActionButtonVisible : Boolean = false,
     val toolBarTitle : String = "",
+    val isExitAlertDisplayed : Boolean = false,
     val orientation : Int = Configuration.ORIENTATION_PORTRAIT
 )

@@ -79,6 +79,11 @@ class MainVm @Inject constructor(
                     // Main Activity Composable calls this to keep the current orientation of the screen
                     viewState = viewState.copy(orientation = event.orientation)
                 }
+
+                is AppScreenViewEvent.HandleExitAlertDisplay -> {
+                    // Handle exit alert display
+                    viewState = viewState.copy(isExitAlertDisplayed = event.isExitAlertDisplayed)
+                }
             }
         }
     }

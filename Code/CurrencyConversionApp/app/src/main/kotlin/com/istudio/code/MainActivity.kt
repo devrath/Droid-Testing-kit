@@ -2,7 +2,9 @@ package com.istudio.code
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.EaseIn
@@ -15,11 +17,14 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -33,11 +38,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -95,6 +102,51 @@ class MainActivity : ComponentActivity() {
             // Keyboard Manager
             val keyboardController = LocalSoftwareKeyboardController.current
             // <!--------------------- CONTROLLERS ------------------------>
+
+            BackHandler {
+                // ---> Handle Alert dialog for closing application
+                viewModel.onEvent(AppScreenViewEvent.HandleExitAlertDisplay(true))
+            }
+
+            if (state.isExitAlertDisplayed) {
+
+                AlertDialog(
+                    onDismissRequest = {
+                        viewModel.onEvent(AppScreenViewEvent.HandleExitAlertDisplay(false))
+                    },
+                    title = {
+                        Text(
+                            text = "Geeks for Geeks",
+                            color = Color.White)
+                            },
+                    text = {
+                        Text(
+                            text = "Hello! This is our Alert Dialog..",
+                            color = Color.White)
+                           },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                viewModel.onEvent(AppScreenViewEvent.HandleExitAlertDisplay(false))
+                            }
+                        ) {
+
+                            Text("Confirm", color = Color.White)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(
+                            onClick = {
+                                viewModel.onEvent(AppScreenViewEvent.HandleExitAlertDisplay(false))
+                            }
+                        ) {
+                            Text("Dismiss", color = MaterialTheme.colorScheme.primary)
+                        }
+                    },
+                    containerColor = MaterialTheme.colorScheme.background,
+                    textContentColor = Color.White
+                )
+            }
 
             // --> This is used to update the Orientation
             handleConfigurationEffect()
