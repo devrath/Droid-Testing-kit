@@ -46,7 +46,7 @@ fun CurrencyScreenPortrait(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(LocalSpacing.current.spaceExtraSmall)
+            .padding(LocalSpacing.current.spaceSmall)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     onKeyBoardOutsideClick.invoke()
