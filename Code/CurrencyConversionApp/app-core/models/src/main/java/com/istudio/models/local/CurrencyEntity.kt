@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.istudio.models.Keys.defaultCurrency
 
 @Entity(tableName = "currency_table")
 data class CurrencyEntity(
@@ -17,7 +18,8 @@ data class CurrencyEntity(
 ){
     @Ignore
     var isItemSelected = mutableStateOf(false)
-    fun setDefault() {
-        isItemSelected.value = currencyKey=="USD"
+
+    private fun setDefault() {
+        isItemSelected.value = (currencyKey==defaultCurrency.currencyKey)
     }
 }
