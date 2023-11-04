@@ -19,6 +19,7 @@ import com.istudio.models.custom.CurrencyValidationInput
 import com.istudio.models.custom.GridSelectionInput
 import com.istudio.models.custom.MasterApiData
 import com.istudio.models.local.CurrencyEntity
+import com.istudio.network.utils.NetworkStatusErrorCodes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
@@ -26,6 +27,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -370,7 +372,27 @@ class CurrencyScreenVm @Inject constructor(
                 }
             }
         }catch (ex:Exception){
-            errorPerformingUseCase(ex)
+
+            val errorCode = (ex as HttpException).code()
+            var errorMessage = ""
+            when (errorCode) {
+                NetworkStatusErrorCodes.InvalidBase.code -> {
+                    errorMessage = NetworkStatusErrorCodes.InvalidBase.message
+                }
+                NetworkStatusErrorCodes.AccessRestricted.code -> {
+                    errorMessage = NetworkStatusErrorCodes.AccessRestricted.message
+                }
+                NetworkStatusErrorCodes.NotAllowed.code -> {
+                    errorMessage = NetworkStatusErrorCodes.NotAllowed.message
+                }
+                NetworkStatusErrorCodes.InvalidAppId.code -> {
+                    errorMessage = NetworkStatusErrorCodes.InvalidAppId.message
+                }
+                NetworkStatusErrorCodes.NotFound.code -> {
+                    errorMessage = NetworkStatusErrorCodes.NotFound.message
+                }
+            }
+            ex.message?.let { errorPerformingUseCase(Exception(errorMessage)) }
         }
     }
 
