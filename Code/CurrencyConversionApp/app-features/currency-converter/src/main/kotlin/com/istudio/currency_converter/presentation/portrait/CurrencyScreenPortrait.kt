@@ -23,6 +23,7 @@ import com.istudio.core_ui.composables.DropDownField
 import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
 import com.istudio.core_ui.theme.LocalSpacing
+import com.istudio.models.Keys.defaultCurrency
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 
@@ -38,8 +39,8 @@ fun CurrencyScreenPortrait(
     setRatesItemSelection : (Int) -> Unit,
     onCurrencyDropDownSelection : (CurrencyEntity) -> Unit,
     // -----> Drop down data
-    currencyTypeState: MutableState<String> = mutableStateOf(""),
-    updateDropDownState : (MutableState<String>) -> Unit,
+    currencyTypeState: MutableState<CurrencyEntity> = mutableStateOf(defaultCurrency),
+    updateDropDownState : (MutableState<CurrencyEntity>) -> Unit,
     // -----> KeyBoard Action
     keyBoardDoneAction : () -> Unit
 ) {

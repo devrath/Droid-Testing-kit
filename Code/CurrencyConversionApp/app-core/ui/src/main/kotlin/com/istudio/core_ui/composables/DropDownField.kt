@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.istudio.core_ui.theme.fontFamily
 import com.istudio.currency_converter.R
+import com.istudio.models.Keys.defaultCurrency
 import com.istudio.models.local.CurrencyEntity
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,8 +36,8 @@ fun DropDownField(
     isExpanded: MutableState<Boolean> = mutableStateOf(false),
     selectionAction: (CurrencyEntity) -> Unit,
     // -----> Drop down data
-    currencyTypeState: MutableState<String> = mutableStateOf(""),
-    updateDropDownState: (MutableState<String>) -> Unit
+    currencyTypeState: MutableState<CurrencyEntity> = mutableStateOf(defaultCurrency),
+    updateDropDownState: (MutableState<CurrencyEntity>) -> Unit
 ) {
 
     // Context
@@ -56,7 +57,7 @@ fun DropDownField(
         }
     ) {
         TextField(
-            value = actionTextLocal,
+            value = actionTextLocal.currencyName.toString(),
             onValueChange = { },
             readOnly = true,
             trailingIcon = {
@@ -97,7 +98,7 @@ fun DropDownField(
                             )
                         },
                         onClick = {
-                            actionTextLocal = item.currencyName.toString()
+                            actionTextLocal = item
                             isExpandedLocal = false
                             selectionAction.invoke(item)
                             updateDropDownState.invoke(currencyTypeState)

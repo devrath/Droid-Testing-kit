@@ -17,4 +17,7 @@ data class CurrencyEntity(
 ){
     @Ignore
     var isItemSelected = mutableStateOf(false)
+    fun setDefault() {
+        isItemSelected.value = currencyKey=="USD"
+    }
 }

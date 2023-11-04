@@ -11,22 +11,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.istudio.core_ui.composables.DropDownField
 import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
 import com.istudio.core_ui.theme.LocalSpacing
+import com.istudio.models.Keys.defaultCurrency
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 
@@ -42,8 +38,8 @@ fun CurrencyScreenLandscape(
     setRatesItemSelection : (Int) -> Unit,
     onCurrencyDropDownSelection : (CurrencyEntity) -> Unit,
     // -----> Drop down data
-    currencyTypeState: MutableState<String> = mutableStateOf(""),
-    updateDropDownState : (MutableState<String>) -> Unit,
+    currencyTypeState: MutableState<CurrencyEntity> = mutableStateOf(defaultCurrency),
+    updateDropDownState : (MutableState<CurrencyEntity>) -> Unit,
     // -----> KeyBoard Action
     keyBoardDoneAction : () -> Unit
 ) {
