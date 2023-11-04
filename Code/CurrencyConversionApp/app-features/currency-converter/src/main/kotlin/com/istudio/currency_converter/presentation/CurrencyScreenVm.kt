@@ -12,11 +12,11 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDispla
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
+import com.istudio.models.Keys
 import com.istudio.models.custom.CurrencyResultInput
 import com.istudio.models.custom.CurrencyValidationInput
 import com.istudio.models.custom.GridSelectionInput
 import com.istudio.models.custom.MasterApiData
-import com.istudio.network.api.CurrencyApi.Companion.DEFAULT_CURRENCY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
@@ -331,7 +331,9 @@ class CurrencyScreenVm @Inject constructor(
     /**
      * USE-CASE :----> Getting the data from server
      */
-    private fun getDataFromServer(base:String=DEFAULT_CURRENCY) = uiScope.launch {
+    private fun getDataFromServer(
+        base:String= Keys.defaultCurrency.currencyKey
+    ) = uiScope.launch {
         try{
             val result = useCases.network.invoke(base)
             withContext(mainDispatcher){

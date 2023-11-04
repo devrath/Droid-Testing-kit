@@ -4,7 +4,6 @@ import com.istudio.common.platform.actions.Action
 import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
 import com.istudio.currency_converter.data.repository.RepositoryControllerFeatures
 import com.istudio.models.custom.MasterApiData
-import com.istudio.network.api.CurrencyApi.Companion.DEFAULT_CURRENCY
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
