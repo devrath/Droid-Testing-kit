@@ -34,13 +34,22 @@ class CurrencyResultScreenVm @Inject constructor(
         viewModelScope.launch {
             when (event) {
                 is CurrencyResultScreenViewEvent.SetResultDataInVm -> {
-                    viewState.value = viewState.value.copy(inputData = event.data)
+                    // ---> Card1
+                    val cardOneDisplay = prepareCurrencyInputResultCard(event.data)
+                    // ---> Card2
+                    val cardTwoDisplay = prepareCurrencyCalculatedResultCard(event.data)
+                    // Set the result in the view state
+                    viewState.value = viewState.value.copy(
+                        inputData = event.data,
+                        userEnteredCardDetails = cardOneDisplay,
+                        userCalculatedCardDetails = cardTwoDisplay
+                    )
                 }
             }
         }
     }
     /** <************> UI Action is invoked from composable <************> **/
-    fun calculateCurrencyConversion(input: CurrencyResultInput): String {
+    private fun calculateCurrencyConversion(input: CurrencyResultInput): String {
         val userFromEnteredCurrency = input.userFromEnteredCurrency
         val currencyToRateValue = input.currencyToRateValue
         return if(userFromEnteredCurrency!=null && currencyToRateValue!=null) {
@@ -49,5 +58,32 @@ class CurrencyResultScreenVm @Inject constructor(
             ""
         }
     }
+
+    private fun prepareCurrencyInputResultCard(input: CurrencyResultInput): String {
+        // <------------------------------------ CARD-1------------------------------------>
+        // User entered currency value
+        val userEnteredInputValue : String = input.userFromEnteredCurrency
+        // User entered currency type
+        val userEnteredInputType : String = input.userFromEnteredCurrencyName?:""
+        // <------------------------------------ CARD-1------------------------------------>
+        // <----------------------------- CALCULATED VALUES-------------------------------->
+        val userEnteredInputResult = userEnteredInputValue.plus("--").plus(userEnteredInputType)
+        // <----------------------------- CALCULATED VALUES-------------------------------->
+        return userEnteredInputResult
+    }
+
+    private fun prepareCurrencyCalculatedResultCard(input: CurrencyResultInput): String {
+        // <------------------------------------ CARD-2------------------------------------>
+        // User calculated currency value
+        val userCalculatedCurrencyValue : String = calculateCurrencyConversion(input)
+        // User calculated currency type
+        val userCalculatedCurrencyType: String = input.currencyToRateKey
+        // <------------------------------------ CARD-2------------------------------------>
+        // <----------------------------- CALCULATED VALUES-------------------------------->
+        val calculatedCurrencyResult = userCalculatedCurrencyValue.plus("--").plus(userCalculatedCurrencyType)
+        // <----------------------------- CALCULATED VALUES-------------------------------->
+        return calculatedCurrencyResult
+    }
+
 
 }

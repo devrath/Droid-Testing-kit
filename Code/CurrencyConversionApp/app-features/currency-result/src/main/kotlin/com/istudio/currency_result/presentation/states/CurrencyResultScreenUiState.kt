@@ -6,4 +6,6 @@ data class CurrencyResultScreenUiState(
     // This flg is set once - > From launched effect state, To start collecting emits only once
     val launchedEffectState: Boolean = false,
     val inputData: CurrencyResultInput?= null,
+    val userEnteredCardDetails: String = "",
+    val userCalculatedCardDetails: String = "",
 )

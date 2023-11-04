@@ -9,27 +9,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.istudio.core_ui.composables.AnimatedCard
-import com.istudio.models.custom.CurrencyResultInput
+import com.istudio.currency_result.presentation.states.CurrencyResultScreenUiState
 
 @Composable
 fun CurrencyResultPortrait(
-    viewState: CurrencyResultInput,
-    currencyConvertedResult: String
+    state: MutableState<CurrencyResultScreenUiState>
 ) {
-
-    val userEnteredInput : String = viewState.userFromEnteredCurrency
-
-    val userEnteredInputResult = userEnteredInput.plus("--").plus(viewState.userFromEnteredCurrencyName)
-    val calculatedCurrencyResult = currencyConvertedResult.plus("--").plus(viewState.currencyToRateKey)
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -63,7 +57,7 @@ fun CurrencyResultPortrait(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = userEnteredInputResult,
+                        text = state.value.userEnteredCardDetails,
                         modifier = paddingModifier,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
@@ -101,7 +95,7 @@ fun CurrencyResultPortrait(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = calculatedCurrencyResult,
+                        text = state.value.userCalculatedCardDetails,
                         modifier = paddingModifier,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium

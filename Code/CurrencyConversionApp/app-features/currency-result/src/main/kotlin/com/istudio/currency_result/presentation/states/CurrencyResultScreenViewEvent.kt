@@ -4,5 +4,4 @@ import com.istudio.models.custom.CurrencyResultInput
 
 sealed class CurrencyResultScreenViewEvent {
     data class SetResultDataInVm(val data: CurrencyResultInput) : CurrencyResultScreenViewEvent()
-
 }

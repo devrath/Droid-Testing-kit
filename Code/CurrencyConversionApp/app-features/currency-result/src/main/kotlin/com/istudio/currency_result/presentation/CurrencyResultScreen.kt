@@ -1,15 +1,18 @@
 package com.istudio.currency_result.presentation
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.currency_result.presentation.landscape.CurrencyResultLandscape
 import com.istudio.currency_result.presentation.portrait.CurrencyResultPortrait
+import com.istudio.currency_result.presentation.states.CurrencyResultScreenUiState
 import com.istudio.currency_result.presentation.states.CurrencyResultScreenViewEvent
 import com.istudio.models.custom.CurrencyResultInput
 
@@ -27,11 +30,21 @@ fun CurrencyResultScreen(
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // View state reference from view model
     val state = viewModel.viewState
-    // Composable orientation
-    val configuration = LocalConfiguration.current
-    // Currency converted value
-    val currencyConvertedValue = viewModel.calculateCurrencyConversion(input)
+    // Call the launched state
+    LaunchEffect(state, viewModel, input)
+    // Display Screen
+    CurrentScreen(
+        orientation = orientation,
+        state = viewModel.viewState
+    )
+}
 
+@Composable
+private fun LaunchEffect(
+    state: MutableState<CurrencyResultScreenUiState>,
+    viewModel: CurrencyResultScreenVm,
+    input: CurrencyResultInput
+) {
     LaunchedEffect(key1 = state.value.launchedEffectState) {
         // Set the data in view model
         viewModel.onEvent(
@@ -43,48 +56,60 @@ fun CurrencyResultScreen(
         }
         // <***********> Event is observed from View-Model <************>
     }
-
-
-    viewModel.viewState.value.inputData?.let {
-        CurrentScreen(
-            viewState = it,
-            currencyConvertedResult = currencyConvertedValue,
-            orientation = orientation
-        )
-    }
-
 }
 
 @Composable
 private fun CurrentScreen(
-    viewState: CurrencyResultInput,
-    currencyConvertedResult : String,
-    orientation: Int
+    orientation: Int,
+    state: MutableState<CurrencyResultScreenUiState>
 ) {
 
     // Toggle Orientation of the screen
     if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-        CurrencyResultPortrait(viewState,currencyConvertedResult)
+        CurrencyResultPortrait(state)
     }else{
-        CurrencyResultLandscape(viewState,currencyConvertedResult)
+        CurrencyResultLandscape(state)
     }
 
 }
 
 
+@SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
 private fun ScreenPreview() {
+
+    val currencyInput = CurrencyResultInput(
+        userFromEnteredCurrency = "100",
+        userFromEnteredCurrencyType = "Rupees",
+        userFromEnteredCurrencyKey = "SomeKey",
+        userFromEnteredCurrencyName = "USD",
+        currencyToRateKey = "SOME-KEY",
+        currencyToRateValue = 3.4
+    )
+
+    val userFromEnteredCurrency = currencyInput.userFromEnteredCurrency
+    val currencyToRateValue = currencyInput.currencyToRateValue
+    val userCalculatedCurrencyValue  = if(userFromEnteredCurrency!=null && currencyToRateValue!=null) {
+        ((userFromEnteredCurrency.toDouble()) * (currencyToRateValue)).toString()
+    }else{
+        ""
+    }
+
+    val data = CurrencyResultScreenUiState(
+        launchedEffectState = true,
+        inputData = currencyInput,
+        userEnteredCardDetails = currencyInput.userFromEnteredCurrency.plus("--")
+            .plus(currencyInput.userFromEnteredCurrencyType),
+        userCalculatedCardDetails = userCalculatedCurrencyValue.plus("--")
+            .plus(currencyInput.currencyToRateKey)
+    )
+
+    val state = mutableStateOf(data)
+
+
     CurrentScreen(
-        viewState = CurrencyResultInput(
-            userFromEnteredCurrency = "22",
-            userFromEnteredCurrencyType = "11",
-            userFromEnteredCurrencyKey = "3",
-            userFromEnteredCurrencyName = "9",
-            currencyToRateKey = "82",
-            currencyToRateValue = 99.2
-        ),
         orientation = Configuration.ORIENTATION_PORTRAIT,
-        currencyConvertedResult = "22"
+        state = state
     )
 }
