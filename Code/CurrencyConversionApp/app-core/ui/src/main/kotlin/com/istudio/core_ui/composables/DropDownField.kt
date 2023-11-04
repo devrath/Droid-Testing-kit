@@ -4,11 +4,13 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -46,6 +48,7 @@ fun DropDownField(
     var actionTextLocal by remember { currencyTypeState }
 
     ExposedDropdownMenuBox(
+        modifier = Modifier.background(color = MaterialTheme.colorScheme.primary),
         expanded = isExpandedLocal,
         onExpandedChange = {
             isExpanded.value = it
@@ -76,7 +79,7 @@ fun DropDownField(
             visible = isExpandedLocal, enter = expandVertically(), exit = shrinkVertically()
         ) {
             ExposedDropdownMenu(
-                modifier = Modifier.animateContentSize(),
+                modifier = Modifier.animateContentSize().background(color = MaterialTheme.colorScheme.primary),
                 expanded = isExpandedLocal,
                 onDismissRequest = {
                     isExpanded.value = false
@@ -85,7 +88,8 @@ fun DropDownField(
             ) {
                 dataList.forEachIndexed { index, item ->
                     DropdownMenuItem(
-                        modifier = Modifier.exposedDropdownSize(),
+                        modifier = Modifier.exposedDropdownSize()
+                            .background(color = MaterialTheme.colorScheme.background),
                         text = {
                             Text(
                                 text = item.currencyName.toString(),
