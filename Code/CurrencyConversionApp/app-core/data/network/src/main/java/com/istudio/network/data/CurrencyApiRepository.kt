@@ -12,8 +12,8 @@ class CurrencyApiRepository @Inject constructor(
         return features.getCurrencies()
     }
 
-    suspend fun getCurrencyConversionValues(): CurrencyConversionValues {
-        return features.getCurrencyConversionValues()
+    suspend fun getCurrencyConversionValues(base:String): CurrencyConversionValues {
+        return features.getCurrencyConversionValues(base)
     }
 
 }

@@ -13,7 +13,7 @@ class CurrencyApiImpl @Inject constructor(
         return api.getCurrencies()
     }
 
-    override suspend fun getCurrencyConversionValues(): CurrencyConversionValues {
-        return api.getCurrencyConversionValues()
+    override suspend fun getCurrencyConversionValues(base:String): CurrencyConversionValues {
+        return api.getCurrencyConversionValues(base)
     }
 }

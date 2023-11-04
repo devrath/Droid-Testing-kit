@@ -12,6 +12,7 @@ interface CurrencyApi {
 
     companion object {
         const val APP_ID = BuildConfig.API_KEY
+        const val DEFAULT_CURRENCY = "USD"
     }
 
     // API -> Getting the list of currencies
@@ -22,6 +23,8 @@ interface CurrencyApi {
     // API -> Getting the conversion values for all currencies
     // DOC -> https://docs.openexchangerates.org/reference/latest-json
     @GET("latest.json?app_id=$APP_ID")
-    suspend fun getCurrencyConversionValues(@Query("base") base:String="USD"): CurrencyConversionValues
+    suspend fun getCurrencyConversionValues(
+        @Query("base") base:String=DEFAULT_CURRENCY)
+    : CurrencyConversionValues
 
 }

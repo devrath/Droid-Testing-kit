@@ -16,6 +16,7 @@ import com.istudio.models.custom.CurrencyResultInput
 import com.istudio.models.custom.CurrencyValidationInput
 import com.istudio.models.custom.GridSelectionInput
 import com.istudio.models.custom.MasterApiData
+import com.istudio.network.api.CurrencyApi.Companion.DEFAULT_CURRENCY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
@@ -330,9 +331,9 @@ class CurrencyScreenVm @Inject constructor(
     /**
      * USE-CASE :----> Getting the data from server
      */
-    private fun getDataFromServer() = uiScope.launch {
+    private fun getDataFromServer(base:String=DEFAULT_CURRENCY) = uiScope.launch {
         try{
-            val result = useCases.network.invoke(Unit)
+            val result = useCases.network.invoke(base)
             withContext(mainDispatcher){
                 if(result.isSuccess){
                     result.map { data ->
@@ -402,7 +403,7 @@ class CurrencyScreenVm @Inject constructor(
                         viewState.value = viewState.value.copy(currencyRatesList = it)
                         viewState.value = viewState.value.copy(isCurrencyRatesDataDisplayed = true)
                         // Set USD(Dollar) as default selected currency in the rates selection
-                        
+
                         // Check can UI be displayed
                         canUiBeDisplayed()
                     }

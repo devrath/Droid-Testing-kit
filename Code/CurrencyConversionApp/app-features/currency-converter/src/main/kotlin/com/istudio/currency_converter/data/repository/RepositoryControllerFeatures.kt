@@ -18,8 +18,8 @@ class RepositoryControllerFeatures @Inject constructor(
     }
 
     // Get the currency conversion values fata from api
-    override suspend fun getCurrencyConversionValuesFromApi(): CurrencyConversionValues {
-        return repoImpl.getCurrencyConversionValuesFromApi()
+    override suspend fun getCurrencyConversionValuesFromApi(base:String): CurrencyConversionValues {
+        return repoImpl.getCurrencyConversionValuesFromApi(base)
     }
 
     // Insert currencies data into the database

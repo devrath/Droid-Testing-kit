@@ -11,7 +11,7 @@ interface CurrencyControllerFeatures {
     // <------------------------------------ API  <------------------------------------>
     // <----- Retrieving Data  ----->
     suspend fun getCurrenciesFromApi() : Currencies
-    suspend fun getCurrencyConversionValuesFromApi()  : CurrencyConversionValues
+    suspend fun getCurrencyConversionValuesFromApi(base:String)  : CurrencyConversionValues
     // <----- Retrieving Data  ----->
     // <------------------------------------ API  <------------------------------------>
 
