@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">code</string>
+    <string name="app_name">Currency Converter</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="str_enter_the_amt_to_convert">Amount</string>
     <string name="str_entered_currency_type">Currency</string>

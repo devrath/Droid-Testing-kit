@@ -191,6 +191,7 @@ fun DependencyHandler.uiModuleDependencies() {
     instrumentationTesting()
     unitTesting()
     compose()
+    implementation(coreSplash)
     // --> Single modules
     coreModelsModule()
 }
