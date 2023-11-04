@@ -38,7 +38,7 @@ fun CurrencyResultLandscape(
 
         AnimatedCard(
             shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.padding(cardPadding).height(200.dp),
+            modifier = Modifier.padding(cardPadding).height(200.dp).weight(1f),
         ) {
             Box(
                 modifier = Modifier.width(400.dp).padding(16.dp),
@@ -68,7 +68,7 @@ fun CurrencyResultLandscape(
 
         AnimatedCard(
             shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.padding(16.dp).height(200.dp),
+            modifier = Modifier.padding(16.dp).height(200.dp).weight(1f),
         ) {
             Box(
                 modifier = Modifier.width(400.dp).padding(16.dp),
