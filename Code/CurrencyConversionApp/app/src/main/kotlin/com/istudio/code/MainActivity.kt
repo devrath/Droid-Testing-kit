@@ -414,8 +414,10 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onLoading = { isVisible ->
                                     // Toggle toolbar visibility
-                                    viewModel.onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = isVisible))
-                                    viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = isVisible))
+                                    viewModel.apply {
+                                        onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = isVisible))
+                                        onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = isVisible))
+                                    }
                                 },
                                 onClickOfCalculatePlay = {
                                     onClickOfCalculatePlay = it
