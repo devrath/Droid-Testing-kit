@@ -65,6 +65,14 @@ class CurrencyScreenVm @Inject constructor(
                 }
 
                 is CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown -> {
+
+                    if(event.item.currencyKey == viewState.value.selectedDropDownModel.currencyKey){
+                        val selectedItem = event.item.currencyName
+                        val message = Exception("" +
+                                "Select a different currency other than $selectedItem \n\n" +
+                                "Since selection you made \n matches previous selection")
+                        errorPerformingUseCase(message)
+                    }
                     // On Selection of new currency value
                     getDataFromServer(
                         base = event.item.currencyKey,
@@ -327,6 +335,7 @@ class CurrencyScreenVm @Inject constructor(
         base:String= defaultCurrency.currencyKey,
         currencyEntity : CurrencyEntity = defaultCurrency
     ) = uiScope.launch {
+
         try{
             val result = useCases.network.invoke(base)
             withContext(mainDispatcher){
@@ -360,7 +369,9 @@ class CurrencyScreenVm @Inject constructor(
                     useCaseErrorMessage(UiText.DynamicString("Retrieving data from server has failed"))
                 }
             }
-        }catch (ex:Exception){ errorPerformingUseCase(ex) }
+        }catch (ex:Exception){
+            errorPerformingUseCase(ex)
+        }
     }
 
     /**
