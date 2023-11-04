@@ -25,7 +25,6 @@ fun CurrencyScreen(
     modifier: Modifier = Modifier,
     onErrorAction: (String) -> Unit,
     onKeyBoardOutsideClick: () -> Unit,
-    onBackPress: () -> Unit,
     onLoading:(Boolean) -> Unit,
     onClickOfCalculatePlay: (onClick: () -> Unit) -> Unit,
     displaySnackBar : (String) -> Unit,
@@ -34,14 +33,10 @@ fun CurrencyScreen(
     keyBoardDoneAction : () -> Unit
 ) {
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
-    // Context
-    val cxt = LocalContext.current
     // View model reference
     val viewModel: CurrencyScreenVm = hiltViewModel()
     // View state reference from view model
     val state = viewModel.viewState
-    // Composable orientation
-    val configuration = LocalConfiguration.current
 
     val curriencyList = viewModel.viewState.value.currencyList
     val currencyRatesList = viewModel.viewState.value.currencyRatesList
@@ -69,19 +64,21 @@ fun CurrencyScreen(
 
                 is CurrencyScreenResponseEvent.InsertingCurrienciesToDbSuccessful -> {
                     // Inserting the value in the local database is successful
-                    // Then : -> Fetch data from database -> Currency List
-                    viewModel.onEvent(CurrencyScreenViewEvent.GetCurrencyDataFromDb)
-                    // Then : -> Fetch data from database -> CurrencyRates List
-                    viewModel.onEvent(CurrencyScreenViewEvent.GetCurrencyRatesDataFromDb)
-                    // Then : -> Store the timestamp and flag that data local data is available
-                    viewModel.onEvent(CurrencyScreenViewEvent.SaveTimeStamp(data = event.data))
+                    viewModel.apply {
+                        // Then : -> Fetch data from database -> Currency List
+                        onEvent(CurrencyScreenViewEvent.GetCurrencyDataFromDb)
+                        // Then : -> Fetch data from database -> CurrencyRates List
+                        onEvent(CurrencyScreenViewEvent.GetCurrencyRatesDataFromDb)
+                        // Then : -> Store the timestamp and flag that data local data is available
+                        onEvent(CurrencyScreenViewEvent.SaveTimeStamp(data = event.data))
+                    }
                 }
 
                 is CurrencyScreenResponseEvent.ShouldUiBeDisplayed -> {
+                    // This is invoked twice since currencies and rates are displayed
                     viewModel.onEvent(
                         CurrencyScreenViewEvent.ShouldUiBeDisplayed(event.shouldUiBeDisplayed)
                     )
-                    onLoading.invoke(event.shouldUiBeDisplayed)
                 }
 
                 is CurrencyScreenResponseEvent.CurrencyUserInputError -> {

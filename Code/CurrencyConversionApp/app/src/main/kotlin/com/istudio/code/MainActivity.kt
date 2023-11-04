@@ -408,10 +408,6 @@ class MainActivity : ComponentActivity() {
                                     // Scenario : When user clicks outside the keyboard
                                     focusManager.clearFocus()
                                 },
-                                onBackPress = {
-                                    // Scenario : When user presses back button: Using Ui widget Action if present
-                                    controller.popBackStack()
-                                },
                                 onLoading = { isVisible ->
                                     // Toggle toolbar visibility
                                     viewModel.apply {

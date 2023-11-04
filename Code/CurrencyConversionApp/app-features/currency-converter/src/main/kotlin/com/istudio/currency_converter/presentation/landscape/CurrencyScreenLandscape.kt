@@ -74,19 +74,13 @@ fun CurrencyScreenLandscape(
                     doneAction = { keyBoardDoneAction }
                 )
 
-                Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
+                Spacer(modifier = Modifier.weight(1f))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End
                 ) {
-
-                    Spacer(
-                        modifier = Modifier
-                            .height(LocalSpacing.current.spaceExtraSmall)
-                            .width(5.dp).weight(1f)
-                    )
 
                     Box() {
                         DropDownField(
@@ -101,20 +95,7 @@ fun CurrencyScreenLandscape(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(LocalSpacing.current.spaceExtraSmall))
-
-                Text(
-                    text = "Output",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier
-                        .weight(1.8f)
-                        .padding(
-                            horizontal = LocalSpacing.current.spaceExtraSmall,
-                            vertical = 20.dp
-                        ),
-                    textAlign = TextAlign.Start,
-                    maxLines = 1
-                )
+                Spacer(modifier = Modifier.height(LocalSpacing.current.spaceSmall))
             }
         }
         Column(
