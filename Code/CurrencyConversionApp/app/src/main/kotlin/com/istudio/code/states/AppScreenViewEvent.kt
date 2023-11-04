@@ -3,7 +3,7 @@ package com.istudio.code.states
 import androidx.compose.runtime.MutableState
 
 sealed class AppScreenViewEvent {
-    object LoadingState : AppScreenViewEvent()
+    data class LoadingState(val isVisible : Boolean) : AppScreenViewEvent()
     object CheckConnectivity : AppScreenViewEvent()
     object LoadFromDatabase : AppScreenViewEvent()
     object ToggleDataSource : AppScreenViewEvent()

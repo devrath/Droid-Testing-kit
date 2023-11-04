@@ -184,7 +184,7 @@ class MainActivity : ComponentActivity() {
 
             // <-------------> once when the effect is launched  <------------->
             // Notify the loading state to be displayed in the screen
-            viewModel.onEvent(AppScreenViewEvent.LoadingState)
+            viewModel.onEvent(AppScreenViewEvent.LoadingState(isVisible = true))
             // Initially action button is invisible since loader is currently displayed
             viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
             // Either get the data from the server / or / ge the data from the local database
