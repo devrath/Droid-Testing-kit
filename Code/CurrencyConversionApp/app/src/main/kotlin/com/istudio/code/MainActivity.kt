@@ -396,6 +396,11 @@ class MainActivity : ComponentActivity() {
                                     title = LocalContext.current.getString(R.string.str_currency_converter)
                                 )
                             )
+                            // Toggle toolbar visibility
+                            viewModel.apply {
+                                onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = true))
+                                onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = true))
+                            }
                             // <------------------------- Screen Prerequisites -------------------->
 
                             CurrencyScreen(
@@ -473,13 +478,18 @@ class MainActivity : ComponentActivity() {
                         ) { navBackStackEntry ->
 
                             // <------------------------- Screen Prerequisites -------------------->
-                            // Set the Action button invisible
-                            viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
-                            val cxt = LocalContext.current
+
                             // Set the screen title
                             viewModel.onEvent(AppScreenViewEvent.SetToolBarTitle(
-                                title = cxt.getString(R.string.str_currency_result))
+                                title = LocalContext.current.getString(R.string.str_currency_result))
                             )
+
+                            // Toggle toolbar and action bar visibility
+                            viewModel.apply {
+                                onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = true))
+                                onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
+                            }
+
                             // <------------------------- Screen Prerequisites -------------------->
 
                             navBackStackEntry.arguments?.let { bundle ->
