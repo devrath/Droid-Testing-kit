@@ -17,7 +17,7 @@ fun GridInput(
     onClick: (Int) -> Unit
 ){
     // Context
-    val noOfColumns = 3
+    val noOfColumns = 2
     LazyVerticalGrid(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
         columns = GridCells.Fixed(noOfColumns),
