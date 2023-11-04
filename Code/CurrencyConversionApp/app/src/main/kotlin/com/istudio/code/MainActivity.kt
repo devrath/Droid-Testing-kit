@@ -181,14 +181,17 @@ class MainActivity : ComponentActivity() {
         val coroutineScope = rememberCoroutineScope()
 
         LaunchedEffect(key1 = state.launchedEffectState) {
-
             // <-------------> once when the effect is launched  <------------->
-            // Notify the loading state to be displayed in the screen
-            viewModel.onEvent(AppScreenViewEvent.LoadingState(isVisible = true))
-            // Initially action button is invisible since loader is currently displayed
-            viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
-            // Either get the data from the server / or / ge the data from the local database
-            viewModel.onEvent(AppScreenViewEvent.ToggleDataSource)
+            viewModel.apply {
+                // Notify the loading state to be displayed in the screen
+                onEvent(AppScreenViewEvent.LoadingState(isVisible = true))
+                // Initially action button is invisible since loader is currently displayed
+                onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
+                // Initially action Toolbar is invisible since loader is currently displayed
+                onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = false))
+                // Either get the data from the server / or / ge the data from the local database
+                onEvent(AppScreenViewEvent.ToggleDataSource)
+            }
             // <-------------> once when the effect is launched  <------------->
 
             // <***********> Event is observed from View-Model <************>
@@ -387,8 +390,6 @@ class MainActivity : ComponentActivity() {
                         ) {
 
                             // <------------------------- Screen Prerequisites -------------------->
-                            // Set the Action button visible
-                            viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = true))
                             // Change the screen title
                             viewModel.onEvent(
                                 AppScreenViewEvent.SetToolBarTitle(
@@ -414,6 +415,7 @@ class MainActivity : ComponentActivity() {
                                 onLoading = { isVisible ->
                                     // Toggle toolbar visibility
                                     viewModel.onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = isVisible))
+                                    viewModel.onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = isVisible))
                                 },
                                 onClickOfCalculatePlay = {
                                     onClickOfCalculatePlay = it

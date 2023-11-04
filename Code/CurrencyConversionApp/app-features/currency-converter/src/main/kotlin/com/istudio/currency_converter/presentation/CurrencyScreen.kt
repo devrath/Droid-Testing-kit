@@ -57,6 +57,8 @@ fun CurrencyScreen(
 
 
     LaunchedEffect(key1 = state.value.launchedEffectState) {
+        // Initiate loading state
+        onLoading.invoke(true)
         // <***********> Event is observed from View-Model <************>
         viewModel.uiEvent.collect { event ->
             when (event) {
