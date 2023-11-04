@@ -13,7 +13,9 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -62,6 +65,7 @@ import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrency_ke
 import com.istudio.core_ui.composables.ErrorAlert
 import com.istudio.core_ui.composables.ExitAlert
 import com.istudio.core_ui.composables.FloatingActionButton
+import com.istudio.core_ui.composables.LoadingAnimation
 import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
 import com.istudio.core_ui.composables.ThemeSwitcher
@@ -129,34 +133,38 @@ class MainActivity : ComponentActivity() {
         // <!--------------------- CONTROLLERS ------------------------>
 
 
-        ShimmerHomeLoadingComposable(
-            isLoading = state.loadingState,
-            contentAfterLoading = {
-                // Main content of the screen
-                MainContent(
-                    state = state,
-                    snackBarController = snackBarController,
-                    scrollBehaviour = scrollBehaviour,
-                    controller = controller,
-                    orientation = state.orientation,
-                    focusManager = focusManager,
-                    displaySnackBar = { message ->
-                        coroutineScope.launch {
-                            //snackBarController.showSnackbar(message = message)
-                            // Show error dialog
-                            viewModel.onEvent(AppScreenViewEvent.SetMessageForError(message=message))
-                            viewModel.onEvent(
-                                AppScreenViewEvent.HandleErrorAlertDisplay(mutableStateOf(value = true))
-                            )
-                        }
-                    },
-                    keyBoardDoneAction = {
-                        keyboardController?.hide()
+        if(state.loadingState){
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LoadingAnimation()
+            }
+        }else{
+            // Main content of the screen
+            MainContent(
+                state = state,
+                snackBarController = snackBarController,
+                scrollBehaviour = scrollBehaviour,
+                controller = controller,
+                orientation = state.orientation,
+                focusManager = focusManager,
+                displaySnackBar = { message ->
+                    coroutineScope.launch {
+                        //snackBarController.showSnackbar(message = message)
+                        // Show error dialog
+                        viewModel.onEvent(AppScreenViewEvent.SetMessageForError(message=message))
+                        viewModel.onEvent(
+                            AppScreenViewEvent.HandleErrorAlertDisplay(mutableStateOf(value = true))
+                        )
                     }
-                )
-            },
-            modifier = Modifier.fillMaxSize()
-        )
+                },
+                keyBoardDoneAction = {
+                    keyboardController?.hide()
+                }
+            )
+        }
     }
 
     @Composable
