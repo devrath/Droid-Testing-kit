@@ -25,7 +25,7 @@ interface CurrencyDao {
      * Getting just a list of currency rates
      */
     @Query("SELECT * FROM rates_table")
-    fun getCurrencyRatesList() : Flow<List<RatesEntity>>
+    fun getCurrencyRatesList() : List<RatesEntity>
 
     /**
      * OPERATION: Inserting
@@ -43,5 +43,9 @@ interface CurrencyDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRates(currency : RatesEntity)
+
+
+    @Query("SELECT * FROM currency_table WHERE currencyKey=:currencyKey")
+    fun getCurrencyById(currencyKey:String) : CurrencyEntity
 
 }

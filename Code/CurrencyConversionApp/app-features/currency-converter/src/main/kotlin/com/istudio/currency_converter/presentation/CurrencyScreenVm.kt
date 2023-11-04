@@ -219,9 +219,9 @@ class CurrencyScreenVm @Inject constructor(
                     var currencyToRateValue = 0.0
 
                     viewState.value.currencyRatesList.forEachIndexed { index, ratesEntity ->
-                        if(ratesEntity.isItemSelected.value){
-                            currencyToRateKey = ratesEntity.ratesKey
-                            currencyToRateValue = ratesEntity.ratesValue!!
+                        if(ratesEntity.rates.isItemSelected.value){
+                            currencyToRateKey = ratesEntity.currency.currencyName.toString()
+                            currencyToRateValue = ratesEntity.rates.ratesValue!!
                         }
                     }
 
@@ -438,17 +438,13 @@ class CurrencyScreenVm @Inject constructor(
             val result = useCases.dbRetrieveCurrencyRates.invoke(Unit)
             if(result.isSuccess){
                 result.map { curriencyDataFlow ->
-                    curriencyDataFlow.catch {
-                        useCaseErrorMessage(UiText.DynamicString(it.message.toString()))
-                    }.collect{
-                        // Retrieving the currency list from DB is successful
-                        viewState.value = viewState.value.copy(currencyRatesList = it)
-                        viewState.value = viewState.value.copy(isCurrencyRatesDataDisplayed = true)
-                        // Set USD(Dollar) as default selected currency in the rates selection
+                    // Retrieving the currency list from DB is successful
+                    viewState.value = viewState.value.copy(currencyRatesList = curriencyDataFlow)
+                    viewState.value = viewState.value.copy(isCurrencyRatesDataDisplayed = true)
+                    // Set USD(Dollar) as default selected currency in the rates selection
 
-                        // Check can UI be displayed
-                        canUiBeDisplayed()
-                    }
+                    // Check can UI be displayed
+                    canUiBeDisplayed()
                 }
             }else{
                 withContext(mainDispatcher){

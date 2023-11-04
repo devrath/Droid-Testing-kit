@@ -2,6 +2,7 @@ package com.istudio.currency_converter.data.implementation
 
 import com.istudio.currency_converter.domain.features.CurrencyControllerFeatures
 import com.istudio.database.data.repository.CurrencyDbRepository
+import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 import com.istudio.models.remote.Currencies
@@ -27,6 +28,10 @@ class RepositoryControllerImpl @Inject constructor(
         return api.getCurrencyConversionValues(base)
     }
 
+    override suspend fun getCurrencyAndRates(): List<CurrencyAndRates> {
+        return db.getCurrencyAndRates()
+    }
+
     override suspend fun insertCurrenciesIntoDb(currency: CurrencyEntity) {
         db.addCurrency(currency)
     }
@@ -39,8 +44,8 @@ class RepositoryControllerImpl @Inject constructor(
         return db.getCurrencies()
     }
 
-    override suspend fun getRatesListFromDb(): Flow<List<RatesEntity>> {
-        return db.getCurrencyRates()
+    override suspend fun getRatesListFromDb(): List<CurrencyAndRates> {
+        return db.getCurrencyAndRates()
     }
 
 

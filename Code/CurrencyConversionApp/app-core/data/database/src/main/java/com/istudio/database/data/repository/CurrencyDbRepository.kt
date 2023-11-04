@@ -1,6 +1,7 @@
 package com.istudio.database.data.repository
 
 import com.istudio.database.domain.CurrencyDbFeatures
+import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,7 @@ class CurrencyDbRepository @Inject constructor(
         return features.getCurrencyList()
     }
 
-    suspend fun getCurrencyRates(): Flow<List<RatesEntity>> {
+    suspend fun getCurrencyRates(): List<RatesEntity> {
         return features.getCurrencyRatesList()
     }
 
@@ -24,6 +25,10 @@ class CurrencyDbRepository @Inject constructor(
 
     suspend fun addRates(currency: RatesEntity) {
         features.addRates(currency)
+    }
+
+    suspend fun getCurrencyAndRates(): List<CurrencyAndRates> {
+        return features.getCurrencyAndRates()
     }
 
 }

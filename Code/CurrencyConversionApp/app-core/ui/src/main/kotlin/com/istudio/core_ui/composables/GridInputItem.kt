@@ -17,11 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.istudio.core_ui.theme.LocalSpacing
+import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.RatesEntity
 
 @Composable
 fun GridInputItem(
-    item: RatesEntity,
+    item: CurrencyAndRates,
     position: Int,
     onClick: (Int) -> Unit
 ) {
@@ -32,7 +33,7 @@ fun GridInputItem(
             .clip(RoundedCornerShape(5.dp))
             .background(
                 color =
-                if (item.isItemSelected.value) {
+                if (item.rates.isItemSelected.value) {
                     // Indicate selected
                     MaterialTheme.colorScheme.tertiaryContainer
                 } else {
@@ -51,7 +52,7 @@ fun GridInputItem(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = item.ratesKey,
+            text = item.currency.currencyName.toString(),
             color = MaterialTheme.colorScheme.primary
         )
     }

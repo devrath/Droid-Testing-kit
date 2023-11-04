@@ -24,13 +24,14 @@ import com.istudio.core_ui.composables.GridInput
 import com.istudio.core_ui.composables.InputTextField
 import com.istudio.core_ui.theme.LocalSpacing
 import com.istudio.models.Keys.defaultCurrency
+import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 
 @Composable
 fun CurrencyScreenPortrait(
     curriencyList : List<CurrencyEntity>,
-    curriencyRatesList : List<RatesEntity>,
+    curriencyRatesList : List<CurrencyAndRates>,
     currencyInputText : String,
     isCurrencyFieldError : Boolean = false,
     isCurrencyValueDropDownError : Boolean = false,

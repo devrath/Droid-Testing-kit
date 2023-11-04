@@ -1,5 +1,6 @@
 package com.istudio.currency_converter.domain.features
 
+import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 import com.istudio.models.remote.Currencies
@@ -12,6 +13,7 @@ interface CurrencyControllerFeatures {
     // <----- Retrieving Data  ----->
     suspend fun getCurrenciesFromApi() : Currencies
     suspend fun getCurrencyConversionValuesFromApi(base:String)  : CurrencyConversionValues
+    suspend fun getCurrencyAndRates() : List<CurrencyAndRates>
     // <----- Retrieving Data  ----->
     // <------------------------------------ API  <------------------------------------>
 
@@ -25,7 +27,7 @@ interface CurrencyControllerFeatures {
 
     // <----- Retrieving Data  ---->
     suspend fun getCurrenciesListFromDb() : Flow<List<CurrencyEntity>>
-    suspend fun getRatesListFromDb() : Flow<List<RatesEntity>>
+    suspend fun getRatesListFromDb() : List<CurrencyAndRates>
     // <----- Retrieving Data  ---->
     // <------------------------------------ DB  <------------------------------------>
 

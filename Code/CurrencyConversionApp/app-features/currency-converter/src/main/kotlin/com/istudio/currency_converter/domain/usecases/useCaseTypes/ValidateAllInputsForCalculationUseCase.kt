@@ -3,6 +3,7 @@ package com.istudio.currency_converter.domain.usecases.useCaseTypes
 import com.istudio.common.platform.actions.Action
 import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
 import com.istudio.models.custom.CurrencyValidationInput
+import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.RatesEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -20,7 +21,7 @@ class ValidateAllInputsForCalculationUseCase @Inject constructor(
             // Drop down menu - Input
             val userEnteredCurrencyTypeInput : String = input.userEnteredCurrencyTypeInput
             // Grid Selection - Input
-            val userSelectedCurrencyConversionTypeInput : List<RatesEntity> = input.userSelectedCurrencyConversionTypeInput
+            val userSelectedCurrencyConversionTypeInput : List<CurrencyAndRates> = input.userSelectedCurrencyConversionTypeInput
 
             if(userEnteredCurrencyValueInput.isNotEmpty()){
                 // Text Field - Input --- Validation ---> Success
@@ -28,7 +29,7 @@ class ValidateAllInputsForCalculationUseCase @Inject constructor(
                     // Drop down menu - Input --- Validation ---> Success
                     var isAtLeastOneItemSelected = false
                     userSelectedCurrencyConversionTypeInput.forEachIndexed { index, ratesEntity ->
-                        if(ratesEntity.isItemSelected.value){
+                        if(ratesEntity.rates.isItemSelected.value){
                             isAtLeastOneItemSelected = true
                         }
                     }

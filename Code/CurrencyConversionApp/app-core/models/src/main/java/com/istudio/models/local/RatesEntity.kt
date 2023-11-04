@@ -17,4 +17,7 @@ data class RatesEntity(
 ){
     @Ignore
     var isItemSelected = mutableStateOf(false)
+
+    @Ignore
+    var currencyDisplayName : String =""
 }

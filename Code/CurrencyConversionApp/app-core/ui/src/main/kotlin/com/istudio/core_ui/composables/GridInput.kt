@@ -8,12 +8,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.RatesEntity
 
 @Composable
 fun GridInput(
     modifier: Modifier = Modifier,
-    data: List<RatesEntity>,
+    data: List<CurrencyAndRates>,
     onClick: (Int) -> Unit
 ){
     // Context

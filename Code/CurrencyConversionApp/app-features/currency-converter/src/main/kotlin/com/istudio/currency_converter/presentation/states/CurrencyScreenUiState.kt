@@ -3,6 +3,7 @@ package com.istudio.currency_converter.presentation.states
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.istudio.models.Keys.defaultCurrency
+import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 
@@ -29,7 +30,7 @@ data class CurrencyScreenUiState(
     // This variable holds the currency list data
     val currencyList: List<CurrencyEntity> = emptyList(),
     // This variable holds the currency rates data
-    val currencyRatesList: List<RatesEntity> = emptyList(),
+    val currencyRatesList: List<CurrencyAndRates> = emptyList(),
     // This flag indicates if the currency information is displayed or not
     val isCurrencyDataDisplayed : Boolean = false,
     // This flag indicates if the rates information is displayed or not

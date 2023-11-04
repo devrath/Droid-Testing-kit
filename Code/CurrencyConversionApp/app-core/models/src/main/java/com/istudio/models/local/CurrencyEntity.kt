@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.compose.runtime.mutableStateOf
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.istudio.models.Keys.defaultCurrency
@@ -18,8 +19,4 @@ data class CurrencyEntity(
 ){
     @Ignore
     var isItemSelected = mutableStateOf(false)
-
-    private fun setDefault() {
-        isItemSelected.value = (currencyKey==defaultCurrency.currencyKey)
-    }
 }
