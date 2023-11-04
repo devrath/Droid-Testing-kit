@@ -12,14 +12,12 @@ import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDispla
 import com.istudio.currency_converter.presentation.states.CurrencyScreenResponseEvent
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
-import com.istudio.models.Keys
 import com.istudio.models.Keys.defaultCurrency
 import com.istudio.models.custom.CurrencyResultInput
 import com.istudio.models.custom.CurrencyValidationInput
 import com.istudio.models.custom.GridSelectionInput
 import com.istudio.models.custom.MasterApiData
 import com.istudio.models.local.CurrencyEntity
-import com.istudio.network.utils.NetworkStatusErrorCodes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
@@ -372,27 +370,23 @@ class CurrencyScreenVm @Inject constructor(
                 }
             }
         }catch (ex:Exception){
+            checkApiErrorCodes((ex as HttpException).code())
+        }
+    }
 
-            val errorCode = (ex as HttpException).code()
-            var errorMessage = ""
-            when (errorCode) {
-                NetworkStatusErrorCodes.InvalidBase.code -> {
-                    errorMessage = NetworkStatusErrorCodes.InvalidBase.message
-                }
-                NetworkStatusErrorCodes.AccessRestricted.code -> {
-                    errorMessage = NetworkStatusErrorCodes.AccessRestricted.message
-                }
-                NetworkStatusErrorCodes.NotAllowed.code -> {
-                    errorMessage = NetworkStatusErrorCodes.NotAllowed.message
-                }
-                NetworkStatusErrorCodes.InvalidAppId.code -> {
-                    errorMessage = NetworkStatusErrorCodes.InvalidAppId.message
-                }
-                NetworkStatusErrorCodes.NotFound.code -> {
-                    errorMessage = NetworkStatusErrorCodes.NotFound.message
+    /**
+     * USE-CASE :----> Validate API error codes
+     */
+    private fun checkApiErrorCodes(errorCode: Int) = uiScope.launch {
+        try {
+            val result = useCases.apiErrorCodeValidation.invoke(errorCode)
+            if(result.isSuccess){
+                result.map { message ->
+                    errorPerformingUseCase(Exception(message))
                 }
             }
-            ex.message?.let { errorPerformingUseCase(Exception(errorMessage)) }
+        }catch (ex:Exception){
+            errorPerformingUseCase(Exception(ex))
         }
     }
 

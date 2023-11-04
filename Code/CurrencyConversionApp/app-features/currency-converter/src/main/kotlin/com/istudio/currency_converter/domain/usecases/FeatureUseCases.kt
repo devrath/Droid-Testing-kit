@@ -1,5 +1,6 @@
 package com.istudio.currency_converter.domain.usecases
 
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.ApiErrorCodeValidationUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDisplayedUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyListDataFromDbUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyRatesListDataFromDbUseCase
@@ -35,4 +36,6 @@ data class FeatureUseCases(
     val validateCurrencyInputTypeUseCase : ValidateCurrencyInputTypeUseCase,
     // Use-Case:-> Validate the inputs involved in currency conversion
     val validateAllInputsForCalculationUseCase : ValidateAllInputsForCalculationUseCase,
+    // Use-Case:-> Validate error codes for response
+    val apiErrorCodeValidation : ApiErrorCodeValidationUseCase,
 )

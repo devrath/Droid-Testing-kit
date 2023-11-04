@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
 import com.istudio.currency_converter.data.repository.RepositoryControllerFeatures
 import com.istudio.currency_converter.domain.usecases.FeatureUseCases
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.ApiErrorCodeValidationUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.CanUiBeDisplayedUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyListDataFromDbUseCase
 import com.istudio.currency_converter.domain.usecases.useCaseTypes.GetCurrencyRatesListDataFromDbUseCase
@@ -68,6 +69,9 @@ object FeaturesUseCaseModule {
                 dispatcher = dispatcher
             ),
             validateCurrencyInputTypeUseCase = ValidateCurrencyInputTypeUseCase(
+                dispatcher = dispatcher
+            ),
+            apiErrorCodeValidation = ApiErrorCodeValidationUseCase(
                 dispatcher = dispatcher
             )
         )
