@@ -34,7 +34,6 @@ fun DropDownField(
     isError: Boolean = false,
     dataList: List<CurrencyEntity> = mutableListOf(),
     isExpanded: MutableState<Boolean> = mutableStateOf(false),
-    selectionAction: (CurrencyEntity) -> Unit,
     // -----> Drop down data
     currencyTypeState: MutableState<CurrencyEntity> = mutableStateOf(defaultCurrency),
     updateDropDownState: (MutableState<CurrencyEntity>) -> Unit
@@ -98,10 +97,8 @@ fun DropDownField(
                             )
                         },
                         onClick = {
-                            actionTextLocal = item
                             isExpandedLocal = false
-                            selectionAction.invoke(item)
-                            updateDropDownState.invoke(currencyTypeState)
+                            updateDropDownState.invoke(mutableStateOf(item))
                         }
                     )
                 }
@@ -119,9 +116,6 @@ private fun CurrentDisplay() {
     DropDownField(
         dataList = mutableListOf(),
         updateDropDownState = {
-
-        },
-        selectionAction = {
 
         }
     )

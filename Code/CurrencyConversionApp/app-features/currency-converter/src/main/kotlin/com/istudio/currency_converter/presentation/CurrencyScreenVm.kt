@@ -13,10 +13,12 @@ import com.istudio.currency_converter.presentation.states.CurrencyScreenResponse
 import com.istudio.currency_converter.presentation.states.CurrencyScreenUiState
 import com.istudio.currency_converter.presentation.states.CurrencyScreenViewEvent
 import com.istudio.models.Keys
+import com.istudio.models.Keys.defaultCurrency
 import com.istudio.models.custom.CurrencyResultInput
 import com.istudio.models.custom.CurrencyValidationInput
 import com.istudio.models.custom.GridSelectionInput
 import com.istudio.models.custom.MasterApiData
+import com.istudio.models.local.CurrencyEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
@@ -63,14 +65,10 @@ class CurrencyScreenVm @Inject constructor(
                 }
 
                 is CurrencyScreenViewEvent.SetCurrencyTypeSelectedFromDropDown -> {
-                    viewState.value = viewState.value.copy(
-                        selectedDropDownModel = event.item
-                    )
-                    viewState.value = viewState.value.copy(
-                        userEnteredCurrencyTypeInput = event.item.currencyKey
-                    )
-                    viewState.value = viewState.value.copy(
-                        userEnteredCurrencyTypeInputError = false
+                    // On Selection of new currency value
+                    getDataFromServer(
+                        base = event.item.currencyKey,
+                        currencyEntity = event.item
                     )
                 }
 
@@ -129,12 +127,6 @@ class CurrencyScreenVm @Inject constructor(
                 is CurrencyScreenViewEvent.ValidateCurrencyCalculation -> {
                     // All validations
                     initiateCurrencyValidation()
-                }
-
-                is CurrencyScreenViewEvent.UpdateCurrencyTypeState -> {
-                    viewState.value = viewState.value.copy(
-                        currencyTypeState = event.state
-                    )
                 }
             }
         }
@@ -332,13 +324,34 @@ class CurrencyScreenVm @Inject constructor(
      * USE-CASE :----> Getting the data from server
      */
     private fun getDataFromServer(
-        base:String= Keys.defaultCurrency.currencyKey
+        base:String= defaultCurrency.currencyKey,
+        currencyEntity : CurrencyEntity = defaultCurrency
     ) = uiScope.launch {
         try{
             val result = useCases.network.invoke(base)
             withContext(mainDispatcher){
                 if(result.isSuccess){
                     result.map { data ->
+                        /** *********************************************************** **/
+                        /**
+                         * Update the currency since with the change of currency,
+                         * Then updated rate values can be achieved
+                         */
+                        viewState.value = viewState.value.copy(
+                            selectedDropDownModel = currencyEntity
+                        )
+                        viewState.value = viewState.value.copy(
+                            userEnteredCurrencyTypeInput = currencyEntity.currencyKey
+                        )
+                        viewState.value = viewState.value.copy(
+                            userEnteredCurrencyTypeInputError = false
+                        )
+                        viewState.value = viewState.value.copy(
+                            currencyTypeState = mutableStateOf(currencyEntity)
+                        )
+                        /** *********************************************************** **/
+
+                        // Update getting the data from server is successful
                         _uiEvent.send(
                             CurrencyScreenResponseEvent.GettingDataFromServerSuccessful(data)
                         )

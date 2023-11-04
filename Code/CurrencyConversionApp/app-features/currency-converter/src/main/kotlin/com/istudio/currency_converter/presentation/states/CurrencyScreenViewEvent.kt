@@ -17,5 +17,4 @@ sealed class CurrencyScreenViewEvent {
     data class SetCurrencyTypeSelectedFromDropDown(val item: CurrencyEntity) : CurrencyScreenViewEvent()
     object CurrencyInputValueValidationInitiate : CurrencyScreenViewEvent()
     object CurrencyInputTypeValidationInitiate : CurrencyScreenViewEvent()
-    data class UpdateCurrencyTypeState(val state: MutableState<CurrencyEntity>)  : CurrencyScreenViewEvent()
 }

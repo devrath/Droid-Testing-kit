@@ -37,7 +37,6 @@ fun CurrencyScreenPortrait(
     onKeyBoardOutsideClick: () -> Unit,
     currencyInputChange : (String) -> Unit,
     setRatesItemSelection : (Int) -> Unit,
-    onCurrencyDropDownSelection : (CurrencyEntity) -> Unit,
     // -----> Drop down data
     currencyTypeState: MutableState<CurrencyEntity> = mutableStateOf(defaultCurrency),
     updateDropDownState : (MutableState<CurrencyEntity>) -> Unit,
@@ -83,9 +82,6 @@ fun CurrencyScreenPortrait(
                 DropDownField(
                     dataList = curriencyList,
                     isError = isCurrencyValueDropDownError,
-                    selectionAction = { itemSelection ->
-                        onCurrencyDropDownSelection.invoke(itemSelection)
-                    },
                     currencyTypeState = currencyTypeState,
                     updateDropDownState = updateDropDownState,
 
