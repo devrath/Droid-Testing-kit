@@ -401,6 +401,8 @@ class CurrencyScreenVm @Inject constructor(
                         // Retrieving the currency list from DB is successful
                         viewState.value = viewState.value.copy(currencyRatesList = it)
                         viewState.value = viewState.value.copy(isCurrencyRatesDataDisplayed = true)
+                        // Set USD(Dollar) as default selected currency in the rates selection
+                        
                         // Check can UI be displayed
                         canUiBeDisplayed()
                     }

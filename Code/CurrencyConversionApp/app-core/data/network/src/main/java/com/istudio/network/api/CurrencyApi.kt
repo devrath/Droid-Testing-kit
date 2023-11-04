@@ -4,6 +4,9 @@ import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues
 import com.istudio.network.BuildConfig
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface CurrencyApi {
 
@@ -19,6 +22,6 @@ interface CurrencyApi {
     // API -> Getting the conversion values for all currencies
     // DOC -> https://docs.openexchangerates.org/reference/latest-json
     @GET("latest.json?app_id=$APP_ID")
-    suspend fun getCurrencyConversionValues(): CurrencyConversionValues
+    suspend fun getCurrencyConversionValues(@Query("base") base:String="USD"): CurrencyConversionValues
 
 }
