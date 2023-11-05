@@ -14,22 +14,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DbFeatureAppModule {
 
-    /*****************************
-     * PROVIDES:-> Currency Db repository Implementation
-     * ***************************
-     * CONSTRUCTOR INPUT:-> Currency Db Implementation
-     *****************************/
+    // PROVIDES:-> Currency Db repository Implementation
     @Provides
     @Singleton
     fun provideDbRepository(features: CurrencyDbFeatures): CurrencyDbRepository {
         return CurrencyDbRepository(features)
     }
 
-    /*****************************
-     * PROVIDES:-> Currency Db Implementation
-     * ***************************
-     * CONSTRUCTOR INPUT:-> Currency Db - Interface
-     *****************************/
+    // PROVIDES:-> Currency Db Implementation
     @Provides
     @Singleton
     fun provideDbImpl(dao: CurrencyDao): CurrencyDbFeatures {

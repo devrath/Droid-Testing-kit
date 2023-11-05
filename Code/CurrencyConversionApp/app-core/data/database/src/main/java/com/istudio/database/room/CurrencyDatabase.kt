@@ -2,7 +2,7 @@ package com.istudio.database.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.istudio.database.room.CurrencyDatabase.Companion.DATABASE_VERSION
+import com.istudio.database.Keys.DATABASE_VERSION
 import com.istudio.database.room.dao.CurrencyDao
 import com.istudio.models.local.CurrencyConversionEntity
 import com.istudio.models.local.CurrencyEntity
@@ -10,16 +10,16 @@ import com.istudio.models.local.RatesEntity
 
 
 @Database(
+    version = DATABASE_VERSION,
     entities = [
-        CurrencyConversionEntity::class, CurrencyEntity::class, RatesEntity::class
-    ],
-    version = DATABASE_VERSION
+        // List of currencies
+        CurrencyEntity::class,
+        // List of rates
+        RatesEntity::class,
+        // List of <currencies + list> combines
+        CurrencyConversionEntity::class
+    ]
 )
 abstract class CurrencyDatabase : RoomDatabase() {
-    companion object {
-        const val DATABASE_NAME = "CurrencyConverterDatabase"
-        const val DATABASE_VERSION = 1
-
-    }
     abstract fun currencyDao(): CurrencyDao
 }
