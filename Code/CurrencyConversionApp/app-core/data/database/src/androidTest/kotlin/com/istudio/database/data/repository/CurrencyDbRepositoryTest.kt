@@ -1,15 +1,11 @@
 package com.istudio.database.data.repository
 
 import com.google.common.truth.Truth
-import com.istudio.common.generators.FakeCurriencies
-import com.istudio.common.generators.FakeRates
 import com.istudio.database.fakes.CurrencyDbFeaturesFake
 import com.istudio.database.testUtils.MainCoroutineExtension
-import io.mockk.Runs
-import io.mockk.coEvery
+import com.istudio.mock_factory.generators.FakeCurriencies
+import com.istudio.mock_factory.generators.FakeRates
 import io.mockk.coVerify
-import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

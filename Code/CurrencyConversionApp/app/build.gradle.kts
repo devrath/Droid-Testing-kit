@@ -52,4 +52,6 @@ android {
     }
 }
 
-dependencies { appModuleDependencies() }
+dependencies {
+    appModuleDependencies()
+}

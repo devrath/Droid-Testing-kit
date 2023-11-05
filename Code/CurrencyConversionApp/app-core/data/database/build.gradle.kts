@@ -1,3 +1,5 @@
+import Dependencies.mockFactoryModuleLink
+
 plugins {
     `android-library`
     `kotlin-android`
@@ -13,4 +15,6 @@ android {
 
 dependencies {
     database()
+
+    androidTestImplementation(project(mockFactoryModuleLink))
 }

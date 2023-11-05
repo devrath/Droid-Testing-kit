@@ -53,9 +53,7 @@ object Versions {
     const val coreSplash = "1.1.0-alpha02"
     const val junit5 = "5.9.3"
     const val turbine = "0.12.1"
-
     const val mockk = "1.13.8"
-
-
-
+    const val assertK = "0.26.1"
+    const val mockWebServer = "4.11.0"
 }

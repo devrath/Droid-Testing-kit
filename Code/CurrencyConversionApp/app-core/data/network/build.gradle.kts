@@ -1,3 +1,5 @@
+import Dependencies.mockFactoryModuleLink
+
 plugins {
     `android-library`
     `kotlin-android`
@@ -10,4 +12,9 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { network() }
+dependencies {
+    network()
+    unitTesting()
+    instrumentationTesting()
+    testImplementation(project(mockFactoryModuleLink))
+}

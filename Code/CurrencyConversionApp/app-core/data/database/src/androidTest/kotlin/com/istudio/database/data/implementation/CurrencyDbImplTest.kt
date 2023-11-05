@@ -3,11 +3,11 @@ package com.istudio.database.data.implementation
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
-import com.istudio.common.generators.FakeCurriencies
-import com.istudio.common.generators.FakeRates
 import com.istudio.database.room.CurrencyDatabase
 import com.istudio.database.room.dao.CurrencyDao
 import com.istudio.database.testUtils.MainCoroutineExtension
+import com.istudio.mock_factory.generators.FakeCurriencies
+import com.istudio.mock_factory.generators.FakeRates
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancelAndJoin

@@ -1,4 +1,4 @@
-package com.istudio.common.generators
+package com.istudio.mock_factory.generators
 
 import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.CurrencyEntity
@@ -54,5 +54,8 @@ object FakeCurrencyAndRates{
     fun currencyAndRateList() = listOf(
         currencyAndRates1,currencyAndRates2,currencyAndRates3,currencyAndRates4
     )
+
 }
+
+
 

@@ -5,6 +5,10 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 
 object Dependencies {
+    // Specific module links
+    const val mockFactoryModuleLink = ":app-testing:mock-factory"
+
+
     // <-------------> Top level plugin Dependencies <-------------------->
     const val hiltProjectLevel = "com.google.dagger.hilt.android"
     const val junit5ProjectLevel = "de.mannodermaus.android-junit5"
@@ -108,6 +112,16 @@ object Dependencies {
     const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
     const val mockkAgent = "io.mockk:mockk-agent:${Versions.mockk}"
     // <--------------> MockK Dependencies <----------------------------->
+
+    // <--------------> MockK Server Dependencies <---------------------->
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServer}"
+    // <--------------> MockK Server Dependencies <---------------------->
+
+    // <-------------------> AssertK Dependencies <---------------------->
+    const val assertK = "com.willowtreeapps.assertk:assertk:${Versions.assertK}"
+    // <-------------------> AssertK Dependencies <---------------------->
+
+
 }
 
 // <----------- Individual Library group Dependencies ---------------->
@@ -185,6 +199,8 @@ fun DependencyHandler.unitTesting() {
     androidTestImplementation(Dependencies.turbine)
     testImplementation(Dependencies.mockkAndroid)
     testImplementation(Dependencies.mockkAgent)
+    testImplementation(Dependencies.mockWebServer)
+    testImplementation(Dependencies.assertK)
 }
 // <---> Instrumentation Testing Dependencies <----->
 fun DependencyHandler.instrumentationTesting() {
@@ -202,6 +218,8 @@ fun DependencyHandler.instrumentationTesting() {
     androidTestImplementation(Dependencies.activitycompose)
     androidTestImplementation(Dependencies.mockkAndroid)
     androidTestImplementation(Dependencies.mockkAgent)
+    androidTestImplementation(Dependencies.mockWebServer)
+    androidTestImplementation(Dependencies.assertK)
 }
 // <--------> Hilt Dependencies <------------------->
 fun DependencyHandler.hilt() {
@@ -361,6 +379,7 @@ fun DependencyHandler.featureCurrencyResult() { implementation(project(":app-fea
 // <-----------> Container-Modules <----------->
 fun DependencyHandler.appCore() { implementation(project(":app-core")) }
 fun DependencyHandler.appData() { implementation(project(":app-core:app-data")) }
+fun DependencyHandler.appTesting() { implementation(project(":app-testing")) }
 // <-----------> Container-Modules <----------->
 // <-----------> Core-Modules <----------------->
 fun DependencyHandler.appNetworkModule() { implementation(project(":app-core:data:network")) }
@@ -370,4 +389,9 @@ fun DependencyHandler.appCommonModule() { implementation(project(":app-core:comm
 fun DependencyHandler.coreUiModule() { implementation(project(":app-core:ui")) }
 fun DependencyHandler.coreModelsModule() { implementation(project(":app-core:models")) }
 // <-----------> Core-Modules <----------------->
+// <-----------> Testing-Modules <-------------->
+fun DependencyHandler.appTestingMockFactory() { implementation(project(":app-testing:mock-factory")) }
+// <-----------> Testing-Modules <-------------->
+
+
 // <------------------------ Project Modules ------------------------>
