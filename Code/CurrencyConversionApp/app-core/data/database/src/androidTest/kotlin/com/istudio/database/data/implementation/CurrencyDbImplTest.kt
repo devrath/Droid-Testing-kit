@@ -2,16 +2,19 @@ package com.istudio.database.data.implementation
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
-import com.istudio.database.generators.currencyDummy
+import com.istudio.database.generators.FakeCurriencies
+import com.istudio.database.generators.FakeRates
+import com.istudio.database.generators.fakeCurrency
+import com.istudio.database.generators.fakeRate
 import com.istudio.database.room.CurrencyDatabase
 import com.istudio.database.room.dao.CurrencyDao
 import com.istudio.database.testUtils.MainCoroutineExtension
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
@@ -19,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import java.util.concurrent.CountDownLatch
 
 @ExtendWith(MainCoroutineExtension::class)
 class CurrencyDbImplTest {
@@ -44,39 +48,37 @@ class CurrencyDbImplTest {
     }
 
     @Test
-    fun getCurrencyList() = runTest {
+    fun getCurrencyList_getData_success() = runBlocking {
         // <---------- ARRANGE ---------->
         // Prepare the list of currencies
         val noOfElementsWeInsert = 4
-        val currency1 = currencyDummy().copy(currencyKey = "USD",currencyName = "United states dollar")
-        val currency2 = currencyDummy().copy(currencyKey = "AED",currencyName = "United Arab Emirates Dirham")
-        val currency3 = currencyDummy().copy(currencyKey = "AFN",currencyName = "Afghan Afghani")
-        val currency4 = currencyDummy().copy(currencyKey = "ALL",currencyName = "Albanian Lek")
-
-        // <---------- ACT ---------->
         // Add all the currency one by one to database
         currencyDao.apply {
-            addCurrency(currency1)
-            addCurrency(currency2)
-            addCurrency(currency3)
-            addCurrency(currency4)
-        }
-        // Get the result from the database
-        val sut = currencyDao.getCurrencyList()
-        sut.test {
-            // <---------- ASSERT ---------->
-            assertThat(sut.count()).isEqualTo(noOfElementsWeInsert)
+            addCurrency(FakeCurriencies.currency1)
+            addCurrency(FakeCurriencies.currency2)
+            addCurrency(FakeCurriencies.currency3)
+            addCurrency(FakeCurriencies.currency4)
         }
 
-
-
+        // <---------- ACT ---------->
+        val latch = CountDownLatch(1)
+        val job = async(Dispatchers.IO) {
+            currencyDao.getCurrencyList().collect {
+                // <---------- ASSERT ---------->
+                //Check the number of items inserted is equal to what we expect
+                assertThat(it.size).isEqualTo(noOfElementsWeInsert)
+                latch.countDown()
+            }
+        }
+        latch.await()
+        job.cancelAndJoin()
     }
 
     @Test
     fun addCurrency() = runTest {
         // <---------- ARRANGE ---------->
         // Prepare the currency row
-        val currency = currencyDummy().copy(currencyKey = "USD",currencyName = "United states dollar")
+        val currency = FakeCurriencies.currency1
 
         // <---------- ACT ---------->
         // Add the currency row to the database using the dao
@@ -90,9 +92,23 @@ class CurrencyDbImplTest {
 
     @Test
     fun addRates() {
+        // <---------- ARRANGE ---------->
+        // Prepare the list of currencies
+        val noOfElementsWeInsert = 4
+        // Add all the currency one by one to database
+        currencyDao.apply {
+            addRates(FakeRates.rates1)
+            addRates(FakeRates.rates2)
+            addRates(FakeRates.rates3)
+            addRates(FakeRates.rates4)
+        }
+
+        // <---------- ACT ---------->
+        val sizeOfRatesList = currencyDao.getCurrencyRatesList().size
+
+        // <---------- ASSERT ---------->
+        //Check the number of items inserted is equal to what we expect
+        assertThat(sizeOfRatesList).isEqualTo(noOfElementsWeInsert)
     }
 
-    @Test
-    fun getCurrencyAndRates() {
-    }
 }
