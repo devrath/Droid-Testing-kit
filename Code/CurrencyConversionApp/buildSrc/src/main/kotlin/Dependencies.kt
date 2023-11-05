@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.project
 object Dependencies {
     // <-------------> Top level plugin Dependencies <-------------------->
     const val hiltProjectLevel = "com.google.dagger.hilt.android"
+    const val junit5ProjectLevel = "de.mannodermaus.android-junit5"
     // <-------------> Top level plugin Dependencies <-------------------->
 
     const val javapoet = "com.squareup:javapoet:${Versions.javapoet}"
@@ -77,6 +78,12 @@ object Dependencies {
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
     // <--------------> InstrumentationTest Dependencies <---------------->
 
+    // <--------------> Junit5 Dependencies <----------------------------->
+    const val junitJupiterApi = "org.junit.jupiter:junit-jupiter-api:${Versions.junit5}"
+    const val junitJupiterParams = "org.junit.jupiter:junit-jupiter-params:${Versions.junit5}"
+    const val junitJupiterEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}"
+    // <--------------> Junit5 Dependencies <----------------------------->
+
 }
 
 // <----------- Individual Library group Dependencies ---------------->
@@ -92,7 +99,15 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.uiTextGoogleFonts)
     hilt()
 }
-// <--------> Room Dependencies <---------------->
+
+// <----------------> Junit5 <----------------------->
+fun DependencyHandler.jUnit5() {
+    testImplementation(Dependencies.junitJupiterApi)
+    testImplementation(Dependencies.junitJupiterParams)
+    testRuntimeOnly(Dependencies.junitJupiterEngine)
+}
+
+// <--------> Datastore Dependencies <---------------->
 fun DependencyHandler.preferencesDataStore() {
     implementation(Dependencies.preferencesDataStore)
 }
@@ -240,6 +255,7 @@ fun DependencyHandler.common() {
     coreDependencies()
     retrofit()
     room()
+    jUnit5()
     // --> Single modules
     coreModelsModule()
 }

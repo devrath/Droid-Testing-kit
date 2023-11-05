@@ -9,6 +9,7 @@ object Versions {
     const val hilt = "2.45"
     const val hiltNavigationCompose = "1.1.0-beta01"
     const val serialization = "1.9.0"
+    const val junit5ProjectLevel = "1.9.3.0"
     const val okHttp = "5.0.0-alpha.2"
     const val retrofit = "2.9.0"
     const val kotlinxSerializationConverter = "1.0.0"
@@ -31,6 +32,6 @@ object Versions {
     const val javapoet = "1.13.0"
     const val datastorePreferences = "1.0.0"
     const val coreSplash = "1.1.0-alpha02"
-
+    const val junit5 = "5.9.3"
 
 }
