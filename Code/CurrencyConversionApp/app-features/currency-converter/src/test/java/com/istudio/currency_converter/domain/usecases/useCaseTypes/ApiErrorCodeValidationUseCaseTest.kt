@@ -26,10 +26,13 @@ class ApiErrorCodeValidationUseCaseTest {
     fun `Test notFoundCode for api response`() = runTest {
         // <---------- ARRANGE ---------->
         val messageToValidate = ApiErrorCodeValidationUseCase.notFoundMessage
-        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.notFoundCode)
+
         // <---------- ACT ---------->
+        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.notFoundCode)
+
         if(resultOfSut.isSuccess){
             resultOfSut.map {
+
                 // <---------- ASSERT ---------->
                 assertThat(it).isEqualTo(messageToValidate)
             }
@@ -41,10 +44,13 @@ class ApiErrorCodeValidationUseCaseTest {
     fun `Test invalidAppIdCode for api response`() = runTest {
         // <---------- ARRANGE ---------->
         val messageToValidate = ApiErrorCodeValidationUseCase.invalidAppIdMessage
-        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.invalidAppIdCode)
+
         // <---------- ACT ---------->
+        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.invalidAppIdCode)
+
         if(resultOfSut.isSuccess){
             resultOfSut.map {
+
                 // <---------- ASSERT ---------->
                 assertThat(it).isEqualTo(messageToValidate)
             }
@@ -55,10 +61,13 @@ class ApiErrorCodeValidationUseCaseTest {
     fun `Test notAllowedCode for api response`() = runTest {
         // <---------- ARRANGE ---------->
         val messageToValidate = ApiErrorCodeValidationUseCase.notAllowedMessage
-        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.notAllowedCode)
+
         // <---------- ACT ---------->
+        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.notAllowedCode)
+
         if(resultOfSut.isSuccess){
             resultOfSut.map {
+
                 // <---------- ASSERT ---------->
                 assertThat(it).isEqualTo(messageToValidate)
             }
@@ -69,10 +78,13 @@ class ApiErrorCodeValidationUseCaseTest {
     fun `Test accessRestrictedCode for api response`() = runTest {
         // <---------- ARRANGE ---------->
         val messageToValidate = ApiErrorCodeValidationUseCase.accessRestrictedMessage
-        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.accessRestrictedCode)
+
         // <---------- ACT ---------->
+        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.accessRestrictedCode)
+
         if(resultOfSut.isSuccess){
             resultOfSut.map {
+
                 // <---------- ASSERT ---------->
                 assertThat(it).isEqualTo(messageToValidate)
             }
@@ -83,10 +95,13 @@ class ApiErrorCodeValidationUseCaseTest {
     fun `Test invalidBaseCode for api response`() = runTest {
         // <---------- ARRANGE ---------->
         val messageToValidate = ApiErrorCodeValidationUseCase.invalidBaseMessage
-        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.invalidBaseCode)
+
         // <---------- ACT ---------->
+        val resultOfSut = sut.invoke(ApiErrorCodeValidationUseCase.invalidBaseCode)
+
         if(resultOfSut.isSuccess){
             resultOfSut.map {
+
                 // <---------- ASSERT ---------->
                 assertThat(it).isEqualTo(messageToValidate)
             }
