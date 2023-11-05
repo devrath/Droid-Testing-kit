@@ -71,11 +71,24 @@ object Dependencies {
 
     // <---------------------> UnitTest Dependencies <-------------------->
     const val junit = "junit:junit:${Versions.junit}"
+    const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlin}"
+    const val mockitoInline = "org.mockito:mockito-inline:${Versions.mockitoInline}"
+    const val mockitoCore = "org.mockito:mockito-core:${Versions.mockitoCore}"
+    const val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTesting}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesTest}"
+    const val mockServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockServer}"
+    const val googleTruthLib = "com.google.truth:truth:${Versions.googleTruth}"
     // <---------------------> UnitTest Dependencies <-------------------->
 
     // <--------------> InstrumentationTest Dependencies <---------------->
     const val junitInstrumentation = "androidx.test.ext:junit:${Versions.junitInstrument}"
-    const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    const val testrules = "ndroidx.test:rules:${Versions.testrules}"
+    const val testCoreKtx = "androidx.test:core-ktx:${Versions.testCoreKtx}"
+    const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
+    const val mockServerInstrumentation = "com.squareup.okhttp3:mockwebserver:${Versions.mockServer}"
+    const val idlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:${Versions.okhttp3IdlingResource}"
+    const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:${Versions.hilt}"
+    const val googleTruthLibInstrumentation = "com.google.truth:truth:${Versions.googleTruth}"
     // <--------------> InstrumentationTest Dependencies <---------------->
 
     // <--------------> Junit5 Dependencies <----------------------------->
@@ -142,11 +155,24 @@ fun DependencyHandler.compose() {
 // <---> Unit Testing Dependencies <---------------->
 fun DependencyHandler.unitTesting() {
     testImplementation(Dependencies.junit)
+    testImplementation(Dependencies.mockitoKotlin)
+    testImplementation(Dependencies.mockitoInline)
+    testImplementation(Dependencies.mockitoCore)
+    testImplementation(Dependencies.coreTesting)
+    testImplementation(Dependencies.coroutinesTest)
+    testImplementation(Dependencies.mockServer)
+    testImplementation(Dependencies.googleTruthLib)
 }
 // <---> Instrumentation Testing Dependencies <----->
 fun DependencyHandler.instrumentationTesting() {
-    implementation(Dependencies.junitInstrumentation)
-    implementation(Dependencies.espressoCore)
+    androidTestImplementation(Dependencies.junitInstrumentation)
+    androidTestImplementation(Dependencies.testrules)
+    androidTestImplementation(Dependencies.testCoreKtx)
+    androidTestImplementation(Dependencies.espresso)
+    androidTestImplementation(Dependencies.mockServerInstrumentation)
+    androidTestImplementation(Dependencies.idlingResource)
+    androidTestImplementation(Dependencies.hiltAndroidTesting)
+    androidTestImplementation(Dependencies.googleTruthLibInstrumentation)
 }
 // <--------> Hilt Dependencies <------------------->
 fun DependencyHandler.hilt() {

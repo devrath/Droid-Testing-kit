@@ -10,4 +10,5 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { database() }
+dependencies { implementation("androidx.test:core-ktx:1.5.0")
+    database() }
