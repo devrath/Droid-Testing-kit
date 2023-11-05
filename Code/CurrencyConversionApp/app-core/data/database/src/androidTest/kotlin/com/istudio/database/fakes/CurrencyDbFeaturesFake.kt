@@ -1,8 +1,8 @@
 package com.istudio.database.fakes
 
-import com.istudio.common.generators.FakeCurrencyAndRates
-import com.istudio.common.generators.FakeCurriencies
 import com.istudio.database.domain.CurrencyDbFeatures
+import com.istudio.mock_factory.generators.FakeCurrencyAndRates
+import com.istudio.mock_factory.generators.FakeCurriencies
 import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
