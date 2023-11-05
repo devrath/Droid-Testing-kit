@@ -28,6 +28,10 @@ object Dependencies {
     // <---------------------> Preference Dependencies <------------------>
 
     // <---------------------> Preference Dependencies <------------------>
+    const val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
+    // <---------------------> Preference Dependencies <------------------>
+
+    // <---------------------> Preference Dependencies <------------------>
     const val coreSplash = "androidx.core:core-splashscreen:${Versions.coreSplash}"
     // <---------------------> Preference Dependencies <------------------>
 
@@ -75,20 +79,23 @@ object Dependencies {
     const val mockitoInline = "org.mockito:mockito-inline:${Versions.mockitoInline}"
     const val mockitoCore = "org.mockito:mockito-core:${Versions.mockitoCore}"
     const val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTesting}"
-    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesTest}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinxCoroutinesTestUnitTest}"
     const val mockServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockServer}"
     const val googleTruthLib = "com.google.truth:truth:${Versions.googleTruth}"
+    const val testRunnerUnitTest = "androidx.test:runner:${Versions.testRunner}"
     // <---------------------> UnitTest Dependencies <-------------------->
 
     // <--------------> InstrumentationTest Dependencies <---------------->
     const val junitInstrumentation = "androidx.test.ext:junit:${Versions.junitInstrument}"
-    const val testrules = "ndroidx.test:rules:${Versions.testrules}"
+    const val testrules = "adroidx.test:rules:${Versions.testrules}"
     const val testCoreKtx = "androidx.test:core-ktx:${Versions.testCoreKtx}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
     const val mockServerInstrumentation = "com.squareup.okhttp3:mockwebserver:${Versions.mockServer}"
     const val idlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:${Versions.okhttp3IdlingResource}"
     const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:${Versions.hilt}"
     const val googleTruthLibInstrumentation = "com.google.truth:truth:${Versions.googleTruth}"
+    const val kotlinxCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinxCoroutinesTestInstrumentationTest}"
+    const val testRunnerInstrument= "androidx.test:runner:${Versions.testRunner}"
     // <--------------> InstrumentationTest Dependencies <---------------->
 
     // <--------------> Junit5 Dependencies <----------------------------->
@@ -117,6 +124,8 @@ fun DependencyHandler.coreDependencies() {
 fun DependencyHandler.jUnit5() {
     testImplementation(Dependencies.junitJupiterApi)
     testImplementation(Dependencies.junitJupiterParams)
+    androidTestImplementation(Dependencies.junitJupiterApi)
+    androidTestImplementation(Dependencies.junitJupiterParams)
     testRuntimeOnly(Dependencies.junitJupiterEngine)
 }
 
@@ -162,17 +171,22 @@ fun DependencyHandler.unitTesting() {
     testImplementation(Dependencies.coroutinesTest)
     testImplementation(Dependencies.mockServer)
     testImplementation(Dependencies.googleTruthLib)
+    testImplementation(Dependencies.googleTruthLib)
+    testImplementation(Dependencies.testRunnerUnitTest)
+    androidTestImplementation(Dependencies.turbine)
 }
 // <---> Instrumentation Testing Dependencies <----->
 fun DependencyHandler.instrumentationTesting() {
     androidTestImplementation(Dependencies.junitInstrumentation)
-    androidTestImplementation(Dependencies.testrules)
+    androidTestImplementation(Dependencies.turbine)
     androidTestImplementation(Dependencies.testCoreKtx)
     androidTestImplementation(Dependencies.espresso)
     androidTestImplementation(Dependencies.mockServerInstrumentation)
     androidTestImplementation(Dependencies.idlingResource)
     androidTestImplementation(Dependencies.hiltAndroidTesting)
     androidTestImplementation(Dependencies.googleTruthLibInstrumentation)
+    androidTestImplementation(Dependencies.kotlinxCoroutinesTest)
+    androidTestImplementation(Dependencies.testRunnerInstrument)
 }
 // <--------> Hilt Dependencies <------------------->
 fun DependencyHandler.hilt() {
@@ -284,6 +298,9 @@ fun DependencyHandler.common() {
     jUnit5()
     // --> Single modules
     coreModelsModule()
+    // --> Testing
+    unitTesting()
+    instrumentationTesting()
 }
 // <---> Models Module Dependencies <--->
 fun DependencyHandler.models() {

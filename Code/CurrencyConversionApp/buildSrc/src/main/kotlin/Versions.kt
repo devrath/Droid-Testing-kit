@@ -22,12 +22,20 @@ object Versions {
     const val mockitoInline = "3.6.0"
     const val mockitoCore = "3.6.0"
     const val coreTesting = "2.1.0"
-    const val coroutinesTest = "1.5.0"
+    const val coroutinesTest = "1.7.1"
+    const val kotlinxCoroutinesTestUnitTest = "1.7.1"
+    const val kotlinxCoroutinesTestInstrumentationTest = "1.6.4"
+
+
+
+
     const val mockServer = "4.9.1"
     const val espresso_core = "3.3.0"
     const val testrules = "1.3.0"
     const val okhttp3IdlingResource = "1.0.0"
     const val googleTruth = "1.1.3"
+    const val testRunner = "1.1.1"
+    const val kotlinxCoroutinesTest = "1.6.4"
     const val testCoreKtx = "1.4.0"
     // -----> Core
     const val coreKtx = "1.9.0"
@@ -44,5 +52,6 @@ object Versions {
     const val datastorePreferences = "1.0.0"
     const val coreSplash = "1.1.0-alpha02"
     const val junit5 = "5.9.3"
+    const val turbine = "0.12.1"
 
 }

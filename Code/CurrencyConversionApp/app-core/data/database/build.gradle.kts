@@ -1,6 +1,7 @@
 plugins {
     `android-library`
     `kotlin-android`
+     id(Dependencies.junit5ProjectLevel) version Versions.junit5ProjectLevel
 }
 
 apply<plugins.FeaturesGradlePlugin>()
@@ -10,5 +11,6 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { implementation("androidx.test:core-ktx:1.5.0")
-    database() }
+dependencies {
+    database()
+}
