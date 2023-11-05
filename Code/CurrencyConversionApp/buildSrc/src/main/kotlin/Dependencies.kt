@@ -163,6 +163,9 @@ fun DependencyHandler.compose() {
 }
 // <---> Unit Testing Dependencies <---------------->
 fun DependencyHandler.unitTesting() {
+    // All Junit-5
+    jUnit5()
+    // other dependencies
     testImplementation(Dependencies.junit)
     testImplementation(Dependencies.mockitoKotlin)
     testImplementation(Dependencies.mockitoInline)
@@ -276,10 +279,11 @@ fun DependencyHandler.network() {
 // <----> Database Module Dependencies <---->
 fun DependencyHandler.database() {
     coreDependencies()
-    unitTesting()
     room()
+    unitTesting()
+    instrumentationTesting()
     // --> Single modules
-    common()
+    appCommonModule()
     coreModelsModule()
 }
 // <---> Preferences Module Dependencies <--->
@@ -307,6 +311,14 @@ fun DependencyHandler.models() {
     coreDependencies()
     retrofit()
     room()
+}
+
+fun DependencyHandler.Fakes() {
+    coreDependencies()
+    retrofit()
+    room()
+    // --> Single modules
+    coreModelsModule()
 }
 // <----------------- App-Core Module Dependencies ------------------->
 

@@ -3,10 +3,8 @@ package com.istudio.database.data.implementation
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
-import com.istudio.database.generators.FakeCurriencies
-import com.istudio.database.generators.FakeRates
-import com.istudio.database.generators.fakeCurrency
-import com.istudio.database.generators.fakeRate
+import com.istudio.common.generators.FakeCurriencies
+import com.istudio.common.generators.FakeRates
 import com.istudio.database.room.CurrencyDatabase
 import com.istudio.database.room.dao.CurrencyDao
 import com.istudio.database.testUtils.MainCoroutineExtension

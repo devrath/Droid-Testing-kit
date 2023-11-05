@@ -1,4 +1,4 @@
-package com.istudio.database.generators
+package com.istudio.common.generators
 
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
