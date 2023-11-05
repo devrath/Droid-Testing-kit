@@ -104,6 +104,10 @@ object Dependencies {
     const val junitJupiterEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}"
     // <--------------> Junit5 Dependencies <----------------------------->
 
+    // <--------------> MockK Dependencies <----------------------------->
+    const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
+    const val mockkAgent = "io.mockk:mockk-agent:${Versions.mockk}"
+    // <--------------> MockK Dependencies <----------------------------->
 }
 
 // <----------- Individual Library group Dependencies ---------------->
@@ -176,7 +180,11 @@ fun DependencyHandler.unitTesting() {
     testImplementation(Dependencies.googleTruthLib)
     testImplementation(Dependencies.googleTruthLib)
     testImplementation(Dependencies.testRunnerUnitTest)
+    testImplementation(Dependencies.coreKtx)
+    testImplementation(Dependencies.activitycompose)
     androidTestImplementation(Dependencies.turbine)
+    testImplementation(Dependencies.mockkAndroid)
+    testImplementation(Dependencies.mockkAgent)
 }
 // <---> Instrumentation Testing Dependencies <----->
 fun DependencyHandler.instrumentationTesting() {
@@ -190,6 +198,10 @@ fun DependencyHandler.instrumentationTesting() {
     androidTestImplementation(Dependencies.googleTruthLibInstrumentation)
     androidTestImplementation(Dependencies.kotlinxCoroutinesTest)
     androidTestImplementation(Dependencies.testRunnerInstrument)
+    androidTestImplementation(Dependencies.coreKtx)
+    androidTestImplementation(Dependencies.activitycompose)
+    androidTestImplementation(Dependencies.mockkAndroid)
+    androidTestImplementation(Dependencies.mockkAgent)
 }
 // <--------> Hilt Dependencies <------------------->
 fun DependencyHandler.hilt() {

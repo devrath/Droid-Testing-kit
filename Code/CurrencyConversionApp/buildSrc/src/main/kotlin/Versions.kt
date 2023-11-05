@@ -54,4 +54,8 @@ object Versions {
     const val junit5 = "5.9.3"
     const val turbine = "0.12.1"
 
+    const val mockk = "1.13.8"
+
+
+
 }
