@@ -1,10 +1,21 @@
 package com.istudio.code
 
-import android.content.res.Configuration
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,15 +29,17 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,99 +47,255 @@ import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.istudio.code.states.AppScreenResponseEvent
 import com.istudio.code.states.AppScreenUiState
 import com.istudio.code.states.AppScreenViewEvent
-import com.istudio.common.navigation.Route
+import com.istudio.common.navigation.Screen
+import com.istudio.common.navigation.Screen.Companion.currencyToRateKey_key
+import com.istudio.common.navigation.Screen.Companion.currencyToRateValue_key
+import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyKey_key
+import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyName_key
+import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrencyType_key
+import com.istudio.common.navigation.Screen.Companion.userFromEnteredCurrency_key
+import com.istudio.core_ui.composables.ErrorAlert
+import com.istudio.core_ui.composables.ExitAlert
+import com.istudio.core_ui.composables.FloatingActionButton
+import com.istudio.core_ui.composables.LoadingAnimation
 import com.istudio.core_ui.composables.NoConnectivity
 import com.istudio.core_ui.composables.ShimmerHomeLoadingComposable
 import com.istudio.core_ui.composables.ThemeSwitcher
 import com.istudio.core_ui.theme.MaterialAppTheme
+import com.istudio.core_ui.theme.fontFamily
 import com.istudio.currency_converter.presentation.CurrencyScreen
+import com.istudio.currency_result.presentation.CurrencyResultScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalMaterial3Api::class)
+    /** ******************************** Life-cycle Methods  ***************************************/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        setContent {
-            // View model reference
-            val viewModel: MainVm = hiltViewModel()
-            // View state reference from view model
-            val state = viewModel.viewState
-            // <!--------------------- CONTROLLERS ------------------------>
-            // SnackBar controller
-            val snackBarController = remember { SnackbarHostState() }
-            // coroutine scope to handle co-routines
-            val coroutineScope = rememberCoroutineScope()
-            // Scroll behaviour
-            val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
-            // Nav controller
-            val controller = rememberNavController()
-            // Keyboard controller
-            val keyboardController = LocalSoftwareKeyboardController.current
-            // Focus Manager
-            val focusManager = LocalFocusManager.current
-            // Configuration Manager
-            val configuration = LocalConfiguration.current
-            // <!--------------------- CONTROLLERS ------------------------>
-            // Title
-            val titleStr = "Currency Converter"
+        setContent { initOnCreate() }
+    }
+    /** ******************************** Life-cycle Methods  ***************************************/
 
-            // Orientation
-            var orientation by remember { mutableIntStateOf(Configuration.ORIENTATION_PORTRAIT) }
+    /** ************************************* Init Methods  ***************************************/
+    /** <*******> Init OnCreate <******> **/
+    @Composable
+    private fun initOnCreate() {
+        val viewModel: MainVm = hiltViewModel()
+        // --> This is used to handle the device back button
+        BackButtonHandler()
+        // --> This is used to handle the exit alert dialog
+        ExitAlertHandler()
+        // --> Error alert handler
+        ErrorAlertHandler()
+        // --> This is used to update the Orientation
+        handleConfigurationEffect()
+        // --> Launch only once per session
+        LaunchOncePerSession()
+        // Material theme content
+        MaterialAppTheme(darkTheme = viewModel.currentTheme.value) { ThemeContent() }
+    }
+    /** ************************************* Init Methods  ***************************************/
 
-            LaunchedEffect(configuration) {
-                // Save any changes to the orientation value on the configuration object
-                snapshotFlow {
-                    configuration.orientation
-                }.collect {
-                    orientation = it
-                }
+    /** ********************************* Screen utility composables  *****************************/
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun ThemeContent() {
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+
+        // <!--------------------- CONTROLLERS ------------------------>
+        // SnackBar controller
+        val snackBarController = remember { SnackbarHostState() }
+        // coroutine scope to handle co-routines
+        val coroutineScope = rememberCoroutineScope()
+        // Scroll behaviour
+        val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
+        // Nav controller
+        val controller = rememberNavController()
+        // Focus Manager
+        val focusManager = LocalFocusManager.current
+        // Keyboard Manager
+        val keyboardController = LocalSoftwareKeyboardController.current
+        // <!--------------------- CONTROLLERS ------------------------>
+
+
+        if(state.loadingState){
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LoadingAnimation()
             }
+        }else{
+            // Main content of the screen
+            MainContent(
+                state = state,
+                snackBarController = snackBarController,
+                scrollBehaviour = scrollBehaviour,
+                controller = controller,
+                orientation = state.orientation,
+                focusManager = focusManager,
+                displaySnackBar = { message ->
+                    coroutineScope.launch {
+                        //snackBarController.showSnackbar(message = message)
+                        // Show error dialog
+                        viewModel.onEvent(AppScreenViewEvent.SetMessageForError(message=message))
+                        viewModel.onEvent(
+                            AppScreenViewEvent.HandleErrorAlertDisplay(mutableStateOf(value = true))
+                        )
+                    }
+                },
+                keyBoardDoneAction = {
+                    keyboardController?.hide()
+                }
+            )
+        }
+    }
 
-            LaunchedEffect(key1 = state.launchedEffectState) {
-                viewModel.onEvent(AppScreenViewEvent.LoadingState)
-                // Check connectivity: once when the effect is launched
-                viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
+    @Composable
+    private fun LaunchOncePerSession() {
 
-                // <***********> Event is observed from View-Model <************>
-                viewModel.uiEvent.collect { event ->
-                    when (event) {
-                        is AppScreenResponseEvent.ShowSnackBar -> {
-                            coroutineScope.launch {
-                                snackBarController.showSnackbar(message = event.message)
-                            }
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+        // <!--------------------- CONTROLLERS ------------------------>
+        // SnackBar controller
+        val snackBarController = remember { SnackbarHostState() }
+        // coroutine scope to handle co-routines
+        val coroutineScope = rememberCoroutineScope()
+
+        LaunchedEffect(key1 = state.launchedEffectState) {
+            // <-------------> once when the effect is launched  <------------->
+            viewModel.apply {
+                // Notify the loading state to be displayed in the screen
+                onEvent(AppScreenViewEvent.LoadingState(isVisible = true))
+                // Initially action button is invisible since loader is currently displayed
+                onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
+                // Initially action Toolbar is invisible since loader is currently displayed
+                onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = false))
+                // Either get the data from the server / or / ge the data from the local database
+                onEvent(AppScreenViewEvent.ToggleDataSource)
+            }
+            // <-------------> once when the effect is launched  <------------->
+
+            // <***********> Event is observed from View-Model <************>
+            viewModel.uiEvent.collect { event ->
+                when (event) {
+                    // ---> Display messages in snack-bar
+                    is AppScreenResponseEvent.ShowSnackBar -> {
+                        coroutineScope.launch {
+                            snackBarController.showSnackbar(message = event.message)
+                        }
+                    }
+
+                    // ---> Get the data from server/database
+                    is AppScreenResponseEvent.ToggleData -> {
+                        if (event.isFetchFromServer) {
+                            // --> Get the data from server
+                            viewModel.onEvent(AppScreenViewEvent.CheckConnectivity)
+                        } else {
+                            // --> Get the data from database
+                            viewModel.onEvent(AppScreenViewEvent.LoadFromDatabase)
                         }
                     }
                 }
-                // <***********> Event is observed from View-Model <************>
             }
+            // <***********> Event is observed from View-Model <************>
+        }
+    }
 
-            MaterialAppTheme(darkTheme = viewModel.currentTheme.value) {
-                // A surface container using the 'background' color from the theme
-                ShimmerHomeLoadingComposable(
-                    isLoading = state.loadingState,
-                    contentAfterLoading = {
-                        MainContent(
-                            state = state,
-                            snackBarController = snackBarController,
-                            scrollBehaviour= scrollBehaviour,
-                            titleStr = titleStr,
-                            controller = controller,
-                            orientation = orientation,
-                            focusManager = focusManager
-                        )
-                    },
-                    modifier = Modifier.fillMaxSize()
+    @Composable
+    private fun BackButtonHandler() {
+
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+
+        BackHandler {
+            // ---> Handle Alert dialog for closing application
+            viewModel.onEvent(
+                AppScreenViewEvent.HandleExitAlertDisplay(mutableStateOf(value = true))
+            )
+        }
+    }
+
+    @Composable
+    private fun ExitAlertHandler() {
+
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+
+        ExitAlert(
+            currentExitAlertVisibility = state.isExitAlertDisplayed,
+            closeApplication = { closeApplication ->
+                // Close the dialog
+                viewModel.onEvent(
+                    AppScreenViewEvent.HandleExitAlertDisplay(mutableStateOf(value = false))
                 )
+                if (closeApplication) {
+                    // Close the application
+                    Intent().apply {
+                        action = Intent.ACTION_MAIN
+                        addCategory(Intent.CATEGORY_HOME)
+                    }.run { startActivity(this) }
+                }
+            }
+        )
+    }
+
+    @Composable
+    private fun ErrorAlertHandler() {
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+        // View state reference from view model
+        val state = viewModel.viewState
+
+        ErrorAlert(
+            currentExitAlertVisibility = state.isErrorAlertDisplayed,
+            message = state.errorMessage,
+            closeApplication = {
+                // Close the dialog
+                viewModel.onEvent(
+                    AppScreenViewEvent.HandleErrorAlertDisplay(mutableStateOf(value = false))
+                )
+            }
+        )
+    }
+
+    @Composable
+    private fun handleConfigurationEffect() {
+
+        // Configuration Manager
+        val configuration = LocalConfiguration.current
+        // View model reference
+        val viewModel: MainVm = hiltViewModel()
+
+        LaunchedEffect(configuration) {
+            // Save any changes to the orientation value on the configuration object
+            snapshotFlow {
+                configuration.orientation
+            }.collect {
+                // Update configuration to mutable view state so that composable can display appropriate screen modes
+                viewModel.onEvent(AppScreenViewEvent.SetScreenOrientation(it))
             }
         }
     }
@@ -137,13 +306,16 @@ class MainActivity : ComponentActivity() {
         state: AppScreenUiState,
         snackBarController: SnackbarHostState,
         scrollBehaviour: TopAppBarScrollBehavior,
-        titleStr: String,
         controller: NavHostController,
         orientation: Int,
-        focusManager: FocusManager
+        focusManager: FocusManager,
+        displaySnackBar: (String) -> Unit,
+        // -----> KeyBoard Action
+        keyBoardDoneAction: () -> Unit
     ) {
         // View model reference
         val viewModel: MainVm = hiltViewModel()
+        var onClickOfCalculatePlay by remember { mutableStateOf({}) }
 
         if (state.isConnectedToInternet) {
             // Connected to internet
@@ -153,9 +325,14 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize()
                     .nestedScroll(scrollBehaviour.nestedScrollConnection),
                 topBar = {
-                    if(viewModel.viewState.isToolbarVisible){
+                    if (viewModel.viewState.isToolbarVisible) {
                         TopAppBar(
-                            title = { Text(text = titleStr) },
+                            title = {
+                                Text(
+                                    text = state.toolBarTitle,
+                                    fontFamily = fontFamily,
+                                )
+                            },
                             scrollBehavior = scrollBehaviour,
                             actions = {
                                 ThemeSwitcher(
@@ -170,6 +347,13 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
+                },
+                floatingActionButton = {
+                    if (state.isActionButtonVisible) {
+                        FloatingActionButton {
+                            onClickOfCalculatePlay()
+                        }
+                    }
                 }
             ) {
                 Box(
@@ -177,10 +361,48 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(
                         navController = controller,
-                        startDestination = Route.CURRENCY_CONVERSION_SCREEN
+                        startDestination = Screen.CurrencyConverter.route
                     ) {
 
-                        composable(route = Route.CURRENCY_CONVERSION_SCREEN) {
+                        // -------> COMPOSABLE:-> Currency Calculation
+                        composable(
+                            route = Screen.CurrencyConverter.route,
+                            enterTransition = {
+                                fadeIn(
+                                    animationSpec = tween(
+                                        300, easing = LinearEasing
+                                    )
+                                ) + slideIntoContainer(
+                                    animationSpec = tween(300, easing = EaseIn),
+                                    towards = AnimatedContentTransitionScope.SlideDirection.Start
+                                )
+                            },
+                            exitTransition = {
+                                fadeOut(
+                                    animationSpec = tween(
+                                        300, easing = LinearEasing
+                                    )
+                                ) + slideOutOfContainer(
+                                    animationSpec = tween(300, easing = EaseOut),
+                                    towards = AnimatedContentTransitionScope.SlideDirection.End
+                                )
+                            }
+                        ) {
+
+                            // <------------------------- Screen Prerequisites -------------------->
+                            // Change the screen title
+                            viewModel.onEvent(
+                                AppScreenViewEvent.SetToolBarTitle(
+                                    title = LocalContext.current.getString(R.string.str_currency_converter)
+                                )
+                            )
+                            // Toggle toolbar visibility
+                            viewModel.apply {
+                                onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = true))
+                                onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = true))
+                            }
+                            // <------------------------- Screen Prerequisites -------------------->
+
                             CurrencyScreen(
                                 orientation = orientation,
                                 onErrorAction = { message ->
@@ -191,15 +413,93 @@ class MainActivity : ComponentActivity() {
                                     // Scenario : When user clicks outside the keyboard
                                     focusManager.clearFocus()
                                 },
-                                onBackPress = {
-                                    // Scenario : When user presses back button
-
-                                },
                                 onLoading = { isVisible ->
                                     // Toggle toolbar visibility
-                                    viewModel.onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = isVisible))
-                                }
+                                    viewModel.apply {
+                                        onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = isVisible))
+                                        onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = isVisible))
+                                    }
+                                },
+                                onClickOfCalculatePlay = {
+                                    onClickOfCalculatePlay = it
+                                },
+                                displaySnackBar = { message ->
+                                    displaySnackBar.invoke(message)
+                                },
+                                navigateToResultScreen = { resultInput ->
+                                    // Navigate to result screen composable
+                                    controller.navigate(
+                                        viewModel.prepareScreenResultRoute(resultInput)
+                                    )
+                                },
+                                keyBoardDoneAction = { keyBoardDoneAction }
                             )
+                        }
+
+                        // -------> COMPOSABLE:-> Currency Result
+                        composable(
+                            route = Screen.CurrencyResult.route,
+                            enterTransition = {
+                                fadeIn(
+                                    animationSpec = tween(
+                                        300, easing = LinearEasing
+                                    )
+                                ) + slideIntoContainer(
+                                    animationSpec = tween(300, easing = EaseIn),
+                                    towards = AnimatedContentTransitionScope.SlideDirection.Start
+                                )
+                            },
+                            exitTransition = {
+                                fadeOut(
+                                    animationSpec = tween(
+                                        300, easing = LinearEasing
+                                    )
+                                ) + slideOutOfContainer(
+                                    animationSpec = tween(300, easing = EaseOut),
+                                    towards = AnimatedContentTransitionScope.SlideDirection.End
+                                )
+                            },
+                            arguments = listOf(
+                                navArgument(userFromEnteredCurrency_key) {
+                                    type = NavType.StringType
+                                },
+                                navArgument(userFromEnteredCurrencyType_key) {
+                                    type = NavType.StringType
+                                },
+                                navArgument(userFromEnteredCurrencyKey_key) {
+                                    type = NavType.StringType
+                                },
+                                navArgument(userFromEnteredCurrencyName_key) {
+                                    type = NavType.StringType
+                                },
+                                navArgument(currencyToRateKey_key) { type = NavType.StringType },
+                                navArgument(currencyToRateValue_key) { type = NavType.StringType }
+                            )
+                        ) { navBackStackEntry ->
+
+                            // <------------------------- Screen Prerequisites -------------------->
+
+                            // Set the screen title
+                            viewModel.onEvent(AppScreenViewEvent.SetToolBarTitle(
+                                title = LocalContext.current.getString(R.string.str_currency_result))
+                            )
+
+                            // Toggle toolbar and action bar visibility
+                            viewModel.apply {
+                                onEvent(AppScreenViewEvent.ToolbarVisibility(isVisible = true))
+                                onEvent(AppScreenViewEvent.IsActionButtonVisible(isVisible = false))
+                            }
+
+                            // <------------------------- Screen Prerequisites -------------------->
+
+                            navBackStackEntry.arguments?.let { bundle ->
+                                val inputFromBundle =
+                                    viewModel.getDataFromBundleForResultScreen(bundle)
+                                Log.d("Args", inputFromBundle.toString())
+                                CurrencyResultScreen(
+                                    orientation = orientation, input = inputFromBundle
+                                )
+                            }
                         }
                     }
                 }
@@ -212,6 +512,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    /** ********************************* Screen utility composables  *****************************/
 }
 
 @Composable

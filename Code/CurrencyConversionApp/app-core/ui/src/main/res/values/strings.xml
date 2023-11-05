@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">code</string>
+    <string name="app_name">Currency Converter</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="str_enter_the_amt_to_convert">Amount</string>
     <string name="str_entered_currency_type">Currency</string>
@@ -7,4 +7,13 @@
     <string name="str_currency_converter">Currency Converter</string>
     <string name="str_no_connectivity">No Connectivity</string>
     <string name="str_retry">Retry</string>
+    <string name="str_currency_calculate">Calculate currency</string>
+
+
+    <string name="str_exit_dialog_confirmation">Are you sure you want to close the application ?</string>
+    <string name="str_confirm_exit">Exit Application</string>
+    <string name="str_confirm">Confirm</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_ok">OK</string>
+
 </resources>

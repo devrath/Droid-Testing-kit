@@ -10,4 +10,9 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { currencyResultFeature() }
+dependencies {
+    currencyResultFeature()
+    // --> Single modules
+    coreModelsModule()
+    appCommonModule()
+}

@@ -18,6 +18,8 @@ object Dependencies {
     const val coreMaterial = "com.google.android.material:material:${Versions.coreMaterial}"
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
     const val serilization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serilization}"
+    const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigationUiKtx}"
+    const val uiTextGoogleFonts = "androidx.compose.ui:ui-text-google-fonts:${Versions.uiTextGoogleFonts}"
     // <---------------------> Core Dependencies <------------------------>
 
     // <---------------------> Preference Dependencies <------------------>
@@ -36,6 +38,9 @@ object Dependencies {
     const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
     const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
     const val materialIconsExtended = "androidx.compose.material:material-icons-extended:${Versions.materialIconsExtended}"
+    const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
+    const val lifecycleRuntimeCompose = "androidx.lifecycle:lifecycle-runtime-compose:${Versions.lifecycleRuntimeCompose}"
+    const val materialCompose = "androidx.compose.material:material:${Versions.materialCompose}"
     // <---------------------> Compose Dependencies <--------------------->
 
     // <---------------------> Hilt Dependencies <------------------------>
@@ -83,6 +88,8 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.coreMaterial)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.serilization)
+    implementation(Dependencies.navigationUiKtx)
+    implementation(Dependencies.uiTextGoogleFonts)
     hilt()
 }
 // <--------> Room Dependencies <---------------->
@@ -112,6 +119,9 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeMaterial)
     implementation(Dependencies.materialIconsExtended)
+    implementation(Dependencies.navigationCompose)
+    implementation(Dependencies.lifecycleRuntimeCompose)
+    implementation(Dependencies.materialCompose)
     debugImplementation(Dependencies.composeUiToolingPreview)
 }
 // <---> Unit Testing Dependencies <---------------->
@@ -181,6 +191,7 @@ fun DependencyHandler.uiModuleDependencies() {
     instrumentationTesting()
     unitTesting()
     compose()
+    implementation(coreSplash)
     // --> Single modules
     coreModelsModule()
 }

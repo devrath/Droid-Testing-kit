@@ -8,6 +8,9 @@ import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * DAO interface defines all the query operations to be performed on the database
+ */
 @Dao
 interface CurrencyDao {
 
@@ -25,7 +28,7 @@ interface CurrencyDao {
      * Getting just a list of currency rates
      */
     @Query("SELECT * FROM rates_table")
-    fun getCurrencyRatesList() : Flow<List<RatesEntity>>
+    fun getCurrencyRatesList() : List<RatesEntity>
 
     /**
      * OPERATION: Inserting
@@ -35,7 +38,6 @@ interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCurrency(currency : CurrencyEntity)
 
-
     /**
      * OPERATION: Inserting
      *
@@ -43,5 +45,13 @@ interface CurrencyDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRates(currency : RatesEntity)
+
+    /**
+     * OPERATION: Retrieving
+     *
+     * Getting a currency from database for a particular currency key
+     */
+    @Query("SELECT * FROM currency_table WHERE currencyKey=:currencyKey")
+    fun getCurrencyById(currencyKey:String) : CurrencyEntity
 
 }

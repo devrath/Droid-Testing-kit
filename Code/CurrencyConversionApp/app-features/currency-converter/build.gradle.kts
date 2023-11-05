@@ -10,4 +10,8 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { currencyConverterFeature() }
+dependencies {
+    currencyConverterFeature()
+    appPreferencesModule()
+    //implementation(project(mapOf("path" to ":app-core:data:preferences")))
+}
