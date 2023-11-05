@@ -16,6 +16,15 @@ object FakeApiData {
 
 }
 
+object FakeApiKeyValuePairs {
+    const val currencyKeyAED = "AED"
+    const val currencyValueAED = "United Arab Emirates Dirham"
+
+    const val currencyBase = "USD"
+}
+
+
+
 private const val curriencyMockData = "{\n" +
         "  \"AED\": \"United Arab Emirates Dirham\",\n" +
         "  \"AFN\": \"Afghan Afghani\",\n" +
