@@ -6,20 +6,22 @@ import com.istudio.mock_factory.generators.FakeApiKeyValuePairs
 import com.istudio.network.fakes.CurrencyApiFake
 import com.istudio.network.testUtils.MainCoroutineExtension
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.*
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MainCoroutineExtension::class)
-class CurrencyApiImplTest {
+class CurrencyApiRepositoryTest {
 
     // SUT
-    private lateinit var sut: CurrencyApiImpl
+    lateinit var sut : CurrencyApiRepository
 
     @BeforeEach
     fun setUp() {
-        sut = CurrencyApiImpl(api = CurrencyApiFake())
+        val apiImpl = CurrencyApiImpl(api = CurrencyApiFake())
+        sut = CurrencyApiRepository(features = apiImpl)
     }
 
     @Test
