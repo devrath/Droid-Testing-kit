@@ -21,6 +21,10 @@ fun DependencyHandler.testImplementation(dependency: String) {
     add("testImplementation", dependency)
 }
 
+fun DependencyHandler.testRuntimeOnly(dependency: String) {
+    add("testRuntimeOnly", dependency)
+}
+
 fun DependencyHandler.androidTestImplementation(dependency: String) {
     add("androidTestImplementation", dependency)
 }

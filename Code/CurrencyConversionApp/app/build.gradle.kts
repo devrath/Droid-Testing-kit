@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
+    id(Dependencies.junit5ProjectLevel) version Versions.junit5ProjectLevel
     kotlin("kapt")
 }
 
@@ -51,4 +52,6 @@ android {
     }
 }
 
-dependencies { appModuleDependencies() }
+dependencies {
+    appModuleDependencies()
+}

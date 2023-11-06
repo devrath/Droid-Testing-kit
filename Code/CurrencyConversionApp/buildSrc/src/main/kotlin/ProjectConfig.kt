@@ -20,11 +20,14 @@ object ProjectConfig {
     const val currencyResult = "com.istudio.currency_result"
     const val commonFeature = "com.istudio.common_feature"
     const val models = "com.istudio.models"
+    const val fakes = "com.istudio.fakes"
 
 
     const val network = "com.istudio.network"
     const val database = "com.istudio.database"
     const val preferences = "com.istudio.preferences"
+    const val mockFactory = "com.istudio.mock_factory"
+    const val testutils = "com.istudio.test_utils"
 
     const val common = "com.istudio.common"
     // <---------> Namespaces <--------->

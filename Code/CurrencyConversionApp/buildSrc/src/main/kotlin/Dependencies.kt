@@ -5,8 +5,13 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 
 object Dependencies {
+    // Specific module links
+    const val mockFactoryModuleLink = ":app-testing:mock-factory"
+
+
     // <-------------> Top level plugin Dependencies <-------------------->
     const val hiltProjectLevel = "com.google.dagger.hilt.android"
+    const val junit5ProjectLevel = "de.mannodermaus.android-junit5"
     // <-------------> Top level plugin Dependencies <-------------------->
 
     const val javapoet = "com.squareup:javapoet:${Versions.javapoet}"
@@ -24,6 +29,10 @@ object Dependencies {
 
     // <---------------------> Preference Dependencies <------------------>
     const val preferencesDataStore = "androidx.datastore:datastore-preferences:${Versions.datastorePreferences}"
+    // <---------------------> Preference Dependencies <------------------>
+
+    // <---------------------> Preference Dependencies <------------------>
+    const val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
     // <---------------------> Preference Dependencies <------------------>
 
     // <---------------------> Preference Dependencies <------------------>
@@ -70,12 +79,48 @@ object Dependencies {
 
     // <---------------------> UnitTest Dependencies <-------------------->
     const val junit = "junit:junit:${Versions.junit}"
+    const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlin}"
+    const val mockitoInline = "org.mockito:mockito-inline:${Versions.mockitoInline}"
+    const val mockitoCore = "org.mockito:mockito-core:${Versions.mockitoCore}"
+    const val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTesting}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinxCoroutinesTestUnitTest}"
+    const val mockServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockServer}"
+    const val googleTruthLib = "com.google.truth:truth:${Versions.googleTruth}"
+    const val testRunnerUnitTest = "androidx.test:runner:${Versions.testRunner}"
     // <---------------------> UnitTest Dependencies <-------------------->
 
     // <--------------> InstrumentationTest Dependencies <---------------->
     const val junitInstrumentation = "androidx.test.ext:junit:${Versions.junitInstrument}"
-    const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    const val testrules = "adroidx.test:rules:${Versions.testrules}"
+    const val testCoreKtx = "androidx.test:core-ktx:${Versions.testCoreKtx}"
+    const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
+    const val mockServerInstrumentation = "com.squareup.okhttp3:mockwebserver:${Versions.mockServer}"
+    const val idlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:${Versions.okhttp3IdlingResource}"
+    const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:${Versions.hilt}"
+    const val googleTruthLibInstrumentation = "com.google.truth:truth:${Versions.googleTruth}"
+    const val kotlinxCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinxCoroutinesTestInstrumentationTest}"
+    const val testRunnerInstrument= "androidx.test:runner:${Versions.testRunner}"
     // <--------------> InstrumentationTest Dependencies <---------------->
+
+    // <--------------> Junit5 Dependencies <----------------------------->
+    const val junitJupiterApi = "org.junit.jupiter:junit-jupiter-api:${Versions.junit5}"
+    const val junitJupiterParams = "org.junit.jupiter:junit-jupiter-params:${Versions.junit5}"
+    const val junitJupiterEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}"
+    // <--------------> Junit5 Dependencies <----------------------------->
+
+    // <--------------> MockK Dependencies <----------------------------->
+    const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
+    const val mockkAgent = "io.mockk:mockk-agent:${Versions.mockk}"
+    // <--------------> MockK Dependencies <----------------------------->
+
+    // <--------------> MockK Server Dependencies <---------------------->
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServer}"
+    // <--------------> MockK Server Dependencies <---------------------->
+
+    // <-------------------> AssertK Dependencies <---------------------->
+    const val assertK = "com.willowtreeapps.assertk:assertk:${Versions.assertK}"
+    // <-------------------> AssertK Dependencies <---------------------->
+
 
 }
 
@@ -92,7 +137,17 @@ fun DependencyHandler.coreDependencies() {
     implementation(Dependencies.uiTextGoogleFonts)
     hilt()
 }
-// <--------> Room Dependencies <---------------->
+
+// <----------------> Junit5 <----------------------->
+fun DependencyHandler.jUnit5() {
+    testImplementation(Dependencies.junitJupiterApi)
+    testImplementation(Dependencies.junitJupiterParams)
+    androidTestImplementation(Dependencies.junitJupiterApi)
+    androidTestImplementation(Dependencies.junitJupiterParams)
+    testRuntimeOnly(Dependencies.junitJupiterEngine)
+}
+
+// <--------> Datastore Dependencies <---------------->
 fun DependencyHandler.preferencesDataStore() {
     implementation(Dependencies.preferencesDataStore)
 }
@@ -126,12 +181,45 @@ fun DependencyHandler.compose() {
 }
 // <---> Unit Testing Dependencies <---------------->
 fun DependencyHandler.unitTesting() {
+    // All Junit-5
+    jUnit5()
+    // other dependencies
     testImplementation(Dependencies.junit)
+    testImplementation(Dependencies.mockitoKotlin)
+    testImplementation(Dependencies.mockitoInline)
+    testImplementation(Dependencies.mockitoCore)
+    testImplementation(Dependencies.coreTesting)
+    testImplementation(Dependencies.coroutinesTest)
+    testImplementation(Dependencies.mockServer)
+    testImplementation(Dependencies.googleTruthLib)
+    testImplementation(Dependencies.googleTruthLib)
+    testImplementation(Dependencies.testRunnerUnitTest)
+    testImplementation(Dependencies.coreKtx)
+    testImplementation(Dependencies.activitycompose)
+    androidTestImplementation(Dependencies.turbine)
+    testImplementation(Dependencies.mockkAndroid)
+    testImplementation(Dependencies.mockkAgent)
+    testImplementation(Dependencies.mockWebServer)
+    testImplementation(Dependencies.assertK)
 }
 // <---> Instrumentation Testing Dependencies <----->
 fun DependencyHandler.instrumentationTesting() {
-    implementation(Dependencies.junitInstrumentation)
-    implementation(Dependencies.espressoCore)
+    androidTestImplementation(Dependencies.junitInstrumentation)
+    androidTestImplementation(Dependencies.turbine)
+    androidTestImplementation(Dependencies.testCoreKtx)
+    androidTestImplementation(Dependencies.espresso)
+    androidTestImplementation(Dependencies.mockServerInstrumentation)
+    androidTestImplementation(Dependencies.idlingResource)
+    androidTestImplementation(Dependencies.hiltAndroidTesting)
+    androidTestImplementation(Dependencies.googleTruthLibInstrumentation)
+    androidTestImplementation(Dependencies.kotlinxCoroutinesTest)
+    androidTestImplementation(Dependencies.testRunnerInstrument)
+    androidTestImplementation(Dependencies.coreKtx)
+    androidTestImplementation(Dependencies.activitycompose)
+    androidTestImplementation(Dependencies.mockkAndroid)
+    androidTestImplementation(Dependencies.mockkAgent)
+    androidTestImplementation(Dependencies.mockWebServer)
+    androidTestImplementation(Dependencies.assertK)
 }
 // <--------> Hilt Dependencies <------------------->
 fun DependencyHandler.hilt() {
@@ -221,10 +309,11 @@ fun DependencyHandler.network() {
 // <----> Database Module Dependencies <---->
 fun DependencyHandler.database() {
     coreDependencies()
-    unitTesting()
     room()
+    unitTesting()
+    instrumentationTesting()
     // --> Single modules
-    common()
+    appCommonModule()
     coreModelsModule()
 }
 // <---> Preferences Module Dependencies <--->
@@ -240,14 +329,26 @@ fun DependencyHandler.common() {
     coreDependencies()
     retrofit()
     room()
+    jUnit5()
     // --> Single modules
     coreModelsModule()
+    // --> Testing
+    unitTesting()
+    instrumentationTesting()
 }
 // <---> Models Module Dependencies <--->
 fun DependencyHandler.models() {
     coreDependencies()
     retrofit()
     room()
+}
+
+fun DependencyHandler.Fakes() {
+    coreDependencies()
+    retrofit()
+    room()
+    // --> Single modules
+    coreModelsModule()
 }
 // <----------------- App-Core Module Dependencies ------------------->
 
@@ -278,6 +379,7 @@ fun DependencyHandler.featureCurrencyResult() { implementation(project(":app-fea
 // <-----------> Container-Modules <----------->
 fun DependencyHandler.appCore() { implementation(project(":app-core")) }
 fun DependencyHandler.appData() { implementation(project(":app-core:app-data")) }
+fun DependencyHandler.appTesting() { implementation(project(":app-testing")) }
 // <-----------> Container-Modules <----------->
 // <-----------> Core-Modules <----------------->
 fun DependencyHandler.appNetworkModule() { implementation(project(":app-core:data:network")) }
@@ -287,4 +389,9 @@ fun DependencyHandler.appCommonModule() { implementation(project(":app-core:comm
 fun DependencyHandler.coreUiModule() { implementation(project(":app-core:ui")) }
 fun DependencyHandler.coreModelsModule() { implementation(project(":app-core:models")) }
 // <-----------> Core-Modules <----------------->
+// <-----------> Testing-Modules <-------------->
+fun DependencyHandler.appTestingMockFactory() { implementation(project(":app-testing:mock-factory")) }
+// <-----------> Testing-Modules <-------------->
+
+
 // <------------------------ Project Modules ------------------------>

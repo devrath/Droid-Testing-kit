@@ -10,4 +10,6 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { common() }
+dependencies {
+    common()
+}

@@ -1,6 +1,9 @@
+import Dependencies.mockFactoryModuleLink
+
 plugins {
     `android-library`
     `kotlin-android`
+     id(Dependencies.junit5ProjectLevel) version Versions.junit5ProjectLevel
 }
 
 apply<plugins.FeaturesGradlePlugin>()
@@ -10,4 +13,8 @@ android {
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
-dependencies { database() }
+dependencies {
+    database()
+
+    androidTestImplementation(project(mockFactoryModuleLink))
+}
