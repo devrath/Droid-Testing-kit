@@ -12,7 +12,7 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 class CheckConnectivityUseCase @Inject constructor(
     private val connectivityManager: ConnectivityManager
-) : com.istudio.common.platform.actions.FlowAction<Unit, Boolean>() {
+) : FlowAction<Unit, Boolean>() {
 
     override suspend fun createFlow(input: Unit): Flow<Boolean> {
         return flowOf(connectivityCheckBasedOnOs())

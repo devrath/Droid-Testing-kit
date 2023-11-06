@@ -1,10 +1,17 @@
 package com.istudio.mock_factory.generators
 
 import com.google.gson.Gson
+import com.istudio.models.custom.MasterApiData
 import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues
 
 object FakeApiData {
+
+    fun getMasterApiData(
+        currencies :Currencies, currencyConversionValues : CurrencyConversionValues
+    ) : MasterApiData {
+        return MasterApiData(currencies,currencyConversionValues)
+    }
 
     fun getFakeApiCurriencies() : Currencies {
         return Gson().fromJson(curriencyMockData, Currencies::class.java)
@@ -17,15 +24,20 @@ object FakeApiData {
 }
 
 object FakeApiKeyValuePairs {
+    const val currencyBase = "USD"
+
     const val currencyKeyAED = "AED"
     const val currencyValueAED = "United Arab Emirates Dirham"
 
-    const val currencyBase = "USD"
+    // First values for present in response
+    const val firstCurrencyKey = "AED"
+    const val firstCurrencyValue = "United Arab Emirates Dirham"
+    const val firstRatesKey = "AED"
+    const val firstRatesValue = "3.67302"
+    // First values for present in response
 }
 
-
-
-private const val curriencyMockData = "{\n" +
+ const val curriencyMockData = "{\n" +
         "  \"AED\": \"United Arab Emirates Dirham\",\n" +
         "  \"AFN\": \"Afghan Afghani\",\n" +
         "  \"ALL\": \"Albanian Lek\",\n" +
@@ -198,7 +210,7 @@ private const val curriencyMockData = "{\n" +
         "  \"ZWL\": \"Zimbabwean Dollar\"\n" +
         "}"
 
-private const val curriencyConversionMockData = "{\n" +
+const val curriencyConversionMockData = "{\n" +
         "  \"disclaimer\": \"Usage subject to terms: https://openexchangerates.org/terms\",\n" +
         "  \"license\": \"https://openexchangerates.org/license\",\n" +
         "  \"timestamp\": 1699063201,\n" +
