@@ -1,5 +1,7 @@
 import Dependencies.coreSplash
+import Dependencies.fakeGactoryLink
 import Dependencies.hiltNavigationCompose
+import Dependencies.mockFactoryModuleLink
 import Dependencies.preferencesDataStore
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
@@ -7,6 +9,7 @@ import org.gradle.kotlin.dsl.project
 object Dependencies {
     // Specific module links
     const val mockFactoryModuleLink = ":app-testing:mock-factory"
+    const val fakeGactoryLink = ":app-testing:fake-factory"
 
 
     // <-------------> Top level plugin Dependencies <-------------------->
@@ -18,6 +21,7 @@ object Dependencies {
 
     // <---------------------> Core Dependencies <------------------------>
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
+    const val kotlinxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinxCoroutinesCore}"
     const val appcompact = "androidx.appcompat:appcompat:${Versions.appcompact}"
     const val activitycompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
     const val coreMaterial = "com.google.android.material:material:${Versions.coreMaterial}"
@@ -390,7 +394,8 @@ fun DependencyHandler.coreUiModule() { implementation(project(":app-core:ui")) }
 fun DependencyHandler.coreModelsModule() { implementation(project(":app-core:models")) }
 // <-----------> Core-Modules <----------------->
 // <-----------> Testing-Modules <-------------->
-fun DependencyHandler.appTestingMockFactory() { implementation(project(":app-testing:mock-factory")) }
+fun DependencyHandler.appTestingMockFactory() { implementation(project(mockFactoryModuleLink)) }
+fun DependencyHandler.appTestingUtilities() { implementation(project(fakeGactoryLink)) }
 // <-----------> Testing-Modules <-------------->
 
 

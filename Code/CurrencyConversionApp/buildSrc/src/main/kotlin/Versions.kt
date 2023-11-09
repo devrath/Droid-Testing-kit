@@ -39,6 +39,7 @@ object Versions {
     const val testCoreKtx = "1.4.0"
     // -----> Core
     const val coreKtx = "1.9.0"
+    const val kotlinxCoroutinesCore = "1.7.3"
     const val appcompact = "1.6.1"
     const val activityCompose = "1.8.0"
     const val coreMaterial = "1.9.0"

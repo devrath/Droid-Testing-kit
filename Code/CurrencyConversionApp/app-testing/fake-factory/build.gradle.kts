@@ -1,19 +1,17 @@
 plugins {
     `android-library`
     `kotlin-android`
+    id(Dependencies.junit5ProjectLevel) version Versions.junit5ProjectLevel
 }
 
 apply<plugins.TestingUtilitiesGradlePlugin>()
 
 android {
-    namespace = ProjectConfig.mockFactory
+    namespace = ProjectConfig.testutils
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
 dependencies {
-    coreModelsModule()
-    database()
-    retrofit()
 
     // <-- Modules where this mock dependencies are shared-->
     appDatabaseModlue()
