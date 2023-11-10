@@ -40,6 +40,10 @@ object Dependencies {
     const val coreSplash = "androidx.core:core-splashscreen:${Versions.coreSplash}"
     // <---------------------> Preference Dependencies <------------------>
 
+    // <---------------------> Gson Dependencies <------------------------->
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
+    // <---------------------> Gson Dependencies <------------------------->
+
     // <---------------------> Compose Dependencies <--------------------->
     const val composeMaterial = "androidx.compose.material3:material3:${Versions.composeMaterial3}"
     const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
