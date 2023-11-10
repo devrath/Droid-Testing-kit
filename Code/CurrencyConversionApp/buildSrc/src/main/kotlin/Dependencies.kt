@@ -1,5 +1,4 @@
 import Dependencies.coreSplash
-import Dependencies.fakeGactoryLink
 import Dependencies.hiltNavigationCompose
 import Dependencies.mockFactoryModuleLink
 import Dependencies.preferencesDataStore
@@ -9,8 +8,6 @@ import org.gradle.kotlin.dsl.project
 object Dependencies {
     // Specific module links
     const val mockFactoryModuleLink = ":app-testing:mock-factory"
-    const val fakeGactoryLink = ":app-testing:fake-factory"
-
 
     // <-------------> Top level plugin Dependencies <-------------------->
     const val hiltProjectLevel = "com.google.dagger.hilt.android"
@@ -395,7 +392,6 @@ fun DependencyHandler.coreModelsModule() { implementation(project(":app-core:mod
 // <-----------> Core-Modules <----------------->
 // <-----------> Testing-Modules <-------------->
 fun DependencyHandler.appTestingMockFactory() { implementation(project(mockFactoryModuleLink)) }
-fun DependencyHandler.appTestingUtilities() { implementation(project(fakeGactoryLink)) }
 // <-----------> Testing-Modules <-------------->
 
 
