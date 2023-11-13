@@ -43,7 +43,7 @@ object AppModule {
         okHttpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://openexchangerates.org/api/")
+            .baseUrl("https://raw.githubusercontent.com/devrath/Droid-Testing-kit/master/Code/CurrencyConversionApp/app-testing/mock-factory/src/main/assets/serverMocks/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

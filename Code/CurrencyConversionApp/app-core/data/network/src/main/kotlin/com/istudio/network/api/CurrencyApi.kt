@@ -22,7 +22,7 @@ interface CurrencyApi {
 
     // API -> Getting the conversion values for all currencies
     // DOC -> https://docs.openexchangerates.org/reference/latest-json
-    @GET("latest.json?app_id=$APP_ID")
+    @GET("CurrencyConversionValues.json?app_id=$APP_ID")
     suspend fun getCurrencyConversionValues(
         @Query("base") base:String=defaultCurrency.currencyKey)
     : CurrencyConversionValues
