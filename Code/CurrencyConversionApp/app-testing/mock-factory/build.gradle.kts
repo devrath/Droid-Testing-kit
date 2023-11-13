@@ -3,7 +3,7 @@ plugins {
     `kotlin-android`
 }
 
-apply<plugins.FeaturesGradlePlugin>()
+apply<plugins.TestingUtilitiesGradlePlugin>()
 
 android {
     namespace = ProjectConfig.mockFactory
@@ -14,4 +14,7 @@ dependencies {
     coreModelsModule()
     database()
     retrofit()
+
+    // <-- Modules where this mock dependencies are shared-->
+    appDatabaseModlue()
 }

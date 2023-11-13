@@ -15,6 +15,7 @@ object Versions {
     const val kotlinxSerializationConverter = "1.0.0"
     const val kotlinxSerializationJson = "1.6.0"
     const val retrofit2ConverterGson = "2.9.0"
+    const val gson = "2.10.1"
     const val room = "2.5.0"
     // -----> Testing
     const val junit = "4.13.2"
@@ -39,6 +40,7 @@ object Versions {
     const val testCoreKtx = "1.4.0"
     // -----> Core
     const val coreKtx = "1.9.0"
+    const val kotlinxCoroutinesCore = "1.7.3"
     const val appcompact = "1.6.1"
     const val activityCompose = "1.8.0"
     const val coreMaterial = "1.9.0"
