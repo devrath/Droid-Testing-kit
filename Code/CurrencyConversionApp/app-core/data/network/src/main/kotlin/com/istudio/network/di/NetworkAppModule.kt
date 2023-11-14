@@ -1,6 +1,7 @@
 package com.istudio.network.di
 
 import com.istudio.network.BuildConfig
+import com.istudio.network.Keys.BASE_URL
 import com.istudio.network.api.CurrencyApi
 import dagger.Module
 import dagger.Provides
@@ -12,8 +13,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-
-const val BASE_URL = "https://openexchangerates.org/api"
 
 @Module
 @InstallIn(SingletonComponent::class)
