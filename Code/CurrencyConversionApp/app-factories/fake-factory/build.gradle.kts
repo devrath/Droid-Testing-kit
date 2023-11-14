@@ -1,3 +1,5 @@
+import Dependencies.apiFactoryModuleLink
+
 plugins {
     `android-library`
     `kotlin-android`
@@ -11,8 +13,26 @@ android {
 }
 
 dependencies {
+
+    implementation(Dependencies.kotlinxCoroutinesCore)
+    implementation(Dependencies.coreKtx)
+
+    hilt()
+
+    // models
     coreModelsModule()
 
-    // <-- Modules where this mock dependencies are shared-->
-    //appDatabaseModlue()
+    // Project link to API - source
+    implementation(project(apiFactoryModuleLink))
+    // Project link to Network module
+    appNetworkModule()
+    // Project link to Database module
+    appDatabaseModlue()
+
+
+    // Feature - Currency converter feature
+
+
+    // <-- Modules where this Fakes are shared-->
+    featureCurrencyConverter()
 }
