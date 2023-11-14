@@ -7,7 +7,7 @@ import org.gradle.kotlin.dsl.project
 
 object Dependencies {
     // Specific module links
-    const val mockFactoryModuleLink = ":app-testing:mock-factory"
+    const val mockFactoryModuleLink = ":app-testing:api-factory"
 
     // <-------------> Top level plugin Dependencies <-------------------->
     const val hiltProjectLevel = "com.google.dagger.hilt.android"
