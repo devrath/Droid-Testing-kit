@@ -38,16 +38,16 @@ object FakeRates{
 }
 
 object FakeCurrencyAndRates{
-    val currencyAndRates1 = CurrencyAndRates(
+    private val currencyAndRates1 = CurrencyAndRates(
         currency = FakeCurriencies.currency1, rates = FakeRates.rates1
     )
-    val currencyAndRates2 = CurrencyAndRates(
+    private val currencyAndRates2 = CurrencyAndRates(
         currency = FakeCurriencies.currency2, rates = FakeRates.rates2
     )
-    val currencyAndRates3 = CurrencyAndRates(
+    private val currencyAndRates3 = CurrencyAndRates(
         currency = FakeCurriencies.currency3, rates = FakeRates.rates3
     )
-    val currencyAndRates4 = CurrencyAndRates(
+    private val currencyAndRates4 = CurrencyAndRates(
         currency = FakeCurriencies.currency4, rates = FakeRates.rates4
     )
 
