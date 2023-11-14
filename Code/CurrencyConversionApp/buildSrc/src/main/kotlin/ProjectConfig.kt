@@ -26,8 +26,8 @@ object ProjectConfig {
     const val network = "com.istudio.network"
     const val database = "com.istudio.database"
     const val preferences = "com.istudio.preferences"
-    const val mockFactory = "com.istudio.mock_factory"
-    const val testutils = "com.istudio.test_utilities"
+    const val apiFactory = "com.istudio.api_factory"
+    const val fakeFactory = "com.istudio.fake_factory"
 
     const val common = "com.istudio.common"
     // <---------> Namespaces <--------->

@@ -1,4 +1,4 @@
-import Dependencies.mockFactoryModuleLink
+import Dependencies.apiFactoryModuleLink
 
 plugins {
     `android-library`
@@ -17,5 +17,6 @@ dependencies {
     network()
     unitTesting()
     instrumentationTesting()
-    testImplementation(project(mockFactoryModuleLink))
+
+    testImplementation(project(apiFactoryModuleLink))
 }

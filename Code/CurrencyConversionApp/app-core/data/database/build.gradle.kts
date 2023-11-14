@@ -1,4 +1,4 @@
-import Dependencies.mockFactoryModuleLink
+import Dependencies.apiFactoryModuleLink
 
 plugins {
     `android-library`
@@ -17,5 +17,5 @@ dependencies {
     database()
 
     // Utilize the mocks from a mock module
-    androidTestImplementation(project(mockFactoryModuleLink))
+    androidTestImplementation(project(apiFactoryModuleLink))
 }
