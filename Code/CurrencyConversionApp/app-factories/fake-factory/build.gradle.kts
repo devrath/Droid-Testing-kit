@@ -16,6 +16,7 @@ dependencies {
 
     implementation(Dependencies.kotlinxCoroutinesCore)
     implementation(Dependencies.coreKtx)
+    implementation(Dependencies.gson)
 
     hilt()
 
@@ -28,7 +29,8 @@ dependencies {
     appNetworkModule()
     // Project link to Database module
     appDatabaseModlue()
-
+    // Project link to common module
+    appCommonModule()
 
     // Feature - Currency converter feature
 
