@@ -1,13 +1,13 @@
 import Dependencies.coreSplash
 import Dependencies.hiltNavigationCompose
-import Dependencies.mockFactoryModuleLink
-import Dependencies.preferencesDataStore
+import Dependencies.apiFactoryModuleLink
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 
 object Dependencies {
     // Specific module links
-    const val mockFactoryModuleLink = ":app-testing:api-factory"
+    const val apiFactoryModuleLink = ":app-factories:api-factory"
+    const val mockFactoryModuleLink = ":app-factories:fake-factory"
 
     // <-------------> Top level plugin Dependencies <-------------------->
     const val hiltProjectLevel = "com.google.dagger.hilt.android"
@@ -384,7 +384,7 @@ fun DependencyHandler.featureCurrencyResult() { implementation(project(":app-fea
 // <-----------> Container-Modules <----------->
 fun DependencyHandler.appCore() { implementation(project(":app-core")) }
 fun DependencyHandler.appData() { implementation(project(":app-core:app-data")) }
-fun DependencyHandler.appTesting() { implementation(project(":app-testing")) }
+fun DependencyHandler.appFactories() { implementation(project(":app-factories")) }
 // <-----------> Container-Modules <----------->
 // <-----------> Core-Modules <----------------->
 fun DependencyHandler.appNetworkModule() { implementation(project(":app-core:data:network")) }
@@ -395,7 +395,8 @@ fun DependencyHandler.coreUiModule() { implementation(project(":app-core:ui")) }
 fun DependencyHandler.coreModelsModule() { implementation(project(":app-core:models")) }
 // <-----------> Core-Modules <----------------->
 // <-----------> Testing-Modules <-------------->
-fun DependencyHandler.appTestingMockFactory() { implementation(project(mockFactoryModuleLink)) }
+fun DependencyHandler.appApiFactory() { implementation(project(apiFactoryModuleLink)) }
+//fun DependencyHandler.appTestingMockFactory() { implementation(project(mockFactoryModuleLink)) }
 // <-----------> Testing-Modules <-------------->
 
 

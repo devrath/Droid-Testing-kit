@@ -6,15 +6,13 @@ plugins {
 apply<plugins.TestingUtilitiesGradlePlugin>()
 
 android {
-    namespace = ProjectConfig.mockFactory
+    namespace = ProjectConfig.fakeFactory
     kotlinOptions { ProjectConfig.jvmTarget }
 }
 
 dependencies {
     coreModelsModule()
-    database()
-    retrofit()
 
     // <-- Modules where this mock dependencies are shared-->
-    appDatabaseModlue()
+    //appDatabaseModlue()
 }
