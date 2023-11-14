@@ -1,11 +1,11 @@
-package com.istudio.network.data
+package com.istudio.fake_factory.app_core.data.network.data
 
 import com.istudio.models.remote.Currencies
 import com.istudio.models.remote.CurrencyConversionValues
 import javax.inject.Inject
 
-open class CurrencyApiRepository @Inject constructor(
-    private val features : CurrencyApiImpl
+open class CurrencyApiRepositoryFake @Inject constructor(
+    private val features : CurrencyApiImplFake
 ) {
 
     suspend fun getCurrencies(): Currencies {
