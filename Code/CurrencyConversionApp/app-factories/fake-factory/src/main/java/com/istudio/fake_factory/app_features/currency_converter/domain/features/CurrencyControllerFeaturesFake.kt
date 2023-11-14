@@ -41,31 +41,19 @@ open class CurrencyControllerFeaturesFake : CurrencyControllerFeatures {
 
     override suspend fun insertCurrenciesIntoDb(currency: CurrencyEntity) {
         // <------ Add values to DB fake ------------>
-        val curriencies: Currencies = FakeApiData.getFakeApiCurriencies()
-        val currienciesMapped: Map<String, Any> = curriencies.serializeToMap(Gson())
+        val key: String = currency.currencyKey
+        val value: String = currency.currencyName as String
 
-        currienciesMapped.mapValues { currencyMap ->
-            val key: String = currencyMap.key
-            val value: String = currencyMap.value as String
-            println("$key $value")
-            listOfCurrencyEntity.add(CurrencyEntity(currencyKey = key, currencyName = value))
-        }
+        listOfCurrencyEntity.add(CurrencyEntity(currencyKey = key, currencyName = value))
         // <------ Add values to DB fake ------------>
     }
 
     override suspend fun insertRatesIntoDb(rates: RatesEntity) {
         // <------ Add values to DB fake ------------>
-        val rates: Rates = FakeApiData.getFakeApiCurriencyConversionValues().rates
-        val ratesMapped: Map<String, Any> = rates.serializeToMap(Gson())
+        val key: String = rates.ratesKey
+        val value: Double = rates.ratesValue as Double
 
-        ratesMapped.mapValues { ratesMap ->
-
-            val key: String = ratesMap.key
-            val value: Double = ratesMap.value as Double
-
-            println("$key $value")
-            listOfRatesEntity.add(RatesEntity(ratesKey = key, ratesValue = value))
-        }
+        listOfRatesEntity.add(RatesEntity(ratesKey = key, ratesValue = value))
         // <------ Add values to DB fake ------------>
     }
 

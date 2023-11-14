@@ -1,6 +1,7 @@
-package com.istudio.currency_converter.data.repository
+package com.istudio.fake_factory.app_features.currency_converter.data.repository
 
-import com.istudio.currency_converter.domain.features.CurrencyControllerFeatures
+import com.istudio.currency_converter.data.repository.RepositoryControllerFeatures
+import com.istudio.fake_factory.app_features.currency_converter.domain.features.CurrencyControllerFeaturesFake
 import com.istudio.models.local.CurrencyAndRates
 import com.istudio.models.local.CurrencyEntity
 import com.istudio.models.local.RatesEntity
@@ -9,11 +10,10 @@ import com.istudio.models.remote.CurrencyConversionValues
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-open class RepositoryControllerFeatures @Inject constructor(
-    private val repoImpl : CurrencyControllerFeatures
-) : CurrencyControllerFeatures {
+class RepositoryControllerFeaturesFake @Inject constructor(
+    private val repoImpl : CurrencyControllerFeaturesFake
+) : RepositoryControllerFeatures(repoImpl=repoImpl) {
 
-    // Get the currencies fata from api
     override suspend fun getCurrenciesFromApi(): Currencies {
         return repoImpl.getCurrenciesFromApi()
     }
