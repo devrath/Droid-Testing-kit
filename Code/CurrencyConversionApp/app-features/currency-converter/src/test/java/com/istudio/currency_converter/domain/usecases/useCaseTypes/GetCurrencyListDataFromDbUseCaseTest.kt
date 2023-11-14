@@ -3,8 +3,8 @@ package com.istudio.currency_converter.domain.usecases.useCaseTypes
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.istudio.currency_converter.data.repository.RepositoryControllerFeatures
-import com.istudio.currency_converter.fakes.domain.features.CurrencyControllerFeaturesFake
 import com.istudio.currency_converter.testUtils.MainCoroutineExtension
+import com.istudio.fake_factory.app_features.currency_converter.domain.features.CurrencyControllerFeaturesFake
 import com.istudio.mock_factory.generators.FakeApiKeyValuePairs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map

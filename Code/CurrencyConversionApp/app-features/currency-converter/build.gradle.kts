@@ -1,4 +1,5 @@
 import Dependencies.apiFactoryModuleLink
+import Dependencies.mockFactoryModuleLink
 
 plugins {
     `android-library`
@@ -20,5 +21,6 @@ dependencies {
     currencyConverterFeature()
     appPreferencesModule()
     testImplementation(project(apiFactoryModuleLink))
+    testImplementation(project(mockFactoryModuleLink))
     //implementation(project(mapOf("path" to ":app-core:data:preferences")))
 }
