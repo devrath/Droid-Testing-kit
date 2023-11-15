@@ -26,7 +26,7 @@
 | **`𝙲𝚘𝚗𝚝𝚎𝚗𝚝𝚜`** |
 | -------------- |
 | [Demo](https://github.com/devrath/Droid-Testing-kit/blob/main/README.md#demo) |
-| [Dark mode and Light mode screens](https://github.com/devrath/Droid-Testing-kit/blob/main/README.md#demo-screens) |
+| [Dark mode and Light mode screens](https://github.com/devrath/Droid-Testing-kit/blob/main/README.md#light---dark--mode) |
 
 
 </div>
@@ -48,8 +48,6 @@ Currency Converter | Currency Result
 <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_light_mode.jpeg" width="160" height="330"/> <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_dark_mode.jpeg" width="160" height="330"/> | <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_light_mode.jpeg" width="160" height="330"/> <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_dark_mode.jpeg" width="160" height="330"/>  
 
 </div>
-
-
 
 
 ## `𝙾𝚋𝚜𝚎𝚛𝚟𝚊𝚝𝚒𝚘𝚗𝚜 𝚊𝚗𝚍 𝚕𝚎𝚊𝚛𝚗𝚒𝚗𝚐𝚜 𝚘𝚗 𝚝𝚎𝚜𝚝𝚒𝚗𝚐`
