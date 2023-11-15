@@ -29,6 +29,9 @@ https://github.com/devrath/Droid-Testing-kit/assets/1456191/2138d4af-a4b8-4859-a
 
 
 ### `Demo Screens`
+<details><summary>Day Mode 🌞 and Dark Mode 🌚</summary>
+<p>
+
 #### Day Mode 🌞
 Currency Converter | Currency Result 
 --- | --- 
@@ -40,7 +43,8 @@ Currency Converter | Currency Result
 --- | --- 
 ![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_dark_mode.jpeg) | ![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_dark_mode.jpeg) 
 
-<br />
+</p>
+</details>
 
 
 
