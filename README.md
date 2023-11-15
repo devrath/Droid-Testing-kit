@@ -39,7 +39,7 @@
 </div>
 
 
-### `Demo Screens Light mode 🌞 and dark mode 🌚 side by side `
+### `Light 🌞 / Dark 🌚 mode`
 
 <div align="center">
   
