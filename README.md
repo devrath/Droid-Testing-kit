@@ -23,9 +23,10 @@
 
 
 ### `Demo`
-<p align="center">
-<img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/Demo.gif" width="220" height="460"/>
-</p>
+
+Uploading Demo.mp4…
+
+
 
 ### `Demo Screens`
 #### Day Mode 🌞
