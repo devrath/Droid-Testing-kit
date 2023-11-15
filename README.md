@@ -39,7 +39,7 @@
 </div>
 
 
-### `Light 🌞 / Dark 🌚 mode`
+### `Modes 🌞 🌚 `
 
 <div align="center">
   
