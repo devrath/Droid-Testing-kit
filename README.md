@@ -26,7 +26,7 @@
 | **`𝙲𝚘𝚗𝚝𝚎𝚗𝚝𝚜`** |
 | -------------- |
 | [Demo](https://github.com/devrath/Droid-Testing-kit/blob/main/README.md#demo) |
-| [Dark mode and Light mode screens](https://github.com/devrath/Droid-Testing-kit/blob/main/README.md#light---dark--mode) |
+| [Dark mode and Light mode screens](https://github.com/devrath/Droid-Testing-kit/blob/main/README.md#modes---) |
 
 
 </div>
