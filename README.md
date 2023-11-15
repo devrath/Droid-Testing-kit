@@ -22,6 +22,27 @@
 ## `𝙲𝚞𝚛𝚛𝚎𝚗𝚌𝚢 𝚌𝚘𝚗𝚟𝚎𝚛𝚝𝚎𝚛 𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗`
 
 
+### `Demo`
+<p align="center">
+<img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/Demo.gif" width="220" height="460"/>
+</p>
+
+### `Demo Screens`
+#### Day Mode 🌞
+Currency Converter | Currency Result 
+--- | --- 
+![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_light_mode.jpeg ) | ![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_light_mode.jpeg) 
+
+
+#### We Support Dark Mode Too 🌚
+Currency Converter | Currency Result 
+--- | --- 
+![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_dark_mode.jpeg) | ![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_dark_mode.jpeg) 
+
+<br />
+
+
+
 
 ## `𝙾𝚋𝚜𝚎𝚛𝚟𝚊𝚝𝚒𝚘𝚗𝚜 𝚊𝚗𝚍 𝚕𝚎𝚊𝚛𝚗𝚒𝚗𝚐𝚜 𝚘𝚗 𝚝𝚎𝚜𝚝𝚒𝚗𝚐`
 <div align="center">
