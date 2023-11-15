@@ -24,27 +24,18 @@
 
 ### `Demo`
 
-https://github.com/devrath/Droid-Testing-kit/assets/1456191/2138d4af-a4b8-4859-a19d-b898f0c6448d
+<div align="center">
+<video align="center" height="500" width="600" src="https://github.com/devrath/Droid-Testing-kit/assets/1456191/2138d4af-a4b8-4859-a19d-b898f0c6448d"  alt="dev_logo"/>
+</div>
 
 
 
 ### `Demo Screens`
-<details><summary>Day Mode 🌞 and Dark Mode 🌚</summary>
-<p>
-
-#### Day Mode 🌞
-Currency Converter | Currency Result 
---- | --- 
-![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_light_mode.jpeg ) | ![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_light_mode.jpeg) 
-
-
-#### We Support Dark Mode Too 🌚
-Currency Converter | Currency Result 
---- | --- 
-![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_dark_mode.jpeg) | ![](https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_dark_mode.jpeg) 
-
-</p>
-</details>
+<div align="center">
+Currency Converter 🌞 | Currency Result 🌚
+-------------------- | ------------------- 
+<img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_light_mode.jpeg" width="160" height="330"/><img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_dark_mode.jpeg" width="160" height="330"/> | <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_light_mode.jpeg" width="160" height="330"/><img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_dark_mode.jpeg" width="160" height="330"/>  
+</div>
 
 
 
