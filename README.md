@@ -39,11 +39,11 @@
 </div>
 
 
-### `Demo Screens`
+### `Demo Screens Light mode 🌞 and dark mode 🌚 side by side `
 
 <div align="center">
   
-Currency Converter 🌞 | Currency Result 🌚
+Currency Converter | Currency Result 
 -------------------- | ------------------- 
 <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_light_mode.jpeg" width="160" height="330"/> <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_1_dark_mode.jpeg" width="160" height="330"/> | <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_light_mode.jpeg" width="160" height="330"/> <img src="https://github.com/devrath/Droid-Testing-kit/blob/main/Assets/screen_2_dark_mode.jpeg" width="160" height="330"/>  
 
