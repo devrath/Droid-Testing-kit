@@ -21,13 +21,22 @@
 
 ## `𝙲𝚞𝚛𝚛𝚎𝚗𝚌𝚢 𝚌𝚘𝚗𝚟𝚎𝚛𝚝𝚎𝚛 𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗`
 
+<div align="center">
+
+| **`𝙲𝚘𝚗𝚝𝚎𝚗𝚝𝚜`** |
+| -------------- |
+| [Demo]() |
+| [Dark mode and Light mode screens]() |
+
+
+</div>
+
 
 ### `Demo`
 
 <div align="center">
 <video align="center" height="500" width="600" src="https://github.com/devrath/Droid-Testing-kit/assets/1456191/2138d4af-a4b8-4859-a19d-b898f0c6448d"  alt="dev_logo"/>
 </div>
-
 
 
 ### `Demo Screens`
