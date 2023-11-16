@@ -1,14 +1,14 @@
-package com.istudio.currency_converter.domain.usecases.useCaseTypes
+package com.istudio.fake_factory.app_features.currency_converter.domain.usecases.usecasetypes
 
-import com.istudio.common.platform.actions.Action
 import com.istudio.common.platform.coroutines.dispatcher.IoDispatcher
+import com.istudio.currency_converter.domain.usecases.useCaseTypes.ApiErrorCodeValidationUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-open class ApiErrorCodeValidationUseCase  @Inject constructor(
+class ApiErrorCodeValidationUseCaseFake  @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher
-) : Action<Int, Result<String>>() {
+): ApiErrorCodeValidationUseCase(dispatcher) {
 
     companion object NetworkStatusErrorCodes {
         // Reference:-> https://docs.openexchangerates.org/reference/errors
@@ -46,4 +46,5 @@ open class ApiErrorCodeValidationUseCase  @Inject constructor(
             return@withContext Result.failure(exception)
         }
     }
+
 }
