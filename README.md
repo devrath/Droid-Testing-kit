@@ -1,7 +1,7 @@
 <h3 align="center">🚧🚧🚧🚧🚧🚧🚧🚧 👷 🚦 Development In-Progress 🚦 👷 🚧🚧🚧🚧🚧🚧🚧🚧🚧</h3>
 
 ![github-header-image (1)](https://github.com/devrath/Droid-Testing-kit/assets/1456191/871c5006-f728-4642-add3-ce721985af6a)
-<h1 align="center">𝙳𝚛𝚘𝚒𝚍-𝚃𝚎𝚜𝚝𝚒𝚗𝚐-𝚔𝚒𝚝</h1>
+<h1 align="center">𝙳𝚛𝚘𝚒𝚍𝙲𝚞𝚛𝚛𝚎𝚗𝚌𝚢𝙲𝚘𝚗𝚟𝚎𝚛𝚝𝚎𝚛</h1>
 <p align="center">
 <a><img src="https://img.shields.io/badge/Built%20Using-Kotlin-silver?style=for-the-badge&logo=kotlin"></a>
 <a><img src="https://img.shields.io/badge/Built%20By-Android%20Studio-red?style=for-the-badge&logo=android%20studio"></a>  
