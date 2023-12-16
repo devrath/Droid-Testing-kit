@@ -16,6 +16,7 @@
 | **`𝙲𝚘𝚗𝚝𝚎𝚗𝚝𝚜`** |
 | ---------- |
 | [𝙲𝚞𝚛𝚛𝚎𝚗𝚌𝚢 𝚌𝚘𝚗𝚟𝚎𝚛𝚝𝚎𝚛 𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗](https://github.com/devrath/Droid-Testing-kit/blob/main/README.md#%F0%9D%99%B2%F0%9D%9A%9E%F0%9D%9A%9B%F0%9D%9A%9B%F0%9D%9A%8E%F0%9D%9A%97%F0%9D%9A%8C%F0%9D%9A%A2-%F0%9D%9A%8C%F0%9D%9A%98%F0%9D%9A%97%F0%9D%9A%9F%F0%9D%9A%8E%F0%9D%9A%9B%F0%9D%9A%9D%F0%9D%9A%8E%F0%9D%9A%9B-%F0%9D%9A%8A%F0%9D%9A%99%F0%9D%9A%99%F0%9D%9A%95%F0%9D%9A%92%F0%9D%9A%8C%F0%9D%9A%8A%F0%9D%9A%9D%F0%9D%9A%92%F0%9D%9A%98%F0%9D%9A%97) |
+| [𝙵𝚎𝚊𝚝𝚞𝚛𝚎𝚜](https://github.com/devrath/DroidCurrencyConverter/tree/main?tab=readme-ov-file#%F0%9D%99%B5%F0%9D%9A%8E%F0%9D%9A%8A%F0%9D%9A%9D%F0%9D%9A%9E%F0%9D%9A%9B%F0%9D%9A%8E%F0%9D%9A%9C-) |
 | [𝙾𝚋𝚜𝚎𝚛𝚟𝚊𝚝𝚒𝚘𝚗𝚜 𝚊𝚗𝚍 𝚕𝚎𝚊𝚛𝚗𝚒𝚗𝚐𝚜 𝚘𝚗 𝚝𝚎𝚜𝚝𝚒𝚗𝚐](https://github.com/devrath/Droid-Testing-kit/blob/main/README.md#%F0%9D%99%BE%F0%9D%9A%8B%F0%9D%9A%9C%F0%9D%9A%8E%F0%9D%9A%9B%F0%9D%9A%9F%F0%9D%9A%8A%F0%9D%9A%9D%F0%9D%9A%92%F0%9D%9A%98%F0%9D%9A%97%F0%9D%9A%9C-%F0%9D%9A%8A%F0%9D%9A%97%F0%9D%9A%8D-%F0%9D%9A%95%F0%9D%9A%8E%F0%9D%9A%8A%F0%9D%9A%9B%F0%9D%9A%97%F0%9D%9A%92%F0%9D%9A%97%F0%9D%9A%90%F0%9D%9A%9C-%F0%9D%9A%98%F0%9D%9A%97-%F0%9D%9A%9D%F0%9D%9A%8E%F0%9D%9A%9C%F0%9D%9A%9D%F0%9D%9A%92%F0%9D%9A%97%F0%9D%9A%90) |
 
 </div>
