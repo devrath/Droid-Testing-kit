@@ -1,5 +1,3 @@
-<h3 align="center">🚧🚧🚧🚧🚧🚧🚧🚧 👷 🚦 Development In-Progress 🚦 👷 🚧🚧🚧🚧🚧🚧🚧🚧🚧</h3>
-
 ![github-header-image (1)](https://github.com/devrath/Droid-Testing-kit/assets/1456191/871c5006-f728-4642-add3-ce721985af6a)
 <h1 align="center">𝙳𝚛𝚘𝚒𝚍𝙲𝚞𝚛𝚛𝚎𝚗𝚌𝚢𝙲𝚘𝚗𝚟𝚎𝚛𝚝𝚎𝚛</h1>
 <p align="center">
